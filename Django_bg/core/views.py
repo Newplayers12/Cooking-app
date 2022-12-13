@@ -10,8 +10,13 @@ from django.contrib.auth.decorators import login_required
 def index(requests):
     return render(requests, 'index.html')
 
+@login_required(login_url='signin')
+def settings(requests):
+    return render(requests, 'setting.html')
+
+
 def signup(requests):
-    if requests.method == 'POST':
+    if requests.method == 'POST': 
         username = requests.POST['username']
         email = requests.POST['email']
         password = requests.POST['password']
@@ -29,12 +34,14 @@ def signup(requests):
                 user.save()
 
                 # log user in and redirect sign in page
-
+                user_login = auth.authenticate(username=username, password=password)
+                auth.login(requests, user_login)
+                
                 # create a profile object for the new user
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user=user_model, id_user=user_model.id)
                 new_profile.save()
-                return redirect('index')
+                return redirect('settings')
 
         else:
             messages.info(requests, 'Password not matching')

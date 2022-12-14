@@ -32,12 +32,14 @@
                 <div class="flex items-center lg:justify-between justify-around">
 
                     <a href="trending.html">
-                       <b><h1 style="font-size: 1.5rem;">Socol</h1></b>
+                       <b><h1 style="font-size: 1.5rem;">Cooking app</h1></b>
                     </a>
 
                     <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
                         
+
                         <a href="signup" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+
                     </div>
 
                 </div>
@@ -52,6 +54,7 @@
                 <div>
                     <style>
                         h5{
+
                             color: red;
                         }
                     </style>
@@ -59,6 +62,7 @@
                     <h5>{{message}}</h5>
                     {% endfor %}
                 </div>
+
 
                 <form action="" method="post"> {% csrf_token %}
                     <input type="text" placeholder="Username" name="username" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
@@ -69,10 +73,10 @@
                             <label for="chekcbox1"><span class="checkbox-icon"></span>Remember Me</label>
                         </div>
                         <a href="#"> Forgot Your Password? </a>
-                    </div>
+                    </div> {% endcomment %}
                     <button type="submit" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
                     <div class="text-center mt-5 space-x-2">
-                        <p class="text-base"> Not registered? <a href="form-register.html" class=""> Create a account </a></p>
+                        <p class="text-base"> Not registered? <a href="/signup" class=""> Create a account </a></p>
                     </div>
                 </form>
             </div>
@@ -88,7 +92,7 @@
                     <a href="#"> Terms</a>
                     <a href="#"> Privacy</a>
                 </div>
-                <p class="capitalize"> © copyright 2020 by socol</p>
+                <p class="capitalize"> © copyright 2020 by Cooking app</p>
             </div>
         </div>
 

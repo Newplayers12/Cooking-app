@@ -37,7 +37,9 @@
 
                     <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
                         
-                        <a href="/signup" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+
+                        <a href="signup" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+
                     </div>
 
                 </div>
@@ -52,7 +54,8 @@
                 <div>
                     <style>
                         h5{
-                            color: red
+
+                            color: red;
                         }
                     </style>
                     {% for message in messages %}
@@ -60,11 +63,11 @@
                     {% endfor %}
                 </div>
 
-                <form action="" method='POST'>
-                    {% csrf_token %}
-                    <input type="text" name='username' placeholder="Username" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
-                    <input type="text" name='password' placeholder="Password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
-                    {% comment %} <div class="flex justify-between my-4">
+
+                <form action="" method="post"> {% csrf_token %}
+                    <input type="text" placeholder="Username" name="username" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                    <input type="password" placeholder="***********" name="password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                    <div class="flex justify-between my-4">
                         <div class="checkbox">
                             <input type="checkbox" id="chekcbox1" checked>
                             <label for="chekcbox1"><span class="checkbox-icon"></span>Remember Me</label>

@@ -3,10 +3,9 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name = 'index'),
-    path('signup', views.signup, name = 'signup'),
-    path('signin', views.signin, name = 'signin'),
-    path('logout', views.logout, name = 'logout'),
-    path('settings', views.settings, name = 'settings'),
-    
+    path('', views.home, name = 'home'),
+    path('home', views.home, name = 'home'),
+    path('accounts/login', views.login_acc, name = 'login'),
+    path('accounts/signup', views.signup_acc, name = 'signup'),
+
 ]

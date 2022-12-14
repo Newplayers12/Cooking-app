@@ -1,0 +1,187 @@
+#left-header{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+#middle-header{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#right-header{
+  flex: 1;
+
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* Left */
+#icon-nav{
+  height: 24px;
+  width: 24px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+#icon-nav:hover{
+  opacity: 0.8;
+}
+
+#logo-img2{
+  
+  margin-left: 30px;
+  width: 150px;
+  height: 45px;
+  object-fit: cover;
+
+}
+/* Middle */
+#header-search{
+  margin-left: -50px;
+  height: 30px;
+  width: 300px;
+  padding-left: 20px;
+  padding-right: 50px;
+  border-width: 2.5px;
+  border-color: rgb(96,96,96);
+  border-style: solid;
+  border-radius: 20px;
+  max-lines: 1;
+
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+#search-btn-header{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 425px;
+
+  transition: all 0.8s;
+}
+
+
+#search-icon-header{
+  width: 24px;
+  height: 24px;
+  transition: all 0.8s;
+}
+
+/* Right */
+.container-11{
+  visibility: visible;
+} 
+.container-10{
+  visibility: hidden;
+}
+
+.container-11, .container-10{
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-header{
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+.username-header{
+  margin-right: 5px;
+  cursor: pointer;
+}
+.dropdown-content{
+  display: none;
+  top: 30px;
+  position: absolute;
+  background-color: #fafafa;
+  min-width: 160px;
+
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: all .3s;
+}
+
+.dropdown-content a:hover{
+  opacity: 0.9;
+
+  box-shadow: 0px 10px 16px 0px inset rgba(0,0,0,0.1);
+}
+
+#JoinUsButton2{
+  padding: 7.5px 10px 7.5px 10px;
+  border: 2px solid black;
+  margin-right: 50px;
+  border-radius: 20px;
+  background-color:white;
+  cursor: pointer;
+
+}
+
+#JoinUsButton2 span{
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+  font-size: 13px;
+  font-weight: 500;
+
+}
+
+#JoinUsButton2 span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+
+}
+
+#JoinUsButton2:hover span{
+  padding-right: 20px;
+  color: white;
+
+}
+#JoinUsButton2:hover{
+  background-color: black;
+}
+
+#JoinUsButton2:hover span:after{
+  opacity: 1;
+  right: 0;
+}
+
+#JoinUsButton2:active{
+  opacity: 0.8;
+}
+

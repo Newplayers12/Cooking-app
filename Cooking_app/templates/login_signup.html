@@ -33,26 +33,39 @@
         <div class = "sub-welcome">
           And, happy cooking :)
         </div>
-  
+
+        {% if messages %}
+          {% for message in messages %}
+            {% if message.tags == "error" %}
+              <script>
+                alert("{{ message }}")
+              </script>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
         <div style="height: 50px;"></div>
-  
-        <input id = "username-input" class = "input-shape-login"  type="text" placeholder="Username">
-        <input id = "password-input" class = "input-shape-login" type="password" placeholder="Password">
-  
-        <div id = "rmb-forgotpw-container">
-          <label class="container-remember-me">
-            Remember me
-            <input type="checkbox" checked="checked">
-            <span class="checkmark"></span>
-          </label>
-          <a id = "Forgot-password-nav" href="#">
-            Forgot password
-          </a>
-        </div>
-  
-        <button id = "login-button">
-          Log in
-        </button>
+        <form method="POST" style="display: flex; flex-direction: column">
+          {% csrf_token %}
+          {{ login_form }}
+          <!-- <input id = "username-input" class = "input-shape-login"  type="text" placeholder="Username">
+          <input id = "password-input" class = "input-shape-login" type="password" placeholder="Password">
+           -->
+          <div id = "rmb-forgotpw-container">
+            <label class="container-remember-me">
+              Remember me
+              <input type="checkbox" checked="checked">
+              <span class="checkmark"></span>
+            </label>
+            <a id = "Forgot-password-nav" href="#">
+              Forgot password
+            </a>
+          </div>
+    
+          <button id = "login-button" name="login">
+            Log in
+          </button>
+        </form>
         <div id = "Sign-up-box" >
           Don't have an account?
           <span id = "sign-up-transform" onclick="signUpTransform()" href="#">

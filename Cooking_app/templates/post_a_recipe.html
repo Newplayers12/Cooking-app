@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/common/header.css">
+  <link rel="stylesheet" href="css/common/sidebar.css">
+  <link rel="stylesheet" href="css/common/general.css">
+  <link rel="stylesheet" href="css/post_a_recipe/main.css">
+
+  <title>Post a recipe</title>
+
+</head>
+
+<body>
+  <!-- Header -->
+  <header id = "header">
+    <div id = "left-header">
+      <img id = "icon-nav"  onclick="openNav()" src="/icons/nav.png" alt="nav">
+      <a href="index.html">
+        <img id = "logo-img2" src="/images/logo2.png" alt="">
+      </a>
+    </div>
+
+    <div id = "middle-header">
+      <input id = "header-search" type="text" placeholder="Search recipes">
+
+      <button id = "search-btn-header" onclick="openSearchOnHeader()">
+        <img id = "search-icon-header" src="/icons/search.png" alt="Search-icon">
+      </button>
+    </div>
+
+    <div id = "right-header">
+      <div class = "container-10">
+        <button id = "JoinUsButton2">
+          <span>
+            Log In / Sign Up
+          </span>
+        </button>
+      </div>
+      <div class = "container-11">
+        <div class = "dropdown">
+          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png" alt="">
+          <div id="my-dropdown" class="dropdown-content">
+            <a href="#">Profile</a>
+            <a href="#">Saved Recipes</a>
+            <a href="#">Settings</a>
+            <a href="#">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header> 
+
+  <aside id = "sidebar">
+    <a href="javascript:void(0)" id = "closeNav" onclick="closeNav()">&times;</a>
+
+    <!-- Logo website container -->
+    <div class = "logo-container">
+      <a class = "logo-a" href="index.html">
+        <img class = "logo-img" src="/images/logo.png" alt="">
+      </a>
+    </div>
+
+    <!-- Sidebar main  -->
+    <div class = "sidebar-main"> 
+
+      <div class = "container-0">
+        <div class = "container-00">
+          <button id = "JoinUsButton">
+            <span>
+              Join Us
+            </span>
+        </button>
+        </div>
+        <div class = "container-01">
+          <a href="#">
+            <img src="/icons/user.png" alt="">
+            <p>Hoang Phu</p>
+          </a>
+        </div>
+      </div>
+
+      <p style="min-height: 10px;"></p>
+        <div class = "sidebar-main-item">
+            <img id = "home-icon" src="/icons/home.png" alt="">
+            <span>My Feeds</span>
+        </div>
+
+        <div class = "sidebar-main-item">
+          <img id = "plan-icon" src="/icons/plan.png" alt="">
+          <span>Meal Planner</span>
+        </div>
+
+        <div id = "sidebar-main-item-saved-recipes">
+          <div id = "saved-recipes">
+            <img src="/icons/saved.png" alt="">
+            <span>Saved Recipes</span>
+          </div>
+          <div class = "saved-recipes-collection">
+            <img src="/icons/folder.png" alt="">
+            <span>All Recipes</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="/icons/folder.png" alt="">
+            <span>Breakfasts</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="/icons/folder.png" alt="">
+            <span>Dessert</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="/icons/folder.png" alt="">
+            <span>Dinners</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="/icons/folder.png" alt="">
+            <span>Drinks</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="/icons/folder.png" alt="">
+            <span>Soups</span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <!-- Sidebar footer -->
+    <div class = "sidebar-footer">
+      <div class = "sidebar-footer-socialmedia-icons">
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-facebook" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-twitter" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-instagram" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-pinterest" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <div class = "sidebar-footer-more">
+        <p class = "sidebar-footer-more-p">
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Privacy
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+              Terms
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Copyrights
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </aside>
+
+  <main style= "
+                margin: 50px 0 0 calc(2.5%);
+                transition: all 1s;
+                display: flex;
+                flex-direction: column;             
+                align-items: center;
+                " 
+        id = "main">
+
+        <!-- Logo Image -->
+        <img style = 
+        "
+          margin-top: -50px;
+          width: 200px;
+          height: auto;
+        " 
+        src="/images/logo_noname.png">
+        <!-- Display when post successfully -->
+        <div id =  "div1">
+          <p id = "thank-you-p">
+            Thank you :)
+          </p>
+          <p id = "post-successfully-p">
+            Your recipe was successfully published.
+          </p>
+          <button id = "back-to-home-btn">
+            <i 
+            style=
+            "
+            padding-right: 5px;
+            "
+            class="fa fa-home">
+            </i>
+            Back to homepage
+          </button>
+
+        </div>
+
+        <!-- Otherwise -->
+        <div id = "div2">
+          <p id = "share-your-recipe-p">
+            Share your recipe
+          </p>
+          <p id = "feel-free-to-share-p" >
+            Feel free to share it!
+          </p>
+
+          <p style="height: 30px;">
+
+          </p>
+          <form class = "form-recipe" action="">
+            <input 
+            name = "title-recipe" 
+            id = "title-recipe" 
+            type="text" placeholder="Title (Name your recipe)" 
+            class = "input-recipe">
+
+            <textarea name="decription-recipe" id="decription-recipe" 
+            cols="30" rows="10"
+            class = "text-area-input"
+            placeholder="Please share your inspirations for this recipe."
+            ></textarea>
+            <div class = "horizontial-display">
+              <label for="recipe-ration">Ration</label>
+              <input 
+              name = "recipe-ration"
+              id = "recipe-ration"
+              type="number" 
+              class="input-recipe number-input" min = "1" max = "5" 
+              placeholder="2"
+              >
+            </div>
+          
+            <div class = "horizontial-display">
+              <label for="recipe-prep-time">Preparation time (mins)</label>
+              <input 
+              name = "recipe-prep-time"
+              id = "recipe-prep-time"
+              type="number" 
+              class="input-recipe number-input" min = "5"
+              placeholder="45"
+              >
+            </div>
+            <p class = "name-sections">
+              Ingredients
+            </p>
+            <div id = "ingredients" class = "flex-container">
+              <textarea name="ingredient0" id="ingredient0" cols="30" rows="1" class = "text-area-input"
+              placeholder="1/4 Cup Fresh Cilantro"
+              ></textarea>
+              <textarea name="ingredient1" id="ingredient1" cols="30" rows="1" class = "text-area-input"
+              placeholder="2 Tablespoons All-Purpose Flour"
+              ></textarea>
+            </div>
+            <button 
+                type="button"
+                id = "more-ingredients-btn"
+                class = "more-btn"
+                onclick="addMore('ingredients')">
+              <span>
+                More
+              </span>
+            </button>
+
+            <p class = "name-sections">
+              Intructions
+            </p>
+            <div id = "instructions" class = "flex-container">
+              <textarea name="instruction0" id="instruction0" cols="30" rows="3" class = "text-area-input"
+              placeholder="Preheat the broiler to high and position the rack 8 inches from the heat."
+              ></textarea>
+              <textarea name="instruction1" id="instruction1" cols="30" rows="3" class = "text-area-input"
+              placeholder="Bring a large pot of water to a boil.  Salt the boiling water and cook the pasta al dente."
+              ></textarea>
+            </div>
+            <button 
+                type="button"
+                id = "more-intructions-btn"
+                class = "more-btn"
+                onclick="addMore('instructions')">
+              <span>
+                More
+              </span>
+            </button>
+
+            <p class = "name-sections">
+              Notes
+            </p>
+            <div id = "notes" class = "flex-container">
+              <textarea name="note0" id="note0" cols="30" rows="3" class = "text-area-input"
+              placeholder="Note"
+              ></textarea>
+            </div>
+            <button 
+                type="button"
+                id = "more-ingredients-btn"
+                class = "more-btn"
+                onclick="addMore('notes')">
+              <span>
+                More
+              </span>
+            </button>
+
+            <button class = "submit-btn">
+              Post
+              <img src="/icons/paper-plane.png" alt="">
+            </button>
+
+          </form>
+          
+        </div>
+
+        <!-- Add some space -->
+        <div style="height: 100px;"></div>
+        <img style= "
+          width: 50px; 
+          height: 50px;
+          align-self: center;
+          " 
+          src="/images/cooking.png" alt="">
+        <div style="height: 50px;"></div>
+  </main>
+
+  <script>
+    closeNav();
+    window.onclick = function(event) {
+      if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
+        if (document.getElementById("my-dropdown").style.display == "block"){
+          document.getElementById("my-dropdown").style.display = "none";
+        }
+      }
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("header").style.height = "50px";
+        document.getElementById("main").style.padding = "60px 0 0 0";
+        document.getElementById("header-search").style.opacity = "0";
+        document.getElementById("search-btn-header").style.marginLeft = "425px";
+        document.getElementById("main").style.marginTop = "0";
+        document.getElementById("header").style.overflow = "visible";
+      }
+
+      function openNav() {
+        document.getElementById("sidebar").style.width = "200px";
+        document.getElementById("header").style.height = "0";
+        document.getElementById("header").style.overflow = "hidden";
+        document.getElementById("main").style.padding = "0 0 0 200px";
+        document.getElementById("main").style.marginTop = "50px";
+
+      }
+
+      function openSearchOnHeader(){
+        document.getElementById("header-search").style.opacity = "1";
+        document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+        document.getElementById("search-icon-header").style.width = "18px";
+        document.getElementById("search-icon-header").style.height = "18px";
+      }
+
+    function displayDropdown(){
+      if (document.getElementById("my-dropdown").style.display == "block"){
+        document.getElementById("my-dropdown").style.display = "none";
+      }
+      else{
+        document.getElementById("my-dropdown").style.display = "block";
+      }
+    }
+
+    let ingre_cnt = 3;
+    let instruction_cnt = 3;
+    let note_cnt = 2;
+
+    function addMore(elementId, type){
+      let element = document.createElement('textarea');
+      var name;
+      
+      switch(elementId){
+        case 'ingredients':
+          name = elementId.slice(0, -1).concat('', String(ingre_cnt - 1));
+        break;
+        case 'instructions':
+          name = elementId.slice(0, -1).concat('', String(instruction_cnt - 1));
+          break;
+        case 'notes':
+          name = elementId.slice(0, -1).concat('', String(note_cnt - 1));
+          break;
+      }
+
+      element.setAttribute('class', 'text-area-input');
+      element.setAttribute('name', name);
+      element.setAttribute('id', name);
+      element.setAttribute('cols', '30');
+
+      switch(elementId){
+        case 'ingredients':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Ingredient ' + String(ingre_cnt));
+          ingre_cnt++;
+          break;
+        case 'instructions':
+          element.setAttribute('placeholder', 'Instruction ' + String(instruction_cnt));
+          element.setAttribute('rows', '3');
+          instruction_cnt++;
+          break;
+        case 'notes':
+          element.setAttribute('placeholder', 'Note ' + String(note_cnt));
+          element.setAttribute('rows', '3');
+          note_cnt++;
+          break;
+
+      }   
+      document.getElementById(elementId).appendChild(element); 
+    }
+  </script>
+</body>
+</html>

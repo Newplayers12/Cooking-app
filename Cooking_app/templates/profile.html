@@ -1,0 +1,1110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/custom-checkbox.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile/main.css' %}">
+
+  <title>Profile</title>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header id = "header">
+    <div id = "left-header">
+      <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
+      <a href="index.html">
+        <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
+      </a>
+    </div>
+
+    <div id = "middle-header">
+      <input id = "header-search" type="text" placeholder="Search recipes">
+
+      <button id = "search-btn-header" onclick="openSearchOnHeader()">
+        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
+      </button>
+    </div>
+
+    <div id = "right-header">
+      <div class = "container-10">
+        <button id = "JoinUsButton2">
+          <span>
+            Log In / Sign Up
+          </span>
+        </button>
+      </div>
+      <div class = "container-11">
+        <div class = "dropdown">
+          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png' %}" alt="">
+          <div id="my-dropdown" class="dropdown-content">
+            <a href="#">Profile</a>
+            <a href="#">Saved Recipes</a>
+            <a href="#">Settings</a>
+            <a href="#">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header> 
+
+  <aside id = "sidebar">
+    <a href="javascript:void(0)" id = "closeNav" onclick="closeNav()">&times;</a>
+
+    <!-- Logo website container -->
+    <div class = "logo-container">
+      <a class = "logo-a" href="index.html">
+        <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
+      </a>
+    </div>
+
+    <!-- Sidebar main  -->
+    <div class = "sidebar-main"> 
+
+      <div class = "container-0">
+        <div class = "container-00">
+          <button id = "JoinUsButton">
+            <span>
+              Join Us
+            </span>
+        </button>
+        </div>
+        <div class = "container-01">
+          <a href="#">
+            <img src="{% static '/icons/user.png' %}" alt="">
+            <p>Hoang Phu</p>
+          </a>
+        </div>
+      </div>
+
+      <p style="min-height: 10px;"></p>
+        <div class = "sidebar-main-item">
+            <img id = "home-icon" src="{% static '/icons/home.png' %}" alt="">
+            <span>My Feeds</span>
+        </div>
+
+        <div class = "sidebar-main-item">
+          <img id = "plan-icon" src="{% static '/icons/plan.png' %}" alt="">
+          <span>Meal Planner</span>
+        </div>
+
+        <div id = "sidebar-main-item-saved-recipes">
+          <div id = "saved-recipes">
+            <img src="{% static '/icons/saved.png' %}" alt="">
+            <span>Saved Recipes</span>
+          </div>
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>All Recipes</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Breakfasts</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dessert</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dinners</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Drinks</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Soups</span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <!-- Sidebar footer -->
+    <div class = "sidebar-footer">
+      <div class = "sidebar-footer-socialmedia-icons">
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-facebook" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-twitter" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-instagram" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-pinterest" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <div class = "sidebar-footer-more">
+        <p class = "sidebar-footer-more-p">
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Privacy
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+              Terms
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Copyrights
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </aside>
+   
+  <!-- Main -->
+  <main style = "
+                margin: 50px 0 0 calc(2.5%);
+                transition: all 1s;
+                " 
+  id = "main">
+    <div id = "user-profile-infomation">
+      <div id = "profile-img-and-logout-container">
+        <div id = "open-file-img">
+          <input type="file" id="img-profile" name="img-profile" accept="image/*">
+        </div>
+        <button id = "log-out-btn">
+          <span>
+            Log out
+          </span>
+        </button>
+      </div>
+      <div id = "brief-infomation-container">
+          <div id = "name-container">
+            <p id = "fullname">
+              Lương Thanh Hoàng Phú
+            </p>
+            <div class = "editing-container">
+              <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
+            </div>
+          </div>
+          <div id = "bio-container">
+            <p id = "bio">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
+            </p>
+            <div class = "editing-container">
+              <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
+            </div>
+          </div>
+          
+  
+          <div class = "social-media-location">
+            <!-- Social media -->
+            <div class = "icon-socialmedia-container">
+              <a href="#">
+                <div id="facebook" class= "icon-socialmedia-icon">
+                </div>
+                </a>
+            </div>
+            <div class = "icon-socialmedia-container">
+              <a href="#">
+                <div id="twitter" class= "icon-socialmedia-icon"></div>
+              </a>
+            </div>
+            <div class = "icon-socialmedia-container">
+              <a href="#">
+                <div id="instagram" class= "icon-socialmedia-icon"></div>
+              </a>
+            </div>
+            <div class = "icon-socialmedia-container">
+              <a href="#">
+                <div id="pinterest" class= "icon-socialmedia-icon"></div>
+              </a>
+            </div>
+            <span style='
+            font-size: 17px;
+            margin: 2px 15px 0 5px;'>&#x2595;</span>
+            <!-- Location -->
+  
+            <div id = "city-container" class = "text-location">
+              <input type="text" placeholder="City">
+            </div>
+  
+            <div class = "text-location">
+              <span style="padding: 0 5px 0 1px;">,</span>
+            </div>
+  
+            <div id = "country-container" class = "text-location">
+              <!-- Source code: https://gist.github.com/danrovito/977bcb97c9c2dfd3398a  -->
+              <select id="country" name="country" class="form-control">
+                  <option value="Country">Country</option>
+                  <option value="Afghanistan">Afghanistan</option>
+                  <option value="Åland Islands">Åland Islands</option>
+                  <option value="Albania">Albania</option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="American Samoa">American Samoa</option>
+                  <option value="Andorra">Andorra</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Anguilla">Anguilla</option>
+                  <option value="Antarctica">Antarctica</option>
+                  <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Armenia">Armenia</option>
+                  <option value="Aruba">Aruba</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Austria">Austria</option>
+                  <option value="Azerbaijan">Azerbaijan</option>
+                  <option value="Bahamas">Bahamas</option>
+                  <option value="Bahrain">Bahrain</option>
+                  <option value="Bangladesh">Bangladesh</option>
+                  <option value="Barbados">Barbados</option>
+                  <option value="Belarus">Belarus</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="Belize">Belize</option>
+                  <option value="Benin">Benin</option>
+                  <option value="Bermuda">Bermuda</option>
+                  <option value="Bhutan">Bhutan</option>
+                  <option value="Bolivia">Bolivia</option>
+                  <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                  <option value="Botswana">Botswana</option>
+                  <option value="Bouvet Island">Bouvet Island</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                  <option value="Brunei Darussalam">Brunei Darussalam</option>
+                  <option value="Bulgaria">Bulgaria</option>
+                  <option value="Burkina Faso">Burkina Faso</option>
+                  <option value="Burundi">Burundi</option>
+                  <option value="Cambodia">Cambodia</option>
+                  <option value="Cameroon">Cameroon</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Cape Verde">Cape Verde</option>
+                  <option value="Cayman Islands">Cayman Islands</option>
+                  <option value="Central African Republic">Central African Republic</option>
+                  <option value="Chad">Chad</option>
+                  <option value="Chile">Chile</option>
+                  <option value="China">China</option>
+                  <option value="Christmas Island">Christmas Island</option>
+                  <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                  <option value="Colombia">Colombia</option>
+                  <option value="Comoros">Comoros</option>
+                  <option value="Congo">Congo</option>
+                  <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                  <option value="Cook Islands">Cook Islands</option>
+                  <option value="Costa Rica">Costa Rica</option>
+                  <option value="Cote D'ivoire">Cote D'ivoire</option>
+                  <option value="Croatia">Croatia</option>
+                  <option value="Cuba">Cuba</option>
+                  <option value="Cyprus">Cyprus</option>
+                  <option value="Czech Republic">Czech Republic</option>
+                  <option value="Denmark">Denmark</option>
+                  <option value="Djibouti">Djibouti</option>
+                  <option value="Dominica">Dominica</option>
+                  <option value="Dominican Republic">Dominican Republic</option>
+                  <option value="Ecuador">Ecuador</option>
+                  <option value="Egypt">Egypt</option>
+                  <option value="El Salvador">El Salvador</option>
+                  <option value="Equatorial Guinea">Equatorial Guinea</option>
+                  <option value="Eritrea">Eritrea</option>
+                  <option value="Estonia">Estonia</option>
+                  <option value="Ethiopia">Ethiopia</option>
+                  <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+                  <option value="Faroe Islands">Faroe Islands</option>
+                  <option value="Fiji">Fiji</option>
+                  <option value="Finland">Finland</option>
+                  <option value="France">France</option>
+                  <option value="French Guiana">French Guiana</option>
+                  <option value="French Polynesia">French Polynesia</option>
+                  <option value="French Southern Territories">French Southern Territories</option>
+                  <option value="Gabon">Gabon</option>
+                  <option value="Gambia">Gambia</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Ghana">Ghana</option>
+                  <option value="Gibraltar">Gibraltar</option>
+                  <option value="Greece">Greece</option>
+                  <option value="Greenland">Greenland</option>
+                  <option value="Grenada">Grenada</option>
+                  <option value="Guadeloupe">Guadeloupe</option>
+                  <option value="Guam">Guam</option>
+                  <option value="Guatemala">Guatemala</option>
+                  <option value="Guernsey">Guernsey</option>
+                  <option value="Guinea">Guinea</option>
+                  <option value="Guinea-bissau">Guinea-bissau</option>
+                  <option value="Guyana">Guyana</option>
+                  <option value="Haiti">Haiti</option>
+                  <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+                  <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                  <option value="Honduras">Honduras</option>
+                  <option value="Hong Kong">Hong Kong</option>
+                  <option value="Hungary">Hungary</option>
+                  <option value="Iceland">Iceland</option>
+                  <option value="India">India</option>
+                  <option value="Indonesia">Indonesia</option>
+                  <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+                  <option value="Iraq">Iraq</option>
+                  <option value="Ireland">Ireland</option>
+                  <option value="Isle of Man">Isle of Man</option>
+                  <option value="Israel">Israel</option>
+                  <option value="Italy">Italy</option>
+                  <option value="Jamaica">Jamaica</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Jersey">Jersey</option>
+                  <option value="Jordan">Jordan</option>
+                  <option value="Kazakhstan">Kazakhstan</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Kiribati">Kiribati</option>
+                  <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                  <option value="Korea, Republic of">Korea, Republic of</option>
+                  <option value="Kuwait">Kuwait</option>
+                  <option value="Kyrgyzstan">Kyrgyzstan</option>
+                  <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                  <option value="Latvia">Latvia</option>
+                  <option value="Lebanon">Lebanon</option>
+                  <option value="Lesotho">Lesotho</option>
+                  <option value="Liberia">Liberia</option>
+                  <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                  <option value="Liechtenstein">Liechtenstein</option>
+                  <option value="Lithuania">Lithuania</option>
+                  <option value="Luxembourg">Luxembourg</option>
+                  <option value="Macao">Macao</option>
+                  <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                  <option value="Madagascar">Madagascar</option>
+                  <option value="Malawi">Malawi</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Maldives">Maldives</option>
+                  <option value="Mali">Mali</option>
+                  <option value="Malta">Malta</option>
+                  <option value="Marshall Islands">Marshall Islands</option>
+                  <option value="Martinique">Martinique</option>
+                  <option value="Mauritania">Mauritania</option>
+                  <option value="Mauritius">Mauritius</option>
+                  <option value="Mayotte">Mayotte</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                  <option value="Moldova, Republic of">Moldova, Republic of</option>
+                  <option value="Monaco">Monaco</option>
+                  <option value="Mongolia">Mongolia</option>
+                  <option value="Montenegro">Montenegro</option>
+                  <option value="Montserrat">Montserrat</option>
+                  <option value="Morocco">Morocco</option>
+                  <option value="Mozambique">Mozambique</option>
+                  <option value="Myanmar">Myanmar</option>
+                  <option value="Namibia">Namibia</option>
+                  <option value="Nauru">Nauru</option>
+                  <option value="Nepal">Nepal</option>
+                  <option value="Netherlands">Netherlands</option>
+                  <option value="Netherlands Antilles">Netherlands Antilles</option>
+                  <option value="New Caledonia">New Caledonia</option>
+                  <option value="New Zealand">New Zealand</option>
+                  <option value="Nicaragua">Nicaragua</option>
+                  <option value="Niger">Niger</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Niue">Niue</option>
+                  <option value="Norfolk Island">Norfolk Island</option>
+                  <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                  <option value="Norway">Norway</option>
+                  <option value="Oman">Oman</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Palau">Palau</option>
+                  <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                  <option value="Panama">Panama</option>
+                  <option value="Papua New Guinea">Papua New Guinea</option>
+                  <option value="Paraguay">Paraguay</option>
+                  <option value="Peru">Peru</option>
+                  <option value="Philippines">Philippines</option>
+                  <option value="Pitcairn">Pitcairn</option>
+                  <option value="Poland">Poland</option>
+                  <option value="Portugal">Portugal</option>
+                  <option value="Puerto Rico">Puerto Rico</option>
+                  <option value="Qatar">Qatar</option>
+                  <option value="Reunion">Reunion</option>
+                  <option value="Romania">Romania</option>
+                  <option value="Russian Federation">Russian Federation</option>
+                  <option value="Rwanda">Rwanda</option>
+                  <option value="Saint Helena">Saint Helena</option>
+                  <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                  <option value="Saint Lucia">Saint Lucia</option>
+                  <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+                  <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                  <option value="Samoa">Samoa</option>
+                  <option value="San Marino">San Marino</option>
+                  <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                  <option value="Saudi Arabia">Saudi Arabia</option>
+                  <option value="Senegal">Senegal</option>
+                  <option value="Serbia">Serbia</option>
+                  <option value="Seychelles">Seychelles</option>
+                  <option value="Sierra Leone">Sierra Leone</option>
+                  <option value="Singapore">Singapore</option>
+                  <option value="Slovakia">Slovakia</option>
+                  <option value="Slovenia">Slovenia</option>
+                  <option value="Solomon Islands">Solomon Islands</option>
+                  <option value="Somalia">Somalia</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                  <option value="Spain">Spain</option>
+                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="Sudan">Sudan</option>
+                  <option value="Suriname">Suriname</option>
+                  <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                  <option value="Swaziland">Swaziland</option>
+                  <option value="Sweden">Sweden</option>
+                  <option value="Switzerland">Switzerland</option>
+                  <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+                  <option value="Taiwan">Taiwan</option>
+                  <option value="Tajikistan">Tajikistan</option>
+                  <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                  <option value="Thailand">Thailand</option>
+                  <option value="Timor-leste">Timor-leste</option>
+                  <option value="Togo">Togo</option>
+                  <option value="Tokelau">Tokelau</option>
+                  <option value="Tonga">Tonga</option>
+                  <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                  <option value="Tunisia">Tunisia</option>
+                  <option value="Turkey">Turkey</option>
+                  <option value="Turkmenistan">Turkmenistan</option>
+                  <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                  <option value="Tuvalu">Tuvalu</option>
+                  <option value="Uganda">Uganda</option>
+                  <option value="Ukraine">Ukraine</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="United States">United States</option>
+                  <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                  <option value="Uruguay">Uruguay</option>
+                  <option value="Uzbekistan">Uzbekistan</option>
+                  <option value="Vanuatu">Vanuatu</option>
+                  <option value="Venezuela">Venezuela</option>
+                  <option value="Viet Nam">Viet Nam</option>
+                  <option value="Virgin Islands, British">Virgin Islands, British</option>
+                  <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                  <option value="Wallis and Futuna">Wallis and Futuna</option>
+                  <option value="Western Sahara">Western Sahara</option>
+                  <option value="Yemen">Yemen</option>
+                  <option value="Zambia">Zambia</option>
+                  <option value="Zimbabwe">Zimbabwe</option>
+              </select>
+            </div>
+          </div>
+          <div class = "following-followers">
+            <span onclick="displaySection('display-following')">
+              Following
+            </span>
+            <span style=
+            "
+            margin: 0 10px;
+            "
+            > </span>
+            <span onclick="displaySection('display-followers')">
+              Followers
+            </span>
+          </div>
+      </div>
+     </div>
+
+     <div id = "account-details">
+
+      <div style="
+        height:75px;
+        width: 100%;
+        ">
+      </div>
+
+      <div id = "sections-profile">
+
+        <div id = "saved-recipes-section" class = "section-profile" onclick="selectSection('saved-recipes-section')">
+          Saved recipes
+          <div style = "width: 100%;" class = "is-selected">
+          </div>
+        </div>
+        <div id = "my-posts-section" class = "section-profile" onclick="selectSection('my-posts-section')">
+          My Posts
+          <div class = "is-selected">
+          </div>
+        </div>
+        <div id = "setting-section" class = "section-profile"
+        onclick="selectSection('setting-section')">
+          Settings
+          <div class = "is-selected">
+          </div>
+        </div>
+
+      </div>
+
+      <div style="
+        height:50px;
+        width: 100%;
+        ">
+      </div>
+
+      <div id = "display-section-container">
+
+        <!-- SAVED RECIPES -->
+        <div id = "display-saved-recipes" class = "display-section">
+
+          <div class = "search-recipes-container">
+            <input type="text" placeholder="Search" class = "search-input">
+            <img src="{% static '/icons/search.png' %}" alt="">
+          </div>
+
+          <div id = "saved-recipes-container">
+            <div id = "saved-recipe1" class = "recipe-container">
+              <a href="#" class = "img-recipe-small-preview">
+                <img src="{% static '/images/recipes/0.webp' %}" alt="">
+              </a>
+              <div class = "recipe-in-brief">
+                <a class = "recipe-title-preview" href="#">Recipe 1</a>
+                <a class = "recipe-description-preview" href="#">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate reprehenderit minima consequuntur deserunt totam optio atque, ab repellat vero incidunt doloremque tempore earum alias. Fuga itaque atque aliquid fugiat doloremque.</a>
+                <div class = "time-ration">
+                  <img src="{% static '/icons/clock.png' %}" alt="">
+                  <span style="margin: 2px 10px 0 5px;">54m</span>
+                  <img src="{% static '/icons/people.png' %}" alt="">
+                  <span style="margin: 2px 10px 0 5px;">2</span>
+                </div>
+              </div>
+              <div class = "saved-recipe-checkbox">
+                <input type="checkbox" id="saved-recipes-checkbox" name="saved-recipes-checkbox" />
+                <label for="saved-recipes-checkbox"></label>
+              </div>
+            </div>
+
+            
+          </div>
+
+        </div>
+
+        <!-- MY POSTS -->
+        <div id = "display-my-posts" class = "display-section">
+
+          <div class = "search-recipes-container">
+            <input type="text" placeholder="Search" class = "search-input">
+            <img src="{% static '/icons/search.png' %}" alt="">
+          </div>
+
+          <div class = "draft-post-switch-container">
+            <span>
+              Draft
+            </span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div id = "my-post-container">
+            <div id = "saved-recipe1" class = "recipe-container">
+              <a href="#" class = "img-recipe-small-preview">
+                <img src="{% static '/images/recipes/1.webp' %}" alt="">
+              </a>
+              <div class = "recipe-in-brief">
+                <a class = "recipe-title-preview" href="#">My recipe 1</a>
+                <a class = "recipe-description-preview" href="#">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate reprehenderit minima consequuntur deserunt totam optio atque, ab repellat vero incidunt doloremque tempore earum alias. Fuga itaque atque aliquid fugiat doloremque.</a>
+                <div class = "time-ration">
+                  <img src="{% static '/icons/clock.png' %}" alt="">
+                  <span style="margin: 2px 10px 0 5px;">54m</span>
+                  <img src="{% static '/icons/people.png' %}" alt="">
+                  <span style="margin: 2px 10px 0 5px;">2</span>
+                </div>
+              </div>
+              <div class = "modify-recipe">
+                <img src="{% static '/icons/modify.png' %}" alt="">
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+        <div id = "display-settings" class = "display-section">
+          <p class = "heading-settings">
+            PERSIONAL INFOMATION
+          </p>
+        
+          
+          <div class = "items-setting-row">
+            <div class = "item-setting">
+              <select name="gender" id="gender" class = "gender-form">
+                <option value="Gender">Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Custom">Custom</option>
+              </select>
+              <p style=
+              "
+              width: 100%;
+              height: 1px;
+              background-color: grey;
+              margin: 5px 0;
+              "
+              ></p>
+              <p>
+                GENDER
+              </p>
+            </div>
+
+            <p style="width: 40px; opacity: 0;"></p>
+
+            <div class = "item-setting">
+              <input type="date" id = "birthday" name = "birthday">
+              <p style=
+              "
+              width: 100%;
+              height: 1px;
+              background-color: grey;
+              margin: 5px 0;
+              "
+              ></p>
+              <p>
+                BIRTHDAY
+              </p>
+            </div>
+          </div>
+
+          <p style="height: 20px; opacity: 0;"></p>
+          
+
+          <div class = "items-setting-row">
+
+            <div class = "item-setting">
+              
+              <input type="tel" name = "phone" id = "phone" placeholder="0123456789">
+              <p style=
+              "
+              width: 100%;
+              height: 1px;
+              background-color: grey;
+              margin: 5px 0;
+              "
+              ></p>
+              <p>
+                PHONE NUMBER
+              </p>
+            </div>
+            
+            <p style="width: 40px; opacity: 0;"></p>
+
+            <div class = "item-setting">
+              
+              <input type="email" name = "email" id = "email" placeholder="20120548@student.hcmus.edu.vn">
+              <p style=
+              "
+              width: 100%;
+              height: 1px;
+              background-color: grey;
+              margin: 5px 0;
+              "
+              ></p>
+              <p>
+                EMAIL
+              </p>
+            </div>
+
+          </div>
+
+          <p style="height: 40px; opacity: 0;"></p>
+
+          <p class = "heading-settings">
+            ACCOUNT SETTING
+          </p>
+          
+          <div class = "items-setting-row">
+            <div class = "item-setting">
+              
+              <p id = "username">
+                luongthanhhoangphu2002
+              </p>
+              <p style=
+              "
+              width: 100%;
+              height: 1px;
+              background-color: grey;
+              margin: 5px 0;
+              "
+              ></p>
+              <p>
+                USERNAME
+              </p>
+            </div>
+
+            <p style="width: 40px; opacity: 0;"></p>
+
+            <div class = "item-setting">
+              <input type="password" name = "newpassword" id = "newpassword" placeholder="New password">
+              <p style=
+              "
+              width: 100%;
+              height: 1px;
+              background-color: grey;
+              margin: 5px 0;
+              "
+              ></p>
+              <p>
+                NEW PASSWORD
+              </p>
+            </div>
+
+          </div>
+
+          <p style="height: 40px; opacity: 0;"></p>
+          <p class = "heading-settings">
+            Two-factor Authentication
+          </p>
+
+          <p>We'll ask for a security code when we need to confirm that it's you logging in.</p>
+
+          <form class = "send-code-form">
+            <label class="send-code-container">Mobile Phone
+              <input type="radio" name="radio-send-code" id="send-to-phone" checked = "checked">
+              <span class = "checkmark"></span>
+            </label>
+            <label class="send-code-container">Email Address
+              <input type="radio" name="radio-send-code" id="send-to-phone" checked = "checked">
+              <span class = "checkmark"></span>
+            </label>
+          </form>
+          <div id = "code-form">
+            <input type="text" id = "code-authen" name = "code-authen"  placeholder="Code"> 
+            <button id = "send-code-button" onclick="sendCodeAndDisplayInput()">
+              Send 
+            </button>
+          </div>
+        
+          <p style="height: 40px; opacity: 0;"></p>
+          <p class = "heading-settings">
+            Verification
+          </p>
+
+          <p>
+            Verification means that <strong>Cookery Book</strong> knows that you are who you say you are, rather than (potentially) an imposter.
+          </p>
+
+          <br>
+          <p>
+            When you have the blue check right next to your name on <strong>Cookery Book</strong>, it automatically means your account is real, notable, authentic, and of public interest. It can also give you value because it is a sign that you are not giving false information, spamming, or manipulating your followers.
+          </p>
+          <br>
+          <p>
+            Click 
+            <a href="#" 
+            style=
+            "
+            color: black;
+            font-size: 14px;
+            "
+            >
+              <strong>here</strong>
+            </a>
+             here to verify your account.
+          </p>
+          <br>
+
+          <div class = "save-discard-container">
+
+            <button id = "discard-button" class = "button-template-setting">
+              Discard
+            </button>
+
+            <button id = "save-button" class = "button-template-setting">
+              Save
+            </button>
+          </div>
+        </div>
+
+        <div id = "display-followers" class = "display-section">
+          <div class = "other-user-container">
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user1</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user2</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user3</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user4</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user5</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div id = "display-following" class = "display-section"> 
+          <div class = "other-user-container">
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user1</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class = "unfollow-button">
+                Unfollow
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user2</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class = "unfollow-button">
+                Unfollow
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user3</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class= "unfollow-button">
+                Unfollow
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user4</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class= "unfollow-button">
+                Unfollow
+              </button>
+            </div>
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user5</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
+              </div>
+              <button class="unfollow-button">
+                Unfollow
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+     </div>
+  </main>
+
+
+  <script>
+    initialize();
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
+        if (document.getElementById("my-dropdown").style.display == "block"){
+          document.getElementById("my-dropdown").style.display = "none";
+        }
+      }
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("header").style.height = "50px";
+        document.getElementById("main").style.padding = "60px 0 0 0";
+        document.getElementById("header-search").style.opacity = "0";
+        document.getElementById("search-btn-header").style.marginLeft = "425px";
+        document.getElementById("main").style.marginTop = "0";
+        document.getElementById("main").style.alignItems = "center";
+        document.getElementById("user-profile-infomation").style.width = "60%";
+        document.getElementById("header").style.overflow = "visible";
+      }
+
+      function openNav() {
+        document.getElementById("sidebar").style.width = "200px";
+        document.getElementById("header").style.height = "0";
+        document.getElementById("header").style.overflow = "hidden";
+        document.getElementById("main").style.padding = "0 0 0 200px";
+        document.getElementById("main").style.marginTop = "50px";
+        document.getElementById("main").style.alignItems = "flex-start";
+        document.getElementById("user-profile-infomation").style.width = "70%";
+      }
+
+      function openSearchOnHeader(){
+        document.getElementById("header-search").style.opacity = "1";
+        document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+        document.getElementById("search-icon-header").style.width = "18px";
+        document.getElementById("search-icon-header").style.height = "18px";
+      }
+
+    function displayDropdown(){
+      if (document.getElementById("my-dropdown").style.display == "block"){
+        document.getElementById("my-dropdown").style.display = "none";
+      }
+      else{
+        document.getElementById("my-dropdown").style.display = "block";
+      }
+    }
+    function selectSection(elementId){
+      var lines = document.getElementsByClassName('is-selected');
+      var sections = document.getElementsByClassName('section-profile');
+
+      for(var i = 0; i < lines.length; i++){
+        lines[i].style.width = "0%";
+        sections[i].style.color = "rgb(96, 96, 96)";
+      }
+
+      if (elementId == "saved-recipes-section"){
+        lines[0].style.width = "100%";
+        sections[0].style.color = "black";
+        displaySection("display-saved-recipes");
+      }
+      else if(elementId == "my-posts-section"){
+        lines[1].style.width = "100%";
+        sections[1].style.color = "black";
+        displaySection("display-my-posts");
+      }
+      else{
+        lines[2].style.width = "100%";
+        sections[2].style.color = "black";
+        displaySection("display-settings");
+      }
+    }
+
+    function displaySection(elementId){
+      var sections = document.getElementsByClassName('display-section');
+      for(var i = 0; i < sections.length; i++){
+        sections[i].style.display = "none";
+      }
+
+      document.getElementById(elementId).style.display = "block";
+      if (elementId == 'display-following' || elementId == 'display-followers'){
+        var lines = document.getElementsByClassName('is-selected');
+        var sections = document.getElementsByClassName('section-profile');
+        for(var i = 0; i < lines.length; i++){
+          lines[i].style.width = "0%";
+          sections[i].style.color = "rgb(96, 96, 96)";
+        }
+      }
+
+      document.getElementById("display-section-container").style.height = 
+      (document.getElementById(elementId).offsetHeight + 100) + 'px';
+    }
+
+    function initialize(){
+      selectSection('saved-recipes-section');
+    }
+
+    function sendCodeAndDisplayInput(){
+
+      if(document.getElementById("send-code-button").textContent == 'Send'){
+        document.getElementById("code-authen").style.width = "100px";
+        document.getElementById("code-authen").style.opacity = "1";
+        document.getElementById("send-code-button").textContent = "Verify";  
+        document.getElementById("send-code-button").style.marginLeft = "0";
+      }
+
+      else{
+        document.getElementById("code-authen").style.width = "0";
+        document.getElementById("code-authen").style.opacity = "0";
+        document.getElementById("send-code-button").textContent = "Send";  
+        document.getElementById("send-code-button").style.marginLeft = "-30px";
+        
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

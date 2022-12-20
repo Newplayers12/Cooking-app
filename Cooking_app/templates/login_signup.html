@@ -49,8 +49,8 @@
           {% csrf_token %}
           {{ login_form }}
           <!-- <input id = "username-input" class = "input-shape-login"  type="text" placeholder="Username">
-          <input id = "password-input" class = "input-shape-login" type="password" placeholder="Password">
-           -->
+          <input id = "password-input" class = "input-shape-login" type="password" placeholder="Password"> -->
+          
           <div id = "rmb-forgotpw-container">
             <label class="container-remember-me">
               Remember me
@@ -113,16 +113,32 @@
               <input type="radio" id="Custom" name="gender_signup" value="Custom">
               <label for="Custom">Custom</label>
           </form>
-          <input id = "fullname-signup-input" class = "input-shape-signup" type="text" placeholder="Full name"> <input id = "email-signup-input" class = "input-shape-signup" type="text" placeholder= "Email"> 
+          {% if signup_form.errors %}
+            {% for field in form %}
+              {{ field.errors }}
+            {% endfor %}
+          {% endif %}
+          <form method="POST" style="display: flex; flex-direction: column">
+            {% csrf_token %}
+            {% for field in signup_form|slice:":2" %}
+              {{ field }}
+            {% endfor %}
+            <p id = "Your-account">Your account</p>
+            {% for field in signup_form|slice:"2:" %}
+              {{ field }}
+            {% endfor %}
+            <!-- <input id = "fullname-signup-input" class = "input-shape-signup" type="text" placeholder="Full name">
+            <input id = "email-signup-input" class = "input-shape-signup" type="text" placeholder= "Email"> 
+            
 
-
-          <p id = "Your-account">Your account</p>
-          <input id = "username-signup-input" class = "input-shape-signup" type="text" placeholder="Username">
-          <input id = "password-signup-input" class = "input-shape-signup" type="password" placeholder="Password">
-          <input id = "repassword-signup-input" class = "input-shape-signup" type="password" placeholder="Re-password">
-          <button id = "signup-button">
-            Finish
-          </button>
+            <p id = "Your-account">Your account</p>
+            <input id = "username-signup-input" class = "input-shape-signup" type="text" placeholder="Username">
+            <input id = "password-signup-input" class = "input-shape-signup" type="password" placeholder="Password">
+            <input id = "repassword-signup-input" class = "input-shape-signup" type="password" placeholder="Re-password"> -->
+            <button id = "signup-button" name="signup">
+              Finish
+            </button>
+          </form>
         </div>
     </div>
   </main>

@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.contrib import messages
 from django import forms
+
+from .models import UserInfo
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -20,35 +23,46 @@ class LoginForm(forms.Form):
         })
     )
 
-# TODO: Account Model
 class SignupForm(UserCreationForm):
     fullname = forms.CharField(max_length=150, required=True)
     class Meta:
         model = User
-        fields = ['fullname', 'username', 'email', 'password1', 'password2']
+        fields = ['fullname', 'email', 'username',
+                  'password1', 'password2']
     
     def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        ph = ['Full name', 'Username', 'Email', 'Password', 'Confirm Password']
-        for field_items, stn in zip(self.fields.items(), ph):
+        self.request = kwargs.pop('request')
+        super(SignupForm, self).__init__(*args, **kwargs)
+        placeholder = ['Full name', 'Email', 'Username',
+                       'Password', 'Confirm Password']
+        for field_items, ph in zip(self.fields.items(), placeholder):
             self.fields[field_items[0]].help_text = None
             self.fields[field_items[0]].label = ""
             self.fields[field_items[0]].widget.attrs['class'] = 'input-shape-signup'
-            self.fields[field_items[0]].widget.attrs['placeholder'] = stn
+            self.fields[field_items[0]].widget.attrs['placeholder'] = ph
     
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
         username = cleaned_data.get('username')
-        errors = []
         dup_username = User.objects.filter(username=username)
         dup_email = User.objects.filter(email=email)
-        if dup_username:
-            errors.append(ValidationError("Username was already taken.", code="username_invalid"))
         if dup_email:
-            errors.append(ValidationError("Email was already signed up.", code="email_invalid"))
-        if errors:
-            raise ValidationError(errors)
+            messages.error(self.request, "Email was already signed up.")
+        if dup_username:
+            messages.error(self.request, "Username was already taken.")
+        if dup_email or dup_username:
+            raise ValidationError(message="Invalid Information", code="invalid")
+
+    def save(self, commit=True):
+        user = super(SignupForm, self).save(commit=False)
+        if commit:
+            user.save()
+            UserInfo.objects.create(
+                user=user, 
+                fullname=self.cleaned_data['fullname'],
+            )
+        return user
             
 class ProfileForm(UserCreationForm):
     pass

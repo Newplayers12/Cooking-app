@@ -17,3 +17,6 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return self.fullname
+
+class UserRecipe(models.Model):
+    pass

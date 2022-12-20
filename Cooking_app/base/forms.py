@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.contrib import messages
+from django.forms import ModelForm
 from django import forms
 
 from .models import UserInfo
@@ -64,5 +65,5 @@ class SignupForm(UserCreationForm):
             )
         return user
             
-class ProfileForm(UserCreationForm):
+class ProfileForm(ModelForm):
     pass

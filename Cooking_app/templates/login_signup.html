@@ -21,7 +21,6 @@
   <main>
     <!-- Left side -->
     <div id = "left-side">
-      
       <div id = "log-in-side">
         <img id = "logo-for-login" src="{% static '/images/logo2.png' %}" alt="">
         <div id = "welcome-back">
@@ -38,7 +37,7 @@
           {% for message in messages %}
             {% if message.tags == "error" %}
               <script>
-                alert("{{ message }}")
+                "{{ message }}"
               </script>
             {% endif %}
           {% endfor %}
@@ -105,7 +104,18 @@
         <div id = "sign-up-side">
           <p id = "create-an-account">Create an account</p>
           <p id = "Your-infomation">Your information</p>
-          <form id = "gender-signup">
+
+
+          <form method="POST" style="display: flex; flex-direction: column">
+            {% csrf_token %}
+            {{ signup_form }}
+      
+            <button id = "signup-button" name="signup">
+              Sign up
+            </button>
+          </form>
+
+          {% comment %} <form id = "gender-signup">
               <input type="radio" id="Male" name="gender_signup" value="Male">
               <label for="Male">Male</label><br>
               <input type="radio" id="Female" name="gender_signup" value="Female">
@@ -122,7 +132,7 @@
           <input id = "repassword-signup-input" class = "input-shape-signup" type="password" placeholder="Re-password">
           <button id = "signup-button">
             Finish
-          </button>
+          </button> {% endcomment %}
         </div>
     </div>
   </main>

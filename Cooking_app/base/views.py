@@ -10,12 +10,15 @@ from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm
 
 
-@login_required(login_url='accounts/login')
+@login_required(login_url='login_signup')
 def index(request):
-    return render(request, 'index.html')
+    
+    context = {}
+    return render(request, 'index.html', context)
+
+
 
 class Authentication(TemplateView):
-    # model = User
     f_login = LoginForm
     f_signup = SignupForm
     context = {}
@@ -24,7 +27,7 @@ class Authentication(TemplateView):
     def get(self, request, *args, **kwargs):
         self.context = {
             'login_form': self.f_login(),
-            'signup_form': list(self.f_signup()),
+            'signup_form': self.f_signup(),
         }
         return render(request, self.template_name, self.context)
     
@@ -43,17 +46,25 @@ class Authentication(TemplateView):
                     messages.error(request, "Email or Password is incorrect.")
             self.context = {
                 'login_form': form,
-                'signup_form': list(self.f_signup()),
+                'signup_form': self.f_signup(),
             }
+            
+            
+            
         # Case: Signup information is submitted
         if 'signup' in request.POST:
             form = self.f_signup(request.POST)
+            
             if form.is_valid():
                 user = form.save()
+                print(user)
                 login(request, user)
                 return redirect('/')
+            else:
+                
+                return redirect('login_signup')
             self.context = {
                 'login_form': self.f_login(),
-                'signup_form': list(form),
+                'signup_form': form,
             }
         return render(request, self.template_name, self.context)

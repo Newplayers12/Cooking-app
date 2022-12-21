@@ -7,7 +7,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         label="", 
         max_length=150, 
-        widget=forms.TextInput(attrs={
+        widget= forms.TextInput(attrs={
             'class': 'input-shape-login', 
             'placeholder': 'Username',
         })
@@ -35,6 +35,7 @@ class SignupForm(UserCreationForm):
             self.fields[field_items[0]].label = ""
             self.fields[field_items[0]].widget.attrs['class'] = 'input-shape-signup'
             self.fields[field_items[0]].widget.attrs['placeholder'] = stn
+            
     
     def clean(self):
         cleaned_data = super().clean()

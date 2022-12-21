@@ -1,0 +1,171 @@
+
+#div1, #div2{
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top:0;
+  left:0;
+}
+
+#div2{
+  display: flex;
+}
+
+#thank-you-p, #share-your-recipe-p{
+  margin-top: -40px;
+  font-size: 25px;
+  text-align: center;
+}
+#post-successfully-p, #feel-free-to-share-p{
+  margin-top: 10px;
+  font-size: 15.7px;
+  text-align: center;
+}
+
+#back-to-home-btn{
+  margin-top: 35px;
+  width: 200px;
+  height: 35px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  transition: background-color .35s;
+  cursor: pointer;
+}
+
+#back-to-home-btn:hover{
+  background-color: black;
+  color: white;
+}
+
+#back-to-home-btn:active{
+  opacity: 0.8;
+}
+.form-recipe{
+  display: flex;
+  flex-direction: column;
+
+}
+.input-recipe{
+  width: 250px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px 15px;
+  margin: 7.5px 0;
+}
+.input-recipe:focus{
+  outline: none;
+}
+.text-area-input{
+  text-align:start;
+  width: 250px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 3.5px 15px;
+  margin: 5px 0;
+  resize: none;
+  transition: all .3s;
+}
+.text-area-input:focus{
+  outline: none;
+}
+
+#decription-recipe{
+  text-align:start;
+  height: 55px;
+}
+.number-input{
+  width: 100px;
+  
+}
+
+.horizontial-display{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name-sections{
+  margin-top: 20px;
+  font-size: 17px;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.more-btn{
+  margin-top: 5px;
+  width: 80px;
+  height: 27.5px;
+  background-color: white;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 15px;
+  transition: all .3s;
+  align-self: center;
+
+}
+.more-btn:hover{
+  background-color: black;
+  color: white;
+  cursor: pointer;
+
+}
+.more-btn span{
+  position: relative;
+  
+}
+.more-btn span::after{
+  content: '\002B';
+  position: absolute;
+  right: -25px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.more-btn:hover span{
+  padding-right: 5px;
+}
+
+.more-btn:hover span::after{
+  opacity: 1;
+  right: -10px;
+}
+
+.submit-btn{
+  margin-top: 30px;
+  height: 31px;
+  background-color:white;
+  position: relative;
+  border-radius: 15px;
+  border: 1px solid black;
+  transition: all .5s;
+  position: relative;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.submit-btn:hover{
+  border: none;
+  background-color:lightskyblue;
+}
+
+.submit-btn img{
+  position: absolute;
+  bottom: 2px;
+  right: 50px;
+  transition: .75s;
+  opacity: 0;
+}
+
+.submit-btn:hover img{
+  right: 90px;
+  opacity: 1;
+}

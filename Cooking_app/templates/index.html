@@ -1,0 +1,869 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Roboto font -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index/main.css' %}">
+
+  <title>Cooking Website</title>
+</head>
+
+<body>
+
+  <aside id = "sidebar">
+    <a href="javascript:void(0)" id = "closeNav" onclick="closeNav()">&times;</a>
+
+    <!-- Logo website container -->
+    <div class = "logo-container">
+      <a class = "logo-a" href="index.html">
+        <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
+      </a>
+    </div>
+
+    <!-- Sidebar main  -->
+    <div class = "sidebar-main"> 
+
+      <div class = "container-0">
+        <div class = "container-00">
+          <button id = "JoinUsButton">
+            <span>
+              Join Us
+            </span>
+        </button>
+        </div>
+        <div class = "container-01">
+          <a href="#">
+            <img src="{% static '/icons/user.png' %}" alt="">
+            <p>Hoang Phu</p>
+          </a>
+        </div>
+      </div>
+
+      <p style="min-height: 10px;"></p>
+        <div class = "sidebar-main-item">
+            <img id = "home-icon" src="{% static '/icons/home.png' %}" alt="">
+            <span>My Feeds</span>
+        </div>
+
+        <div class = "sidebar-main-item">
+          <img id = "plan-icon" src="{% static '/icons/plan.png' %}" alt="">
+          <span>Meal Planner</span>
+        </div>
+
+        <div id = "sidebar-main-item-saved-recipes">
+          <div id = "saved-recipes">
+            <img src="{% static '/icons/saved.png' %}" alt="">
+            <span>Saved Recipes</span>
+          </div>
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>All Recipes</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Breakfasts</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dessert</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dinners</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Drinks</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Soups</span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <!-- Sidebar footer -->
+    <div class = "sidebar-footer">
+      <div class = "sidebar-footer-socialmedia-icons">
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-facebook" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-twitter" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-instagram" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-pinterest" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <div class = "sidebar-footer-more">
+        <p class = "sidebar-footer-more-p">
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Privacy
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+              Terms
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Copyrights
+          </a>
+
+        </p>
+      </div>
+    </div>
+
+  </aside>
+
+  <main id = "main">
+    <!-- Header of homepage -->
+    <header id = "header">
+      <div id = "left-header">
+        <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
+        <a href="index.html">
+          <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
+        </a>
+      </div>
+
+      <div id = "middle-header">
+        <input id = "header-search" type="text" placeholder="Search recipes">
+
+        <button id = "search-btn-header" onclick="openSearchOnHeader()">
+          <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
+        </button>
+      </div>
+
+      <div id = "right-header">
+        <div class = "container-10">
+          <button id = "JoinUsButton2">
+            <span>
+              Log In / Sign Up
+            </span>
+          </button>
+        </div>
+        <div class = "container-11">
+          
+          <div class = "dropdown">
+            <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
+            <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png' %}" alt="">
+            <div id="my-dropdown" class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Saved Recipes</a>
+              <a href="#">Settings</a>
+              <a href="#">Log out</a>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+
+    </header> 
+
+    <!-- Header of main -->
+    <div id = "Search-Post-Main">
+      <span id = "welcome😄">Welcome &#127834; &#127835; &#127857;</span>
+      <input id = "search-main" type="text" placeholder="Search recipes">
+      <div id = "keywords-field">
+        <button id = "scroll-left-keywords" onclick="Scroll('keywords-example', -100)">
+          <img src="{% static '/icons/left-arrow.png' %}" alt="">
+        </button>
+
+        <div id = "keywords-example">
+          <span>
+            EASY ITALIAN PASTA SALAD
+          </span>
+          <span>
+            Vietnamese Foods
+          </span>
+          <span>
+            CAKE
+          </span>
+          <span>
+            DESSERT
+          </span>
+          <span>
+            Asian Foods
+          </span>
+
+          <span>
+            Spiced Pork Meatballs with Guacamole
+          </span>
+        </div>
+
+        <button id = "scroll-right-keywords" 
+        onclick="Scroll('keywords-example', 100)">
+          <img src="{% static '/icons/right-arrow.png' %}" alt="">
+        </button>
+
+      </div>
+
+      <a id = "Post-A-Recipe" href="#">
+        <button>
+          Post a recipe <span>&#127869;</span>
+        </button>
+      </a>
+
+      <div id = "another-text">
+        Or you can find your favourite down here
+      </div>
+      <p style="
+                font-size: 40px;
+                font-weight: 700;
+                ">
+        &darr;
+      </p>
+
+    </div>
+    <!-- Real main here -->
+
+    <div id = "main-feed">
+        <div id = "new-posts-preview" class = "post-previews">
+
+          <p>
+            New Post
+          </p>
+          <div id = "new-posts" class = "flex-box-posts">
+            <!-- BEGiN EXAMPLE -->
+            <!-- Recipe 1 -->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Oven Fried Chicken Legs
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+
+          <!-- Recipe 2             -->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Cowboy Caviar
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+
+            <!-- Recipe 3-->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Copycat Cafe Rio Sweet Pulled Pork {Crock Pot}
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+
+            <!-- Recipe 4-->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Silken tofu ceviche
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+            </div>
+
+            <!-- Recipe 5-->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Chicken Salad Chick Chicken Salad
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+            </div>
+          </div>
+          <!-- END EXAMPLE -->
+
+          <button id = "scroll-left-new-posts" class = "btnScroll" onclick="Scroll('new-posts', -125)">
+            <img src="{% static '/icons/left-arrow.png' %}" alt="">
+          </button>
+
+          <button id = "scroll-right-new-posts" class = "btnScroll" onclick="Scroll('new-posts', 125)">
+            <img src="{% static '/icons/right-arrow.png' %}" alt="">
+          </button>
+
+        </div>
+
+        <!-- Following  -->
+        <div id = "following-post-preview" class = "post-previews">
+
+          <p>
+            By kitchen friends
+          </p>
+          
+          <div id = "following-posts" class = "flex-box-posts">
+            <!-- BEGIN EXAMPLE -->
+            <!-- Recipe 1 -->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Oven Fried Chicken Legs
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+
+          <!-- Recipe 2             -->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Cowboy Caviar
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+
+            <!-- Recipe 3-->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Copycat Cafe Rio Sweet Pulled Pork {Crock Pot}
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+
+            <!-- Recipe 4-->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Silken tofu ceviche
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+            </div>
+
+            <!-- Recipe 5-->
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href="#">
+                  <img src="{% static '/icons/user.png' %}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    Chicken Salad Chick Chicken Salad
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+            </div>
+          </div>
+
+          <!-- END EXAMPLE -->
+          <button id = "scroll-left-following-posts" class = "btnScroll" onclick="Scroll('following-posts', -125)">
+            <img src="{% static '/icons/left-arrow.png' %}" alt="">
+          </button>
+
+          <button id = "scroll-right-following-posts" class = "btnScroll" onclick="Scroll('following-posts', 125)">
+            <img src="{% static '/icons/right-arrow.png' %}" alt="">
+          </button>
+
+        </div>
+
+        <!-- Contries -->
+    <div id = "country-posts-preview">
+      <p>
+        Contries
+      </p>
+      <div id = "recipes-of-countries">
+        <div class = "recipes-of-countries-container">
+          <img src="{% static '/images/recipes/vietnamese.webp' %}" alt="Vietnamese foods">
+          <span>Vietnamese</span>
+        </div>
+        <div class = "recipes-of-countries-container">
+          <img src="{% static '/images/recipes/korean.webp' %}" alt="Korean foods">
+          <span>Korean</span>
+        </div>
+        <div class = "recipes-of-countries-container">
+          <img src="{% static '/images/recipes/chinese.webp' %}" alt="Chinese foods">
+          <span>Chinese</span>
+        </div>
+
+        <div class = "recipes-of-countries-container">
+          <img src="{% static '/images/recipes/italian.webp' %}" alt="Italian foods">
+          <span>Italian</span>
+        </div>
+
+        <div class = "recipes-of-countries-container">
+          <img src="{% static '/images/recipes/french.webp' %}" alt="French foods">
+          <span>French</span>
+        </div>
+      </div>
+      <button id = "scroll-left-country-recipes" class = "btnScroll" onclick="Scroll('recipes-of-countries', -125)">
+        <img src="{% static '/icons/left-arrow.png' %}" alt="">
+      </button>
+      <button id = "scroll-right-country-recipes" class = "btnScroll" onclick="Scroll('recipes-of-countries', 125)">
+        <img src="{% static '/icons/right-arrow.png' %}" alt="">
+      </button>
+    </div>
+
+    <div id = "You-may-like">
+      <p>
+        You may like
+      </p>
+      <div id = "you-may-like-recipes-grid" class ="recipes-grid">
+        <!-- BEGIN EXAMPLE -->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Oven Fried Chicken Legs
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+
+        </div>
+
+        <!-- Recipe 2             -->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Cowboy Caviar
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+
+        </div>
+
+        <!-- Recipe 3-->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Copycat Cafe Rio Sweet Pulled Pork {Crock Pot}
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+
+        </div>
+
+        <!-- Recipe 4-->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Silken tofu ceviche
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+        </div>
+
+        <!-- Recipe 5-->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Chicken Salad Chick Chicken Salad
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+        </div>
+
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Oven Fried Chicken Legs
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+
+        </div>
+
+        <!-- Recipe 2             -->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Cowboy Caviar
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+
+        </div>
+
+        <!-- Recipe 3-->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Copycat Cafe Rio Sweet Pulled Pork {Crock Pot}
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+
+        </div>
+
+        <!-- Recipe 4-->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Silken tofu ceviche
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+        </div>
+
+        <!-- Recipe 5-->
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
+          </a>
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="#">
+              <img src="{% static '/icons/user.png' %}" alt="user">
+            </a>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                Chicken Salad Chick Chicken Salad
+              </a>
+              <div>
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
+            </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+          </div>
+        </div>
+        <!-- END-EXAMPLE -->
+
+
+      </div>
+    </div>
+      <!-- Add some space -->
+    <div style="height: 100px;"></div>
+    <img style= "
+      width: 50px; 
+      height: 50px;
+      align-self: center;
+      " 
+      src="{% static '/images/cooking.png' %}" alt="">
+    <div style="height: 50px;"></div>
+
+  </main>
+</body>
+
+<!-- javascript Code -->
+<script>
+  
+  window.onclick = function(event) {
+    if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
+      if (document.getElementById("my-dropdown").style.display == "block"){
+        document.getElementById("my-dropdown").style.display = "none";
+      }
+    }
+  }
+
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+    document.getElementById("header").style.height = "50px";
+    document.getElementById("main").style.paddingLeft = "0";
+    document.getElementById("main").style.paddingTop = "50px";
+    document.getElementById("header-search").style.opacity = "0";
+    document.getElementById("search-btn-header").style.marginLeft = "425px";
+
+    document.getElementById("header").style.overflow = "visible";
+
+    document.getElementById("you-may-like-recipes-grid").style.gridTemplateColumns = "auto auto auto auto";
+    }
+
+  function openNav() {
+    document.getElementById("sidebar").style.width = "200px";
+    document.getElementById("header").style.height = "0";
+    document.getElementById("main").style.paddingTop = "0";
+    document.getElementById("main").style.paddingLeft = "200px";
+    document.getElementById("header").style.overflow = "hidden";
+
+    document.getElementById("you-may-like-recipes-grid").style.gridTemplateColumns = "auto auto auto";
+  }
+
+  function openSearchOnHeader(){
+    document.getElementById("header-search").style.opacity = "1";
+    document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+    document.getElementById("search-icon-header").style.width = "18px";
+    document.getElementById("search-icon-header").style.height = "18px";
+  }
+
+  function Scroll(elementId, distance){
+    document.getElementById(elementId).scrollLeft += distance;
+  }
+
+  function displayDropdown(){
+    if (document.getElementById("my-dropdown").style.display == "block"){
+      document.getElementById("my-dropdown").style.display = "none";
+    }
+    else{
+      document.getElementById("my-dropdown").style.display = "block";
+    }
+
+  }
+</script>
+
+</html>

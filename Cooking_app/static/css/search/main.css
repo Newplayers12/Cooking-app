@@ -1,0 +1,100 @@
+
+#results-text{
+  font-size: 20px;
+}
+#results-text span{
+  font-size: 22px;
+}
+
+.recipes-grid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 15px;
+  row-gap: 20px;
+  align-items: center;
+}
+
+.post-grid-container{
+  width: 200px;
+  height: 260px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(96,96,96);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 0 rgba(0,0,0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.Recipe-img-preview{
+  
+}
+
+.Recipe-img-preview img{
+  width: 200px;
+  height: 200px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  object-fit: cover;
+}
+
+.card-info{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.author-recipe{
+  margin-right: 7.5px;
+  
+}
+
+.author-recipe img{
+  border: none;
+  border-radius: 100px;
+}
+
+.infomation-recipe{
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.infomation-recipe a{
+  
+  text-decoration: none;
+  color: black;
+  font-family: Rotobo, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  
+  overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}
+
+.infomation-recipe div{
+  
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  max-lines: 1;
+}
+
+.add-saved-recipe{
+  flex: 1;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  bottom:5px;
+  right: 3px;
+  cursor: pointer;
+
+}

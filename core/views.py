@@ -12,7 +12,26 @@ def index(requests):
 
 @login_required(login_url='signin')
 def settings(requests):
-    return render(requests, 'setting.html')
+    user_profile = Profile.objects.get(user=requests.user)
+
+    if requests.method == 'POST':
+        if requests.FILES.get('image') == None:
+            image = user_profile.profileimg
+            bio = requests.POST['bio']
+            location = requests.POST['location']
+            user_profile.profileimg = image
+            user_profile.location = location
+            user_profile.bio = bio
+            user_profile.save()
+        else:
+            image = requests.FILES.get('image')
+            # bio = requests.POST['bio']
+            # location = requests.POST['location']
+            user_profile.profileimg = image
+            user_profile.location = requests.POST['location']
+            user_profile.bio = requests.POST['bio']
+            user_profile.save()
+    return render(requests, 'setting.html', {'user_profile': user_profile})
 
 
 def signup(requests):
@@ -64,6 +83,7 @@ def signin(requests):
             return redirect('signin')
             
     return render(requests, 'signin.html')
+
 
 @login_required(login_url = 'signin')
 def logout(request):

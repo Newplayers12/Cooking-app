@@ -42,14 +42,17 @@
                         <p></p>
                     </div>
                     <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
-    
+                        
+                        <form action='' method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
                        <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
                             <div>
                                 <label for=""> Profile image</label>
-                                <input type="text" placeholder="Your name.." class="shadow-none bg-gray-100">
+                                <img width="100" height="100" src="{{user_profile.profileimg.url}}" />
+                                <input type="file" name="image" placeholder="Select an Images" class="shadow-none bg-gray-100">
                             </div>
 
-                            <div>
+                            <!-- <div>
                                <label for=""> First name</label>
                                <input type="text" placeholder="Your name.." class="shadow-none bg-gray-100">
                             </div>
@@ -62,22 +65,22 @@
                             <div class="col-span-2">
                                 <label for=""> Email</label>
                                 <input type="text" placeholder="Your name.." class="shadow-none bg-gray-100">
-                            </div>
+                            </div> -->
 
                             <div class="col-span-2">
-                                <label for="about">Bio</label>  
-                                <textarea id="about" name="about" rows="3"  class="shadow-none bg-gray-100"></textarea>
+                                <label for="about"> Bio </label>  
+                                <textarea id="about" name="about" rows="3"  class="shadow-none bg-gray-100"> {{user_profile.bio}}</textarea>
                             </div> 
                             
                             <div class="col-span-2">
-                                <label for=""> Location</label>
-                                <input type="text" placeholder="" class="shadow-none bg-gray-100">
+                                <label for=""> Location </label>
+                                <input type="text" placeholder="" value="{{user_profile.location}}" class="shadow-none bg-gray-100">
                             </div>
 
-                            <div>
+                            <!-- <div>
                                <label for=""> Working at</label>
                                <input type="text" placeholder="" class="shadow-none bg-gray-100">
-                            </div> 
+                            </div>  -->
                             <div>
                                <label for=""> Relationship </label>
                                <select id="relationship" name="relationship"  class="shadow-none bg-gray-100">
@@ -91,10 +94,10 @@
                        </div> 
     
                        <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-                           <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
-                           <button type="button" class="button bg-blue-700"> Save </button>
+                           <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> <a href='/'> Cancel </a> </button>
+                           <button type="submit" class="button bg-blue-700"> Save </button>
                        </div>
-    
+                        </form>
                     </div>
 
                     <div>

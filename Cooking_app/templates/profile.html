@@ -217,7 +217,8 @@
       <div id = "brief-infomation-container">
           <div id = "name-container">
             <p id = "fullname">
-              Lương Thanh Hoàng Phú
+              <!-- Lương Thanh Hoàng Phú -->
+              {{ user_info.fullname }}
             </p>
             <div class = "editing-container">
               <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
@@ -657,7 +658,7 @@
           <div class = "items-setting-row">
             <div class = "item-setting">
               <select name="gender" id="gender" class = "gender-form">
-                <option value="Gender">Gender</option>
+                <option selected="selected">{{ user_info.gender }}</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Custom">Custom</option>
@@ -700,7 +701,7 @@
 
             <div class = "item-setting">
               
-              <input type="tel" name = "phone" id = "phone" placeholder="0123456789">
+              <input type="tel" name = "phone" id = "phone" placeholder="{{ user_info.phone }}">
               <p style=
               "
               width: 100%;
@@ -718,7 +719,7 @@
 
             <div class = "item-setting">
               
-              <input type="email" name = "email" id = "email" placeholder="20120548@student.hcmus.edu.vn">
+              <input type="email" name = "email" id = "email" placeholder="{{ user_info.user.email }}">
               <p style=
               "
               width: 100%;
@@ -744,7 +745,8 @@
             <div class = "item-setting">
               
               <p id = "username">
-                luongthanhhoangphu2002
+                <!-- luongthanhhoangphu2002 -->
+                {{ user_info.user.username }}
               </p>
               <p style=
               "

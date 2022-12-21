@@ -21,6 +21,7 @@
   <main>
     <!-- Left side -->
     <div id = "left-side">
+      
       <div id = "log-in-side">
         <img id = "logo-for-login" src="{% static '/images/logo2.png' %}" alt="">
         <div id = "welcome-back">
@@ -37,7 +38,7 @@
           {% for message in messages %}
             {% if message.tags == "error" %}
               <script>
-                "{{ message }}"
+                alert("{{ message }}")
               </script>
             {% endif %}
           {% endfor %}
@@ -48,8 +49,8 @@
           {% csrf_token %}
           {{ login_form }}
           <!-- <input id = "username-input" class = "input-shape-login"  type="text" placeholder="Username">
-          <input id = "password-input" class = "input-shape-login" type="password" placeholder="Password">
-           -->
+          <input id = "password-input" class = "input-shape-login" type="password" placeholder="Password"> -->
+          
           <div id = "rmb-forgotpw-container">
             <label class="container-remember-me">
               Remember me
@@ -104,18 +105,7 @@
         <div id = "sign-up-side">
           <p id = "create-an-account">Create an account</p>
           <p id = "Your-infomation">Your information</p>
-
-
-          <form method="POST" style="display: flex; flex-direction: column">
-            {% csrf_token %}
-            {{ signup_form }}
-      
-            <button id = "signup-button" name="signup">
-              Sign up
-            </button>
-          </form>
-
-          {% comment %} <form id = "gender-signup">
+          <form id = "gender-signup">
               <input type="radio" id="Male" name="gender_signup" value="Male">
               <label for="Male">Male</label><br>
               <input type="radio" id="Female" name="gender_signup" value="Female">
@@ -123,16 +113,28 @@
               <input type="radio" id="Custom" name="gender_signup" value="Custom">
               <label for="Custom">Custom</label>
           </form>
-          <input id = "fullname-signup-input" class = "input-shape-signup" type="text" placeholder="Full name"> <input id = "email-signup-input" class = "input-shape-signup" type="text" placeholder= "Email"> 
+          
+          <form method="POST" style="display: flex; flex-direction: column">
+            {% csrf_token %}
+            {% for field in signup_form|slice:":2" %}
+              {{ field }}
+            {% endfor %}
+            <p id = "Your-account">Your account</p>
+            {% for field in signup_form|slice:"2:" %}
+              {{ field }}
+            {% endfor %}
+            <!-- <input id = "fullname-signup-input" class = "input-shape-signup" type="text" placeholder="Full name">
+            <input id = "email-signup-input" class = "input-shape-signup" type="text" placeholder= "Email"> 
+            
 
-
-          <p id = "Your-account">Your account</p>
-          <input id = "username-signup-input" class = "input-shape-signup" type="text" placeholder="Username">
-          <input id = "password-signup-input" class = "input-shape-signup" type="password" placeholder="Password">
-          <input id = "repassword-signup-input" class = "input-shape-signup" type="password" placeholder="Re-password">
-          <button id = "signup-button">
-            Finish
-          </button> {% endcomment %}
+            <p id = "Your-account">Your account</p>
+            <input id = "username-signup-input" class = "input-shape-signup" type="text" placeholder="Username">
+            <input id = "password-signup-input" class = "input-shape-signup" type="password" placeholder="Password">
+            <input id = "repassword-signup-input" class = "input-shape-signup" type="password" placeholder="Re-password"> -->
+            <button id = "signup-button" name="signup">
+              Finish
+            </button>
+          </form>
         </div>
     </div>
   </main>

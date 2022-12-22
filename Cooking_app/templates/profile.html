@@ -24,7 +24,7 @@
   <header id = "header">
     <div id = "left-header">
       <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
-      <a href="index.html">
+      <a href="{% url 'index' %}">
         <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
       </a>
     </div>
@@ -66,7 +66,7 @@
 
     <!-- Logo website container -->
     <div class = "logo-container">
-      <a class = "logo-a" href="index.html">
+      <a class = "logo-a" href="{% url 'index' %}">
         <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
       </a>
     </div>
@@ -85,7 +85,7 @@
         <div class = "container-01">
           <a href="#">
             <img src="{% static '/icons/user.png' %}" alt="">
-            <p>Hoang Phu</p>
+            <p>{{ user_info.fullname }}</p>
           </a>
         </div>
       </div>
@@ -203,16 +203,31 @@
                 transition: all 1s;
                 " 
   id = "main">
+
     <div id = "user-profile-infomation">
       <div id = "profile-img-and-logout-container">
-        <div id = "open-file-img">
+        
+        
+        <div id = "open-file-img" >
+          {% comment %} <img >        {% endcomment %}
           <input type="file" id="img-profile" name="img-profile" accept="image/*">
         </div>
-        <button id = "log-out-btn">
-          <span>
+        <br>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" >
+              Log out
+            
+          </button>
+        </form>
+        
+        {% comment %} <a href="{% url 'logout' %}">Log out</a> {% endcomment %}
+        {% comment %} <button type="submit" id = "log-out-btn" >
+          <a type="button" href="{% url 'logout' %}">
             Log out
-          </span>
-        </button>
+          </a>
+        </button> {% endcomment %}
+        
       </div>
       <div id = "brief-infomation-container">
           <div id = "name-container">
@@ -226,7 +241,8 @@
           </div>
           <div id = "bio-container">
             <p id = "bio">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
+              Need to add user bio attribute in the UserInfo
+              {% comment %} {{ user_info.bio }} {% endcomment %}
             </p>
             <div class = "editing-container">
               <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
@@ -241,7 +257,7 @@
                 <div id="facebook" class= "icon-socialmedia-icon">
                 </div>
                 </a>
-            </div>
+            </div>  
             <div class = "icon-socialmedia-container">
               <a href="#">
                 <div id="twitter" class= "icon-socialmedia-icon"></div>

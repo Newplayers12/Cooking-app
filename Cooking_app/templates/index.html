@@ -25,7 +25,7 @@
 
     <!-- Logo website container -->
     <div class = "logo-container">
-      <a class = "logo-a" href="index.html">
+      <a class = "logo-a" href="{% url 'index' %}">
         <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
       </a>
     </div>
@@ -42,9 +42,9 @@
         </button>
         </div>
         <div class = "container-01">
-          <a href="#">
+          <a href="{% url 'profile' user.id %}">
             <img src="{% static '/icons/user.png' %}" alt="">
-            <p>Hoang Phu</p>
+            <p>{{user_info.fullname}}</p>
           </a>
         </div>
       </div>
@@ -162,7 +162,7 @@
     <header id = "header">
       <div id = "left-header">
         <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
-        <a href="index.html">
+        <a href="{% url 'index' %}">
           <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
         </a>
       </div>
@@ -189,7 +189,7 @@
             <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
             <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png' %}" alt="">
             <div id="my-dropdown" class="dropdown-content">
-              <a href="#">Profile</a>
+              <a href="{% url 'profile' user.id%}">Profile</a>
               <a href="#">Saved Recipes</a>
               <a href="#">Settings</a>
               <a href="#">Log out</a>
@@ -240,7 +240,7 @@
 
       </div>
 
-      <a id = "Post-A-Recipe" href="#">
+      <a id = "Post-A-Recipe" href="{% url 'post_a_recipe' user_info.user.id %}">
         <button>
           Post a recipe <span>&#127869;</span>
         </button>

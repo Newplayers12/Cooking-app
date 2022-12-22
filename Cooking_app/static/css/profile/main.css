@@ -36,7 +36,7 @@
   border-radius: 200px;
   position: relative;
   border: 1px lavender solid;
-  background: url('/icons/user.png') no-repeat center;
+  background-image: url('{% static user_info.avatar.url %}') no-repeat center;
   background-size: 100%;
 }
 
@@ -60,7 +60,7 @@
 #log-out-btn{
   margin-top: 10px;
   width: 100px;
-  height: 17.5%;
+  height: 17.5;
   border: 1.5px rgb(0, 157, 255) solid;
   border-radius: 20px;  
   background-color: white; 

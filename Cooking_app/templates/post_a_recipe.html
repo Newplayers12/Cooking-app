@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="css/common/header.css">
-  <link rel="stylesheet" href="css/common/sidebar.css">
-  <link rel="stylesheet" href="css/common/general.css">
-  <link rel="stylesheet" href="css/post_a_recipe/main.css">
+  <link rel="stylesheet" href= "{% static 'css/common/header.css'%}">
+  <link rel="stylesheet" href= "{% static 'css/common/sidebar.css'%}">
+  <link rel="stylesheet" href= "{% static 'css/common/general.css'%}">
+  <link rel="stylesheet" href= "{% static 'css/post_a_recipe/main.css'%}">
 
   <title>Post a recipe</title>
 
@@ -21,9 +22,9 @@
   <!-- Header -->
   <header id = "header">
     <div id = "left-header">
-      <img id = "icon-nav"  onclick="openNav()" src="/icons/nav.png" alt="nav">
+      <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png'%}" alt="nav">
       <a href="index.html">
-        <img id = "logo-img2" src="/images/logo2.png" alt="">
+        <img id = "logo-img2" src="{% static '/images/logo2.png'%}" alt="">
       </a>
     </div>
 
@@ -31,7 +32,7 @@
       <input id = "header-search" type="text" placeholder="Search recipes">
 
       <button id = "search-btn-header" onclick="openSearchOnHeader()">
-        <img id = "search-icon-header" src="/icons/search.png" alt="Search-icon">
+        <img id = "search-icon-header" src="{% static '/icons/search.png'%}" alt="Search-icon">
       </button>
     </div>
 
@@ -46,7 +47,7 @@
       <div class = "container-11">
         <div class = "dropdown">
           <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png" alt="">
+          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png'%}" alt="">
           <div id="my-dropdown" class="dropdown-content">
             <a href="#">Profile</a>
             <a href="#">Saved Recipes</a>
@@ -65,7 +66,7 @@
     <!-- Logo website container -->
     <div class = "logo-container">
       <a class = "logo-a" href="index.html">
-        <img class = "logo-img" src="/images/logo.png" alt="">
+        <img class = "logo-img" src="{% static '/images/logo.png'%}" alt="">
       </a>
     </div>
 
@@ -82,7 +83,7 @@
         </div>
         <div class = "container-01">
           <a href="#">
-            <img src="/icons/user.png" alt="">
+            <img src="{% static '/icons/user.png'%}" alt="">
             <p>Hoang Phu</p>
           </a>
         </div>
@@ -90,47 +91,47 @@
 
       <p style="min-height: 10px;"></p>
         <div class = "sidebar-main-item">
-            <img id = "home-icon" src="/icons/home.png" alt="">
+            <img id = "home-icon" src="{% static '/icons/home.png'%}" alt="">
             <span>My Feeds</span>
         </div>
 
         <div class = "sidebar-main-item">
-          <img id = "plan-icon" src="/icons/plan.png" alt="">
+          <img id = "plan-icon" src="{% static '/icons/plan.png'%}" alt="">
           <span>Meal Planner</span>
         </div>
 
         <div id = "sidebar-main-item-saved-recipes">
           <div id = "saved-recipes">
-            <img src="/icons/saved.png" alt="">
+            <img src="{% static '/icons/saved.png'%}" alt="">
             <span>Saved Recipes</span>
           </div>
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png'%}" alt="">
             <span>All Recipes</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png'%}" alt="">
             <span>Breakfasts</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png'%}" alt="">
             <span>Dessert</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png'%}" alt="">
             <span>Dinners</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png'%}" alt="">
             <span>Drinks</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png'%}" alt="">
             <span>Soups</span>
           </div>
 
@@ -211,7 +212,7 @@
           width: 200px;
           height: auto;
         " 
-        src="/images/logo_noname.png">
+        src="{% static '/images/logo_noname.png'%}">
         <!-- Display when post successfully -->
         <div id =  "div1">
           <p id = "thank-you-p">
@@ -245,7 +246,8 @@
           <p style="height: 30px;">
 
           </p>
-          <form class = "form-recipe" action="">
+          <form class = "form-recipe" action="" method="POST">
+            {% csrf_token %}
             <input 
             name = "title-recipe" 
             id = "title-recipe" 
@@ -340,7 +342,7 @@
 
             <button class = "submit-btn">
               Post
-              <img src="/icons/paper-plane.png" alt="">
+              <img src="{% static '/icons/paper-plane'%}.png" alt="">
             </button>
 
           </form>
@@ -354,7 +356,7 @@
           height: 50px;
           align-self: center;
           " 
-          src="/images/cooking.png" alt="">
+          src="{% static '/images/cooking.png'%}" alt="">
         <div style="height: 50px;"></div>
   </main>
 

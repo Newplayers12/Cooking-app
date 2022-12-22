@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 from django.contrib.auth.decorators import login_required
@@ -8,13 +9,35 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 
-from .forms import SignupForm, LoginForm, ProfileForm
-from .models import UserInfo, UserRecipe
+from .forms import SignupForm, LoginForm, PostForm, ProfileForm
+from .models import *
 
 
 @login_required(login_url='accounts/login')
 def index(request):
+    user = User.objects.get(username=request.user.username)
+    context = {'user': user}
+
     return render(request, 'index.html')
+
+@method_decorator(login_required(login_url='accounts/login'), name='dispatch')
+class HomePageView(TemplateView):
+    user = None
+    context = {}
+    template_name = 'index.html'
+    def get(self, request, *args, **kwargs):
+    
+        user_info = UserInfo.objects.get(user=request.user)
+        self.context = {
+        
+            'user_info': user_info
+        }
+        return render(request, self.template_name, self.context)
+
+    def post(self, request, *args, **kwargs):
+        pass
+    
+
 
 class Authentication(TemplateView):
     f_login = LoginForm
@@ -63,7 +86,8 @@ class Authentication(TemplateView):
 class Exit(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return redirect('/')
+        return redirect('login')
+
 
 @method_decorator(login_required(login_url='accounts/login'), name='dispatch')
 class PersonalInfo(TemplateView):
@@ -71,18 +95,48 @@ class PersonalInfo(TemplateView):
     context = {}
     template_name = 'profile.html'
 
-    def get(self, request, *args, **kwargs):
-        user_id = request.user.id
-        print(user_id)
+    def get(self, request, pk, *args, **kwargs):
         try:
+            user = User.objects.get(id=pk)
             self.context = {
-                'user_info': UserInfo.objects.get(user=user_id),
-                'user_recipes': UserRecipe.objects.filter(created_by=user_id),
+                'user_info': UserInfo.objects.get(user=user),
+                'user': user,
+                # 'user_recipes': UserRecipe.objects.filter(created_by=user_id),
             }
+            print(self.context['user_info'].avatar.url)
+            print('context is returned')
         except Exception as e:
+            print(e)
             print("self.context")
-            messages.error(request, message=e)
+            # messages.error(request, message=e)
         return render(request, self.template_name, self.context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, pk, *args, **kwargs):
         pass
+    
+    
+@method_decorator(login_required(login_url='accounts/login'), name='dispatch')
+class PostARecipeView(TemplateView):
+    form = None
+    context = {}
+    template_name = 'post_a_recipe.html'
+    
+    def get(self, request, pk, *args, **kwargs):
+        self.form = PostForm()        
+        user = User.objects.get(id = pk)
+        self.context = {
+            'form': self.form,
+            'user_info': UserInfo.objects.get(user=user),
+        }
+        return render(request, self.template_name, self.context)
+    
+    def post(self, request, pk, *args, **kwargs):
+        
+        user = User.objects.get(id = pk)
+        self.context = {
+            'user_info': UserInfo.objects.get(user=user),
+        }
+        form = self.form(request.POST)
+        for name in request.POST.keys():
+            print(f"\"{name}\":")
+        return render(request, self.template_name, self.context)

@@ -72,6 +72,7 @@ def home(request):
     template_name = 'index.html'
     try:
         user = User.objects.get(username=request.user.username) 
+        user = UserInfo.objects.get(user=user)
     except User.DoesNotExist:
         user = None
     context = {
@@ -141,13 +142,55 @@ def login_acc(request):
     return render(request, template_name, context)
 
 
-
-
+@login_required(login_url='login')
+def logout_acc(request):
+    logout(request)
+    return redirect('/')
+    
+@login_required(login_url='login')
 def profile_acc(request):
-    context = {}
+    """TODO
+        show user default avatar onto profile
+    """
+    user_info = UserInfo.objects.get(user = request.user)
+    context = {
+        'user_info': user_info
+    }
     template_name = 'profile.html'
     
+    if request.method == 'POST':
+        new_fullname = request.POST.get('fullname-input')
+        new_gender = request.POST.get('gender')
+        new_bday = request.POST.get('birthday')
+        new_phone = request.POST.get('phone')
+        new_password = request.POST.get('newpassword')
+        user_info.save (
+            user=user_info.user.save(password=make_password(new_password)),
+            fullname=new_fullname,
+            gender=new_gender,
+            bday=new_bday,
+            phone=new_phone,
+        )
+        #User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
+        print(request.POST.keys())
+        print()
+        print(request.POST)
+        pass
+    
+    
+    
+    return render(request, template_name, context)
+    
 
+
+
+@login_required(login_url='login')
+def PostARecipe(request):
+    # TODO: make a Post Model to create a Post that made by a User
+    template_name = "post_a_recipe.html"
+    context = {}
+    return render(request, template_name, context)
+    pass
 
 # Starting from here 
 

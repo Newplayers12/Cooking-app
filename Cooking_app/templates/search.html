@@ -23,7 +23,7 @@
   <header id = "header">
     <div id = "left-header">
       <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
-      <a href="index">
+      <a href="{% url 'index' %}">
         <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
       </a>
     </div>
@@ -57,10 +57,10 @@
           <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
           <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="/profile.html">Profile</a>
-              <a href="/profile.html">Saved Recipes</a>
-              <a href="/profile.html">Settings</a>
-              <a href="/login.html" 
+            <a href="{% url 'profile' %}">Profile</a>
+              <a href="{% url 'profile' %}">Saved Recipes</a>
+              <a href="{% url 'profile' %}">Settings</a>
+              <a href="{% url 'login' %}" 
                   onclick="return logout();"
               >
                   Log out
@@ -77,7 +77,7 @@
 
     <!-- Logo website container -->
     <div class = "logo-container">
-      <a class = "logo-a" href="index">
+      <a class = "logo-a" href="{% url 'index' %}">
         <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
       </a>
     </div>
@@ -94,7 +94,7 @@
         </button>
         </div>
         <div id = "container-01">
-          <a href="/profile.html">
+          <a href="{% url 'profile' %}">
             <img src="{% static '/icons/user.png' %}" alt="">
             <p>Hoang Phu</p>
           </a>

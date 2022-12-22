@@ -153,7 +153,6 @@ def profile_acc(request):
         show user default avatar onto profile
     """
     template_name = 'profile.html'
-    user_info = UserInfo.objects.get(user=request.user)
     if request.method == 'POST':
         new_fullname = request.POST.get('fullname-input')
         new_gender = request.POST.get('gender')
@@ -161,6 +160,7 @@ def profile_acc(request):
         new_phone = request.POST.get('phone')
         new_password = request.POST.get('newpassword')
         # Case: Check old and new password
+        user_info = UserInfo.objects.get(user=request.user)
         user_info.save (
             fullname=new_fullname,
             gender=new_gender,
@@ -171,7 +171,7 @@ def profile_acc(request):
         print(request.POST.keys())
     
     context = {
-        'user_info': user_info
+        'user_info': UserInfo.objects.get(user=request.user)
     }
     return render(request, template_name, context)
     

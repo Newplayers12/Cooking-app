@@ -5,8 +5,7 @@ from django.contrib import messages
 from django.forms import ModelForm
 from django import forms
 
-from .models import UserInfo, Post    
-
+from .models import UserInfo
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -65,19 +64,8 @@ class SignupForm(UserCreationForm):
                 fullname=self.cleaned_data['fullname'],
             )
         return user
-
-
+            
 class ProfileForm(ModelForm):
-    pass
-
-class PostForm(ModelForm):
     class Meta:
-        model = Post
+        model = UserInfo
         fields = '__all__'
-        
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
-        super(PostForm, self).__init__(*args, **kwargs)
-        
-
-        

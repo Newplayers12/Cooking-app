@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{{% load static %}}
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,10 +9,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/common/header.css">
-  <link rel="stylesheet" href="css/common/sidebar.css">
-  <link rel="stylesheet" href="css/common/general.css">
-  <link rel="stylesheet" href="css/search/main.css">
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %]">
+  <link rel="stylesheet" href="{% static 'css/search/main.css' %]">
 
   <title>Searching</title>
 </head>
@@ -20,37 +22,49 @@
   <!-- Header -->
   <header id = "header">
     <div id = "left-header">
-      <img id = "icon-nav"  onclick="openNav()" src="/icons/nav.png" alt="nav">
+      <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
       <a href="index.html">
-        <img id = "logo-img2" src="/images/logo2.png" alt="">
+        <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
       </a>
     </div>
 
     <div id = "middle-header">
-      <input id = "header-search" type="text" placeholder="Search recipes">
+      <!-- HEADER SEARCH -->
+      <form action="/search.html">
+        <input id = "header-search" 
+        name = "header-search"
+        type="text" 
+        placeholder="Search recipes"
+        >
+        <input type="submit" style="display:none"/>
+      </form>
 
       <button id = "search-btn-header" onclick="openSearchOnHeader()">
-        <img id = "search-icon-header" src="/icons/search.png" alt="Search-icon">
+        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
       </button>
     </div>
 
     <div id = "right-header">
-      <div class = "container-10">
+      <div id = "container-10">
         <button id = "JoinUsButton2">
           <span>
             Log In / Sign Up
           </span>
         </button>
       </div>
-      <div class = "container-11">
+      <div id = "container-11">
         <div class = "dropdown">
           <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png" alt="">
+          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="#">Profile</a>
-            <a href="#">Saved Recipes</a>
-            <a href="#">Settings</a>
-            <a href="#">Log out</a>
+            <a href="/profile.html">Profile</a>
+              <a href="/profile.html">Saved Recipes</a>
+              <a href="/profile.html">Settings</a>
+              <a href="/login.html" 
+                  onclick="return logout();"
+              >
+                  Log out
+              </a>
           </div>
         </div>
       </div>
@@ -64,24 +78,24 @@
     <!-- Logo website container -->
     <div class = "logo-container">
       <a class = "logo-a" href="index.html">
-        <img class = "logo-img" src="/images/logo.png" alt="">
+        <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
       </a>
     </div>
 
     <!-- Sidebar main  -->
     <div class = "sidebar-main"> 
 
-      <div class = "container-0">
-        <div class = "container-00">
+      <div id = "container-0">
+        <div id = "container-00">
           <button id = "JoinUsButton">
             <span>
               Join Us
             </span>
         </button>
         </div>
-        <div class = "container-01">
-          <a href="#">
-            <img src="/icons/user.png" alt="">
+        <div id = "container-01">
+          <a href="/profile.html">
+            <img src="{% static '/icons/user.png' %}" alt="">
             <p>Hoang Phu</p>
           </a>
         </div>
@@ -89,47 +103,47 @@
 
       <p style="min-height: 10px;"></p>
         <div class = "sidebar-main-item">
-            <img id = "home-icon" src="/icons/home.png" alt="">
+            <img id = "home-icon" src="{% static '/icons/home.png' %}" alt="">
             <span>My Feeds</span>
         </div>
 
         <div class = "sidebar-main-item">
-          <img id = "plan-icon" src="/icons/plan.png" alt="">
+          <img id = "plan-icon" src="{% static '/icons/plan.png' %}" alt="">
           <span>Meal Planner</span>
         </div>
 
         <div id = "sidebar-main-item-saved-recipes">
           <div id = "saved-recipes">
-            <img src="/icons/saved.png" alt="">
+            <img src="{% static '/icons/saved.png' %}" alt="">
             <span>Saved Recipes</span>
           </div>
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png' %}" alt="">
             <span>All Recipes</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png' %}" alt="">
             <span>Breakfasts</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png' %}" alt="">
             <span>Dessert</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png' %}" alt="">
             <span>Dinners</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png' %}" alt="">
             <span>Drinks</span>
           </div>
 
           <div class = "saved-recipes-collection">
-            <img src="/icons/folder.png" alt="">
+            <img src="{% static '/icons/folder.png' %}" alt="">
             <span>Soups</span>
           </div>
 
@@ -211,12 +225,12 @@
     <div id = "recipes-search-grid" class = "recipes-grid">
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/0.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -226,7 +240,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
 
       </div>
@@ -234,12 +248,12 @@
       <!-- Recipe 2             -->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/1.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -249,7 +263,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
 
       </div>
@@ -257,12 +271,12 @@
       <!-- Recipe 3-->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/2.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -272,7 +286,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
 
       </div>
@@ -280,12 +294,12 @@
       <!-- Recipe 4-->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/3.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -295,19 +309,19 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
       </div>
 
       <!-- Recipe 5-->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/4.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -317,18 +331,18 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
       </div>
 
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/0.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -338,7 +352,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
 
       </div>
@@ -346,12 +360,12 @@
       <!-- Recipe 2             -->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/1.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -361,7 +375,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
 
       </div>
@@ -369,12 +383,12 @@
       <!-- Recipe 3-->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/2.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -384,7 +398,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
 
       </div>
@@ -392,12 +406,12 @@
       <!-- Recipe 4-->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/3.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -407,19 +421,19 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
       </div>
 
       <!-- Recipe 5-->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
-          <img src="/images/recipes/4.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
         </a>
         <div class = "card-info">
           <!-- Link to Users -->
           <a class = "author-recipe" href="#">
-            <img src="/icons/user.png" alt="user">
+            <img src="{% static '/icons/user.png' %}" alt="user">
           </a>
           <div class = "infomation-recipe">
             <a class = "recipe-title" href="#">
@@ -429,7 +443,7 @@
               <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
             </div>
           </div>
-          <img class = "add-saved-recipe"src="/icons/add-saved-recipe.png" alt="">
+          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
       </div>
       <!-- END-EXAMPLE -->
@@ -442,7 +456,7 @@
       height: 50px;
       align-self: center;
       " 
-      src="/images/cooking.png" alt="">
+      src="{% static '/images/cooking.png' %}" alt="">
     <div style="height: 50px;"></div>
     
   </main>
@@ -493,7 +507,10 @@
         }
       }
     }
-
+    function logout(){
+      localStorage.setItem('login', 'no');
+      return true;
+  }
   </script>
 
 </body>

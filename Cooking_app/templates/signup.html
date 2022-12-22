@@ -1,0 +1,154 @@
+{{% load static %}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Roboto font -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/login_signup/general.css' %]">
+  <link rel="stylesheet" href="{% static 'css/login_signup/main.css' %]">
+
+  <title>Signup</title>
+</head>
+<body>
+
+  <main>
+    <!-- Left side -->
+    <div id = "left-side">
+      <div id = "sign-up-quote">
+        <img src="{% static '/images/sign-up.jpg' %}" alt="">
+        <q>
+          Nothing as creative as cooking
+        </q>
+
+        <a href="/login.html">
+          <button id = "back-to-log-in-button" onclick="toLogin()">
+            &#8592
+          </button>
+        </a>
+      </div>
+
+    </div>
+    
+    <!-- Right Side -->
+    <div id = "right-side">
+
+        <!-- Form -->
+        <form 
+              id = "signup-form"
+              
+        >
+          <p id = "create-an-account">Create an account</p>
+          <p id = "Your-infomation">Your information</p>
+          <div id = "gender-signup">
+              <input type="radio" id="Male" name="gender" value="Male">
+              <label for="Male">Male</label><br>
+              <input type="radio" id="Female" name="gender" value="Female">
+              <label for="Female">Female</label><br>
+              <input type="radio" id="Custom" name="gender"value="Custom">
+              <label for="Custom">Custom</label>
+          </div>
+
+          <input id = "fullname-signup-input" 
+                name = "fullname-signup-input"
+                class = "input-shape-signup" 
+                type="text" 
+                placeholder="Full name"
+                > 
+
+          <input 
+                type = "email"
+                id = "email-signup-input" 
+                name = "email-signup-input"
+                class = "input-shape-signup" 
+                type="text" 
+                placeholder= "Email"
+                > 
+
+          <p id = "Your-account">Your account</p>
+
+          <input id = "username-signup-input" 
+                name = "username-signup-input" 
+                class = "input-shape-signup" 
+                type="text" 
+                placeholder="Username"
+                >
+
+          <input id = "password-signup-input" 
+                name = "password-signup-input" 
+                class = "input-shape-signup" 
+                type="password" 
+                placeholder="Password"
+                >
+
+          <input id = "repassword-signup-input" 
+                name = "repassword-signup-input" 
+                class = "input-shape-signup" 
+                type="password" 
+                placeholder="Re-password"
+                >
+
+          <button type="button"
+                id = "signup-button"
+                onclick="checkSignup()"
+          >
+            Finish
+          </button>
+        </form>
+
+    </div>
+  </main>
+  <!-- My javascript code -->
+  <script>
+    function checkSignup(){
+      let valid = true;
+      let usr = document.getElementById("username-signup-input").value;
+      let pw = document.getElementById("password-signup-input").value;
+      let rpw = document.getElementById("repassword-signup-input").value;
+      let validUsr =  new RegExp('((?=.*[a-z])|(?=.*[A-Z]))(?=.*[0-9])(?=.{6,30})');
+      let validPW = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,30})');
+
+      if(!document.getElementById("Male").checked &&
+        !document.getElementById("Female").checked &&
+        !document.getElementById("Custom").checked
+        ){
+        alert('Please select your gender.');
+      }
+      else if(!document.getElementById("fullname-signup-input").value.length){
+        alert('Please enter your name.');
+      }
+      else if(!document.getElementById("email-signup-input").value.length){
+        alert('Please enter your email.');
+      }
+      else if(!validUsr.test(usr)){
+        alert('Username must be contain:\n\
+        - At least 1 (a-z) or (A-Z).\n\
+        - At least 1 (0-9).\n\
+        - Range of length (6, 30).\n');
+      }
+      else if(!validPW.test(pw)){
+        alert('Password must be contain:\n\
+        - At least 1 (a-z).\n\
+        - At least 1 (A-Z).\n\
+        - At least 1 (0-9).\n\
+        - At least 1 special character.\n\
+        - Range of length (6, 30).\n');
+      }
+
+      else if(pw != rpw){
+        alert('Re-password doesn\'t match!');
+      }
+      else if(valid){
+        document.getElementById("signup-form").submit();
+        window.location.href = "/login.html";
+      }
+    }
+  </script>
+</body>
+</html>

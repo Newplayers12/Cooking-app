@@ -1,4 +1,4 @@
-{% load static %}
+{{% load static %}}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +9,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/custom-checkbox.css' %}">
-  <link rel="stylesheet" href="{% static 'css/profile/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/custom-checkbox.css' %]">
+  <link rel="stylesheet" href="{% static 'css/profile/main.css' %]">
 
   <title>Profile</title>
 </head>
@@ -24,13 +24,22 @@
   <header id = "header">
     <div id = "left-header">
       <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
-      <a href="{% url 'index' %}">
+      <a href="index.html">
         <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
       </a>
     </div>
 
     <div id = "middle-header">
-      <input id = "header-search" type="text" placeholder="Search recipes">
+
+      <!-- HEADER SEARCH -->
+      <form action="/search.html">
+        <input id = "header-search" 
+        name = "header-search"
+        type="text" 
+        placeholder="Search recipes"
+        >
+        <input type="submit" style="display:none"/>
+      </form>
 
       <button id = "search-btn-header" onclick="openSearchOnHeader()">
         <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
@@ -38,22 +47,26 @@
     </div>
 
     <div id = "right-header">
-      <div class = "container-10">
+      <div id = "container-10">
         <button id = "JoinUsButton2">
           <span>
             Log In / Sign Up
           </span>
         </button>
       </div>
-      <div class = "container-11">
+      <div id = "container-11">
         <div class = "dropdown">
           <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png' %}" alt="">
+          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="#">Profile</a>
-            <a href="#">Saved Recipes</a>
-            <a href="#">Settings</a>
-            <a href="#">Log out</a>
+            <a href="/profile.html">Profile</a>
+              <a href="/profile.html">Saved Recipes</a>
+              <a href="/profile.html">Settings</a>
+              <a href="/login.html" 
+                  onclick="return logout();"
+              >
+                  Log out
+              </a>
           </div>
         </div>
       </div>
@@ -66,7 +79,7 @@
 
     <!-- Logo website container -->
     <div class = "logo-container">
-      <a class = "logo-a" href="{% url 'index' %}">
+      <a class = "logo-a" href="index.html">
         <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
       </a>
     </div>
@@ -74,18 +87,18 @@
     <!-- Sidebar main  -->
     <div class = "sidebar-main"> 
 
-      <div class = "container-0">
-        <div class = "container-00">
+      <div id = "container-0">
+        <div id = "container-00">
           <button id = "JoinUsButton">
             <span>
               Join Us
             </span>
         </button>
         </div>
-        <div class = "container-01">
-          <a href="#">
+        <div id = "container-01">
+          <a href="/profile.html">
             <img src="{% static '/icons/user.png' %}" alt="">
-            <p>{{ user_info.fullname }}</p>
+            <p>Hoang Phu</p>
           </a>
         </div>
       </div>
@@ -203,49 +216,59 @@
                 transition: all 1s;
                 " 
   id = "main">
-
     <div id = "user-profile-infomation">
       <div id = "profile-img-and-logout-container">
-        
-        
-        <div id = "open-file-img" >
-          {% comment %} <img >        {% endcomment %}
+        <div id = "open-file-img">
           <input type="file" id="img-profile" name="img-profile" accept="image/*">
         </div>
-        <br>
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <button type="submit" >
-              Log out
-            
-          </button>
-        </form>
-        
-        {% comment %} <a href="{% url 'logout' %}">Log out</a> {% endcomment %}
-        {% comment %} <button type="submit" id = "log-out-btn" >
-          <a type="button" href="{% url 'logout' %}">
+
+        <button id = "log-out-btn">
+          <a href="/login.html">
             Log out
           </a>
-        </button> {% endcomment %}
-        
+        </button>
       </div>
       <div id = "brief-infomation-container">
-          <div id = "name-container">
-            <p id = "fullname">
-              <!-- Lương Thanh Hoàng Phú -->
-              {{ user_info.fullname }}
-            </p>
-            <div class = "editing-container">
-              <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
+
+          <div id = "name-section">
+            <!-- Fullname form -->
+            <form id = "fullname-form">
+              <input 
+                  type="text" 
+                  name = "fullname-input" 
+                  id = "fullname-input" 
+              >
+              <div style="flex:20%"></div>
+            </form>
+
+            <div id = "name-container">
+              <p id = "fullname" onclick="displayModifyFullname()">
+                Lương Thanh Hoàng Phú
+              </p>
+              <div class = "editing-container">
+                <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
+              </div>
             </div>
+  
           </div>
-          <div id = "bio-container">
-            <p id = "bio">
-              Need to add user bio attribute in the UserInfo
-              {% comment %} {{ user_info.bio }} {% endcomment %}
-            </p>
-            <div class = "editing-container">
-              <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
+          <div id = "bio-section">
+            <form id = "bio-form">
+              <textarea 
+                  name = "bio-input" 
+                  id = "bio-input"  
+                  cols="60" rows="4"
+              >
+              </textarea>
+              <div style="flex:20%"></div>
+            </form>
+
+            <div id = "bio-container">
+              <p id = "bio" onclick="displayModifyBio()">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
+              </p>
+              <div class = "editing-container">
+                <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
+              </div>
             </div>
           </div>
           
@@ -257,7 +280,7 @@
                 <div id="facebook" class= "icon-socialmedia-icon">
                 </div>
                 </a>
-            </div>  
+            </div>
             <div class = "icon-socialmedia-container">
               <a href="#">
                 <div id="twitter" class= "icon-socialmedia-icon"></div>
@@ -277,18 +300,31 @@
             font-size: 17px;
             margin: 2px 15px 0 5px;'>&#x2595;</span>
             <!-- Location -->
-  
-            <div id = "city-container" class = "text-location">
-              <input type="text" placeholder="City">
+            
+            <div id = "city-section" class = "text-location">
+            <!-- Location form -->
+            <form id = "city-form" >
+              <input type="text" 
+                    name="city" 
+                    id = "city"  
+              >
+            </form>
+            <div id = "city-display" onclick="displayModifyCity()">
+                Da Nang
+                <div class= "edit-text">
+                  Edit
+                </div>
             </div>
-  
+            </div>
+      
+
             <div class = "text-location">
               <span style="padding: 0 5px 0 1px;">,</span>
             </div>
   
             <div id = "country-container" class = "text-location">
               <!-- Source code: https://gist.github.com/danrovito/977bcb97c9c2dfd3398a  -->
-              <select id="country" name="country" class="form-control">
+              <select id="country" name="country-form" class="country-form">
                   <option value="Country">Country</option>
                   <option value="Afghanistan">Afghanistan</option>
                   <option value="Åland Islands">Åland Islands</option>
@@ -558,7 +594,7 @@
       <div style="
         height:75px;
         width: 100%;
-        ">
+      ">
       </div>
 
       <div id = "sections-profile">
@@ -665,16 +701,19 @@
 
           
         </div>
-        <div id = "display-settings" class = "display-section">
+
+         <!-- SETTING -->
+        <form id = "display-settings" class = "display-section">
           <p class = "heading-settings">
             PERSIONAL INFOMATION
           </p>
         
           
           <div class = "items-setting-row">
+            
             <div class = "item-setting">
               <select name="gender" id="gender" class = "gender-form">
-                <option selected="selected">{{ user_info.gender }}</option>
+                <option value="Gender">Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Custom">Custom</option>
@@ -717,7 +756,7 @@
 
             <div class = "item-setting">
               
-              <input type="tel" name = "phone" id = "phone" placeholder="{{ user_info.phone }}">
+              <input type="tel" name = "phone" id = "phone" placeholder="0123456789">
               <p style=
               "
               width: 100%;
@@ -735,7 +774,7 @@
 
             <div class = "item-setting">
               
-              <input type="email" name = "email" id = "email" placeholder="{{ user_info.user.email }}">
+              <input type="email" name = "email" id = "email" placeholder="20120548@student.hcmus.edu.vn">
               <p style=
               "
               width: 100%;
@@ -761,8 +800,7 @@
             <div class = "item-setting">
               
               <p id = "username">
-                <!-- luongthanhhoangphu2002 -->
-                {{ user_info.user.username }}
+                luongthanhhoangphu2002
               </p>
               <p style=
               "
@@ -803,7 +841,7 @@
 
           <p>We'll ask for a security code when we need to confirm that it's you logging in.</p>
 
-          <form class = "send-code-form">
+          <div class = "send-code-form">
             <label class="send-code-container">Mobile Phone
               <input type="radio" name="radio-send-code" id="send-to-phone" checked = "checked">
               <span class = "checkmark"></span>
@@ -812,10 +850,10 @@
               <input type="radio" name="radio-send-code" id="send-to-phone" checked = "checked">
               <span class = "checkmark"></span>
             </label>
-          </form>
+          </div>
           <div id = "code-form">
             <input type="text" id = "code-authen" name = "code-authen"  placeholder="Code"> 
-            <button id = "send-code-button" onclick="sendCodeAndDisplayInput()">
+            <button type="button" id = "send-code-button" onclick="sendCodeAndDisplayInput()">
               Send 
             </button>
           </div>
@@ -836,7 +874,7 @@
           <br>
           <p>
             Click 
-            <a href="#" 
+            <a href="/verification.html" 
             style=
             "
             color: black;
@@ -851,16 +889,19 @@
 
           <div class = "save-discard-container">
 
-            <button id = "discard-button" class = "button-template-setting">
+            <button type="button" id = "discard-button" class = "button-template-setting">
               Discard
             </button>
 
-            <button id = "save-button" class = "button-template-setting">
+            <button id = "save-button" class = "button-template-setting" 
+            onclick="submitInf()">
               Save
             </button>
           </div>
-        </div>
+        </form>
 
+
+        <!-- FOLLOWERS -->
         <div id = "display-followers" class = "display-section">
           <div class = "other-user-container">
             <div class = "other-user-preview">
@@ -1014,6 +1055,35 @@
           document.getElementById("my-dropdown").style.display = "none";
         }
       }
+
+      if(document.getElementById("name-container").style.display == "none" &&
+        !document.getElementById("name-section").contains(event.target) &&
+        document.getElementById("main").contains(event.target)
+      ){  
+        document.getElementById("fullname-form").submit();
+        document.getElementById("name-container").style.display = "flex";
+        document.getElementById("fullname-form").style.display = "none";
+      }
+      
+      if(document.getElementById("bio-container").style.display == "none" &&
+        !document.getElementById("bio-section").contains(event.target) &&
+        document.getElementById("main").contains(event.target)
+      ){  
+        document.getElementById("bio-form").submit();
+        document.getElementById("bio-container").style.display = "flex";
+        document.getElementById("bio-form").style.display = "none";
+      }
+
+      
+      if(document.getElementById("city-display").style.display == "none" &&
+        !document.getElementById("city-section").contains(event.target) &&
+        document.getElementById("main").contains(event.target)
+        ){
+        document.getElementById("city-form").submit();
+        document.getElementById("city-display").style.display = "flex";
+        document.getElementById("city-form").style.display = "none";
+
+      }
     }
 
     function closeNav() {
@@ -1053,6 +1123,7 @@
         document.getElementById("my-dropdown").style.display = "block";
       }
     }
+
     function selectSection(elementId){
       var lines = document.getElementsByClassName('is-selected');
       var sections = document.getElementsByClassName('section-profile');
@@ -1101,6 +1172,7 @@
 
     function initialize(){
       selectSection('saved-recipes-section');
+      document.getElementById("send-code-button").textContent = 'Send'
     }
 
     function sendCodeAndDisplayInput(){
@@ -1112,7 +1184,7 @@
         document.getElementById("send-code-button").style.marginLeft = "0";
       }
 
-      else{
+      else if (document.getElementById("send-code-button").textContent == 'Verify'){
         document.getElementById("code-authen").style.width = "0";
         document.getElementById("code-authen").style.opacity = "0";
         document.getElementById("send-code-button").textContent = "Send";  
@@ -1120,7 +1192,41 @@
         
       }
     }
+    function displayModifyFullname(){
+      document.getElementById("name-container").style.display = "none";
+      document.getElementById("fullname-form").style.display = "flex";
+      document.getElementById("fullname-input").placeholder = 
+      document.getElementById("fullname").textContent.trim();
+    }
+    
+    function displayModifyBio(){
+      document.getElementById("bio-container").style.display = "none";
+      document.getElementById("bio-form").style.display = "flex";
+      document.getElementById("bio-input").placeholder = 
+      document.getElementById("bio").textContent.trim();
+      document.getElementById("bio-input").textContent=""
+    }
 
+    function displayModifyCity(){
+      document.getElementById("city-display").style.display = "none";
+      document.getElementById("city-form").style.display = "flex";
+      document.getElementById("city-input").placeholder = 
+      document.getElementById("city-display").textContent.trim();
+      document.getElementById("city-input").textContent=""
+    }
+
+    function submitInf(){
+      alert(
+        document
+        .getElementById("newpassword")
+        .style.textContent)
+
+    }
+
+    function logout(){
+      localStorage.setItem('login', 'no');
+      return true;
+  }
   </script>
 
 </body>

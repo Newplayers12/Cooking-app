@@ -1,4 +1,4 @@
-{{% load static %}}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +11,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'css/login_signup/general.css' %]">
-  <link rel="stylesheet" href="{% static 'css/login_signup/main.css' %]">
+  <link rel="stylesheet" href="{% static 'css/login_signup/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login_signup/main.css' %}">
 
   <title>Login</title>
 </head>
@@ -22,8 +22,9 @@
     <!-- Left side -->
     <div id = "left-side">
       
-      <form id = "login-form" 
+      <form id = "login-form" method="POST"
         >
+        {% csrf_token %}
         <img id = "logo-for-login" src="{% static '/images/logo2.png' %}" alt="">
         <div id = "welcome-back">
           Welcome back &#127876
@@ -34,20 +35,29 @@
         <div class = "sub-welcome">
           And, happy cooking :)
         </div>
-  
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
         <div style="height: 35px;"></div>
-  
+        
         <input id = "username-input" 
               name = "username-input" 
               class = "input-shape-login"  
-              type="text" 
-              placeholder="Username"
+              type = "text" 
+              placeholder = "Username"
+              value = "{{ username }}"
               >
 
         <input id = "password-input" 
               name = "password-input" 
               class = "input-shape-login" 
-              type="password" 
+              type = "password" 
               placeholder="Password"
               >
   
@@ -79,7 +89,7 @@
       
       <div id = "Sign-up-box">
         Don't have an account?
-        <a href="/signup.html">
+        <a href="{% url 'signup' %}">
           <span id = "sign-up-transform" href="#">
             Sign up here
           </span>
@@ -87,7 +97,7 @@
       </div>
 
       <div id = "continue-without-login-box">
-        <a href="/index.html" 
+        <a href="{% url 'index' %}" 
         onclick="toHomepageWithoutLogin()" 
         class = "template-anchor-01">
           Continue without login
@@ -161,7 +171,7 @@
       else if(valid){
         localStorage.setItem('login', 'yes');
         document.getElementById("login-form").submit();
-        window.location.href = "/index.html";  
+        {% comment %} window.location.href = "{% url 'index' %}";   {% endcomment %}
       }
 
     }

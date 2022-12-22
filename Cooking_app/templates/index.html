@@ -1,4 +1,4 @@
-{% load static %}
+{{% load static %}}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +10,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
-  <link rel="stylesheet" href="{% static 'css/index/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %]">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %]">
+  <link rel="stylesheet" href="{% static 'css/index/main.css' %]">
 
   <title>Cooking Website</title>
+  
 </head>
 
 <body>
@@ -33,16 +34,16 @@
     <!-- Sidebar main  -->
     <div class = "sidebar-main"> 
 
-      <div class = "container-0">
-        <div class = "container-00">
-          <button id = "JoinUsButton">
+      <div id = "container-0">
+        <div id = "container-00">
+          <button type="button" id = "JoinUsButton" onclick="login()">
             <span>
               Join Us
             </span>
-        </button>
+          </button>
         </div>
-        <div class = "container-01">
-          <a href="#">
+        <div id = "container-01">
+          <a href="/profile.html">
             <img src="{% static '/icons/user.png' %}" alt="">
             <p>Hoang Phu</p>
           </a>
@@ -168,7 +169,15 @@
       </div>
 
       <div id = "middle-header">
-        <input id = "header-search" type="text" placeholder="Search recipes">
+        <!-- Search on header -->
+        <form action="/search.html">
+          <input id = "header-search" 
+          name = "header-search"
+          type="text" 
+          placeholder="Search recipes"
+          >
+          <input type="submit" style="display:none"/>
+        </form>
 
         <button id = "search-btn-header" onclick="openSearchOnHeader()">
           <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
@@ -176,23 +185,27 @@
       </div>
 
       <div id = "right-header">
-        <div class = "container-10">
-          <button id = "JoinUsButton2">
+        <div id = "container-10">
+          <button id = "JoinUsButton2" onclick="login()">
             <span>
               Log In / Sign Up
             </span>
           </button>
         </div>
-        <div class = "container-11">
+        <div id = "container-11">
           
           <div class = "dropdown">
             <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-            <img class = "profile-header" onclick="displayDropdown()" src="icons/user.png' %}" alt="">
+            <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
             <div id="my-dropdown" class="dropdown-content">
-              <a href="#">Profile</a>
-              <a href="#">Saved Recipes</a>
-              <a href="#">Settings</a>
-              <a href="#">Log out</a>
+              <a href="/profile.html">Profile</a>
+              <a href="/profile.html">Saved Recipes</a>
+              <a href="/profile.html">Settings</a>
+              <a href="/login.html" 
+                  onclick="return logout();"
+              >
+                  Log out
+              </a>
             </div>
           </div>
           
@@ -205,7 +218,17 @@
     <!-- Header of main -->
     <div id = "Search-Post-Main">
       <span id = "welcome😄">Welcome &#127834; &#127835; &#127857;</span>
-      <input id = "search-main" type="text" placeholder="Search recipes">
+      <!-- Searching Form -->
+      <form action="/search.html">
+        <input id = "search-main" 
+              name = "search-main"
+              type="text" 
+              placeholder="Search recipes"
+        >
+        <input type="submit" style="display:none"/>
+      </form>
+      
+
       <div id = "keywords-field">
         <button id = "scroll-left-keywords" onclick="Scroll('keywords-example', -100)">
           <img src="{% static '/icons/left-arrow.png' %}" alt="">
@@ -240,7 +263,7 @@
 
       </div>
 
-      <a id = "Post-A-Recipe" href="#">
+      <a id = "Post-A-Recipe" onclick="PostARecipe()">
         <button>
           Post a recipe <span>&#127869;</span>
         </button>
@@ -812,6 +835,28 @@
 
 <!-- javascript Code -->
 <script>
+  initialize();
+
+  function initialize(){
+    if(localStorage.getItem("login") === null || 
+        localStorage.getItem('login') == 'no')
+        {
+      document.getElementById("container-01").style.visibility = "hidden";
+      document.getElementById("container-00").style.visibility = "visible";
+
+      document.getElementById("container-11").style.visibility = "hidden";
+      document.getElementById("container-10").style.visibility = "visible";
+    }
+
+    else {
+      document.getElementById("container-01").style.visibility = "visible";
+      document.getElementById("container-00").style.visibility = "hidden";
+
+      document.getElementById("container-11").style.visibility = "visible";
+      document.getElementById("container-10").style.visibility = "hidden";
+    }
+
+  }
   
   window.onclick = function(event) {
     if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
@@ -864,6 +909,29 @@
     }
 
   }
+  function logout(){
+    localStorage.setItem('login', 'no');
+    return true;
+  }
+
+  function login(){
+    window.location.href = "/login.html";
+  }
+
+  function PostARecipe(){
+    if(localStorage.getItem('login') === null ||
+        localStorage.getItem('login') == 'no'){
+        if(confirm("You need to login")){
+          window.location.href = "/login.html";
+        }
+        else{
+        }
+    }
+    else{
+      window.location.href = "/post_a_recipe.html";
+    }
+  }
+  
 </script>
 
 </html>

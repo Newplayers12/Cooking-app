@@ -44,7 +44,7 @@
 #back-to-home-btn:active{
   opacity: 0.8;
 }
-.form-recipe{
+#form-recipe{
   display: flex;
   flex-direction: column;
 
@@ -73,7 +73,7 @@
   outline: none;
 }
 
-#decription-recipe{
+#description-recipe{
   text-align:start;
   height: 55px;
 }
@@ -139,7 +139,7 @@
   right: -10px;
 }
 
-.submit-btn{
+#submit-btn{
   margin-top: 30px;
   height: 31px;
   background-color:white;
@@ -152,12 +152,12 @@
   font-weight: 400;
 }
 
-.submit-btn:hover{
+#submit-btn:hover{
   border: none;
   background-color:lightskyblue;
 }
 
-.submit-btn img{
+#submit-btn img{
   position: absolute;
   bottom: 2px;
   right: 50px;
@@ -165,7 +165,8 @@
   opacity: 0;
 }
 
-.submit-btn:hover img{
+#submit-btn:hover img{
   right: 90px;
   opacity: 1;
 }
+

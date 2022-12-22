@@ -46,14 +46,14 @@
 }
 
 /* main*/
-.container-0{
+#container-0{
   width: 100%;
   min-height: 60px;
 
   position: relative;
 }
 
-.container-01{
+#container-01{
   height: 100%;
   width: 100%;
   position: absolute;
@@ -66,7 +66,7 @@
   margin-top: 5px;
 }
 
-.container-01 a{
+#container-01 a{
   text-decoration: none;
   font-size: 14px;
   color: black;
@@ -76,17 +76,17 @@
   justify-content: center;
   align-items: center;
 }
-.container-01 a p{
+#container-01 a p{
   margin-top: 5px;
   font-size: 14px;
 }
-.container-01 img{
+#container-01 img{
   width: 28px;
   height: 28px;
   border-radius: 100px;
 }
 
-.container-00{
+#container-00{
   height: 100%;
   width: 100%;
 
@@ -96,7 +96,6 @@
 
   position: absolute;
   visibility: hidden;
-  
 }
 
 #JoinUsButton{

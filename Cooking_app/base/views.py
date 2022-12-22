@@ -71,18 +71,29 @@ class PersonalInfo(TemplateView):
     context = {}
     template_name = 'profile.html'
 
+    def get_object(self, request):
+        return UserInfo.objects.get(user=request.user)
+
     def get(self, request, *args, **kwargs):
-        user_id = request.user.id
-        print(user_id)
-        try:
-            self.context = {
-                'user_info': UserInfo.objects.get(user=user_id),
-                'user_recipes': UserRecipe.objects.filter(created_by=user_id),
-            }
-        except Exception as e:
-            print("self.context")
-            messages.error(request, message=e)
+        user_info = self.get_object(request)
+        self.context = {
+            'user_info': self.form_class(request.POST, instance=user_info),
+            # 'user_recipes': UserRecipe.objects.filter(created_by=user_info.id),
+            #TODO: UserRecipe Model
+        }
         return render(request, self.template_name, self.context)
 
     def post(self, request, *args, **kwargs):
-        pass
+        user_info = self.get_object(request)
+        form = self.form_class(request.POST, instance=user_info)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+        print(form)
+        """ self.context = {
+            'user_info': form,
+            # 'user_recipes': UserRecipe.objects.filter(created_by=user_info.id),
+            #TODO: UserRecipe Model
+        } """
+        return render(request, self.template_name, self.context)

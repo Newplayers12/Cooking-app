@@ -171,10 +171,16 @@ def profile_acc(request):
             bday=new_bday,
             phone=new_phone,
         )
+        
+        
+        
+        
+
+        
         #User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
         print(request.POST.keys())
-        print()
-        print(request.POST)
+        
+        
         pass
     
     

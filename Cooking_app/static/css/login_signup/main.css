@@ -4,29 +4,30 @@
   height: 100%;
   background-color: white;
   border-radius: 20px 0 0 20px;
-  position: relative;
   transition: all 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 #right-side{
   flex: 55%;
   height: 100%;
   border-radius: 0 20px 20px 0;
-  position: relative;
   transition: all 1s;
+  position: relative;
 }
 
 /* left-side */
-#log-in-side{
-  height: 100%;
+#login-form{
+  flex: 85%;
   width: 100%;
   background-color: white;
   border-radius: 20px 0 0 20px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: absolute;
-  visibility: visible;
 
 }
 
@@ -36,8 +37,6 @@
   background-color: lavender;
   border-radius: 20px 0 0 20px;
   position: absolute;
-
-  visibility: hidden;
 }
 
 /* right-side */
@@ -48,20 +47,18 @@
   
   display: flex;
   position: absolute;
-  visibility: visible;
+
 
 }
 
-#sign-up-side{
+#signup-form{
   display: flex;
   height: 100%;
   width: 100%;
   border-radius: 0 20px 20px 0;
   flex-direction: column;
+  margin: 0 0 0 40px;
   position: absolute;
-  visibility: hidden;
-
-  margin: 0 0 0 30px;
 }
 
 /* img-slides */
@@ -101,11 +98,13 @@
 .button-display-left{
   bottom: 15px;
   right: 75px;
+  visibility: hidden;
 }
 
 .button-display-right{
   bottom: 15px;
   right: 30px;
+  visibility: hidden;
 }
 
 @keyframes fading{
@@ -122,11 +121,11 @@
 #slogan-text{
   position: absolute;
   font-family: La Belle Aurore;
-  font-size: 28px;
-  font-weight: 400;
-  color: white;
+  font-size: 32px;
+  font-weight: 500;
+  color: lavenderblush;
   bottom: 0;
-  left: 10px;
+  left: 30px;
 
 }
 
@@ -142,7 +141,7 @@
 }
 
 #welcome-back{
-  margin-top: -10px;
+  margin: 10px 0;
   font-size: 30px;
   font-weight: 500;
   align-self: center;
@@ -270,11 +269,13 @@
 
 
 #Sign-up-box{
-  margin: 10px 0 10px 0;
+  margin: 0px 0 10px 0;
+  flex:5%;
   display: flex;
-  justify-content: center;
+  justify-content:start;
   align-items: center;
 }
+
 #sign-up-transform{
   padding-left: 5px;
   font-size: 13px;
@@ -297,7 +298,7 @@
 }
 
 #sign-up-quote q{
-  font-size: 28px;
+  font-size: 22px;
   position: absolute;
   left: 20px;
   bottom: 20%;
@@ -328,7 +329,7 @@
 }
 
 #Your-infomation{
-  margin: 0 0 7.5px 0;
+  margin: 5px 0 7.5px 0;
   font-size: 15px;
   font-weight: 400;
 }
@@ -358,23 +359,24 @@
 #gender-signup{
   margin: 0 100px 0 -25px;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
 }
 
 #gender-signup input{
-
+  display: inline-block;
 }
 
 #gender-signup label{
-  margin-left: -50px;
+  display: inline-block;
+  margin-left: -65px;
 }
 
 #signup-button{
   height: 35px;
-  margin: 5px 80px 0 0;
+
+  margin: 20px 80px 0 0;
   background-color: black;
   color: white;
   font-size: 13px;
@@ -392,3 +394,24 @@
 #signup-button:active{
   opacity: 0.65;
 }
+#signup-a{
+
+}
+#continue-without-login-box{
+  flex: 10%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: end;
+}
+
+.template-anchor-01{
+  text-decoration: none;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.template-anchor-01:hover{
+  text-decoration: underline;
+}
+

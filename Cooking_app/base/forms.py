@@ -66,4 +66,6 @@ class SignupForm(UserCreationForm):
         return user
             
 class ProfileForm(ModelForm):
-    pass
+    class Meta:
+        model = UserInfo
+        fields = '__all__'

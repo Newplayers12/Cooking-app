@@ -36,7 +36,7 @@
   border-radius: 200px;
   position: relative;
   border: 1px lavender solid;
-  background: url('/icons/user.png') no-repeat center;
+  background: url('/static/icons/user.png') no-repeat center;
   background-size: 100%;
 }
 
@@ -50,9 +50,9 @@
 }
 #open-file-img:hover{
   background:
-  url('/icons/icons8-camera-96.png') no-repeat center,
+  url('/static/icons/icons8-camera-96.png') no-repeat center,
   radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.1) 0%, rgba(80, 80, 80, 0.1) )no-repeat center,
-  url('/icons/user.png') no-repeat center;
+  url('/static/icons/user.png') no-repeat center;
   
   background-size: 75%, 100%, 100%;
 }
@@ -73,7 +73,14 @@
   padding-right: 10px;
 }
 
-#log-out-btn span::after{
+#log-out-btn a{
+  text-decoration: none;
+  color: black;
+  
+  min-width: 100px;
+  height: 17.5%;
+}
+#log-out-btn a::after{
   font-size:17px;
   content: '\21E5';
   position: absolute;
@@ -83,20 +90,47 @@
   transition: 0.3s;
 
 }
-#log-out-btn:hover span{
+#log-out-btn:hover a{
 
 }
 
-#log-out-btn:hover span::after{
+#log-out-btn:hover a::after{
   
   opacity: 1;
   right: 10px;
 
 }
 
+#fullname-form, #bio-form{
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+#bio-form textarea{
+  resize: none;
+  background-color: #fafafa;  
+  overflow-y: hidden;
+}
+
+#bio-form textarea:focus{
+  outline: none;
+}
+
+#fullname-input{
+  flex:80%;
+  border: none;
+  background-color: #fafafa;
+  font-size: 28px;
+  font-family: Roboto;
+  font-weight: 600px;
+}
+
+#fullname-input:focus{
+  outline: none;
+}
 
 #fullname{
-  
   font-size: 28px;
   font-family: Roboto;
   font-weight: 600px;
@@ -105,9 +139,11 @@
   flex:80%;
   cursor: pointer;
 }
+
 #fullname:hover{
   color:cornflowerblue;
 }
+
 #bio-container, #name-container{
   display: flex;
 }
@@ -137,15 +173,50 @@
   color:cornflowerblue;
 }
 
-#city-container input{
+.text-location{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#city-section{
+  width: 15%;
+  display: flex;
+  align-items: flex-end;
+}
+
+#city-form{
+  display: none;
+}
+
+#city-form input{
   background-color: #fafafa;
-  width: 25px;
+  width: 100%;
   border: none;
 }
-#city-container input:focus{
+
+#city-form input:focus{
   outline: none;
 }
-.form-control{
+
+#city-display{
+  position: relative;
+  display: flex;
+}
+
+.edit-text{
+  position: absolute;
+  background-color: gainsboro;
+  padding: 3.5px 7.5px;
+  border-radius: 5px;
+  top:30px;
+  left:15px;
+  opacity: 0;
+}
+#city-display:hover div{
+  opacity: 1;
+}
+.country-form{
   flex: 1;
   border:none;
   -moz-appearance: none;
@@ -170,42 +241,42 @@
 
 #facebook{
   opacity: 0.5;
-  background-image: url('/icons/facebook.png');
+  background-image: url('/static/icons/facebook.png');
 }
 
 #facebook:hover{
   opacity: 1;
-  background-image: url('/icons/facebook-hover.png');
+  background-image: url('/static/icons/facebook-hover.png');
 }
 
 #twitter{
   opacity: 0.5;
-  background-image: url('/icons/twitter.png');
+  background-image: url('/static/icons/twitter.png');
 }
 
 #twitter:hover{
   opacity: 1;
-  background-image: url('/icons/twitter-hover.png');
+  background-image: url('/static/icons/twitter-hover.png');
 }
 
 #instagram{
   opacity: 0.5;
-  background-image: url('/icons/instagram.png');
+  background-image: url('/static/icons/instagram.png');
 }
 
 #instagram:hover{
   opacity: 1;
-  background-image: url('/icons/instagram-hover.png');
+  background-image: url('/static/icons/instagram-hover.png');
 }
 
 #pinterest{
   opacity: 0.5;
-  background-image: url('/icons/pinterest.png');
+  background-image: url('/static/icons/pinterest.png');
 }
 
 #pinterest:hover{
   opacity: 1;
-  background-image: url('/icons/pinterest-hover.png');
+  background-image: url('/static/icons/pinterest-hover.png');
 }
 
 .editing-container{
@@ -291,6 +362,7 @@
 }
 
 #display-following{
+  
 }
 
 .search-recipes-container{
@@ -416,12 +488,16 @@ input:checked + .slider:before {
   flex-direction: column;  
   
 }
+.item-setting select{
+  cursor: pointer;
+}
 
 .item-setting input{
   font-size: 13.5px;
   background-color: #fafafa;
   border: none;
   height: 20px;
+  cursor: pointer;
 }
 
 .item-setting p{
@@ -462,10 +538,12 @@ input:focus{
   display:block;
  
 }
+
 #code-form{
   margin-top: 5px;
   display: flex;
 }
+
 #code-form input{
   padding: 0 10px;
   margin-right: 10px;
@@ -566,6 +644,7 @@ input:focus{
   border: none;
   text-align: center;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .button-template-setting:hover{
   opacity: 0.8;
@@ -641,6 +720,7 @@ input:focus{
   border-radius: 30px;
   color: white ;
   transition: all .3s;
+  cursor: pointer;
 }
 .remove-button{
   background-color: #d21404;
@@ -713,7 +793,7 @@ input:focus{
 
 .saved-recipe-checkbox input[type="checkbox"] + label
 {
-  background: url('/icons/saved-hover.png') no-repeat center;
+  background: url('/static/icons/saved-hover.png') no-repeat center;
   background-size: 100%;
   height: 24px;
   width: 24px;
@@ -723,7 +803,7 @@ input:focus{
 
 .saved-recipe-checkbox input[type="checkbox"]:checked + label
 {
-  background: url('/icons/saved.png') no-repeat center;
+  background: url('/static/icons/saved.png') no-repeat center;
   background-size: 100%;
   height: 24px;
   width: 24px;

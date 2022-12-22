@@ -29,7 +29,7 @@ body{
 main{
   background-color: white;
   width: calc(70%);
-  height: calc(80%);
+  height: calc(85%);
   border-radius: 20px;
   display: flex;
   flex-wrap: wrap;

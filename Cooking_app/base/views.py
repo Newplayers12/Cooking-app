@@ -8,13 +8,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
-from .forms import SignupForm, LoginForm, ProfileForm
-from .models import UserInfo, User
+from .models import UserInfo
 
 
-def home_anon(request):
-    pass
+
 
 
 # def login_user(request):
@@ -69,11 +68,16 @@ def home_anon(request):
 #     return render(request, template_name, context)
     
         
-def home_user(request):
+def home(request):
+    template_name = 'index.html'
+    try:
+        user = User.objects.get(username=request.user.username) 
+    except User.DoesNotExist:
+        user = None
     context = {
-        'user_here': user
+        'user': user,
     }
-    return render(request, 'index.html', context)
+    return render(request, template_name, context)
 
 def signup_acc(request):
     template_name = 'signup.html'
@@ -84,7 +88,9 @@ def signup_acc(request):
         username = request.POST.get('username-signup-input')
         password1 = request.POST.get('password-signup-input')
         password2 = request.POST.get('repassword-signup-input')
-
+        gender = request.POST.get('gender')
+        
+        print(request.POST['gender'])
         context = {
             'fullname': fullname,
             'email': email,
@@ -105,15 +111,16 @@ def signup_acc(request):
         user = User.objects.create(
             username=username,
             password=make_password(password1),
+
             email=email,
         )
-        UserInfo.objects.create_user(
+        UserInfo.objects.create(
             user=user,
             fullname=fullname,
         )
         login(request, user)
         return redirect('/')
-        print(request.POST.keys())
+        
     return render(request, template_name, context)
 
 def login_acc(request):
@@ -126,14 +133,20 @@ def login_acc(request):
             'username': username,
         }
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user:
             login(request, user)
-            return render(request, 'index.html', {'user':user})
-
+            return redirect('/')
         messages.error(request, "Email or Password is incorrect.")
+        
     return render(request, template_name, context)
 
+
+
+
+def profile_acc(request):
+    context = {}
+    template_name = 'profile.html'
+    
 
 
 # Starting from here 

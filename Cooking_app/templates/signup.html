@@ -44,6 +44,7 @@
               id = "signup-form"
               method = "POST"
         >
+        {% csrf_token %}
           <p id = "create-an-account">Create an account</p>
           <p id = "Your-infomation">Your information</p>
           <div id = "gender-signup">
@@ -146,7 +147,7 @@
       }
       else if(valid){
         document.getElementById("signup-form").submit();
-        window.location.href = "{% url 'login' %}";
+        {% comment %} window.location.href = "{% url 'login' %}"; {% endcomment %}
       }
     }
   </script>

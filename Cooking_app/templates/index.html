@@ -198,13 +198,13 @@
           <div style=" visibility: {% if user %} visible {% else %} hidden {% endif %}" id = "container-11">
             
             <div class = "dropdown">
-              <span class = "username-header" onclick="displayDropdown()"> {{username}}</span>
+              <span class = "username-header" onclick="displayDropdown()"> {{user.username}}</span>
               <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
               <div id="my-dropdown" class="dropdown-content">
-                <a href="/profile.html">Profile</a>
-                <a href="/profile.html">Saved Recipes</a>
-                <a href="/profile.html">Settings</a>
-                <a href="/login.html" 
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'profile' %}">Saved Recipes</a>
+                <a href="{% url 'profile' %}">Settings</a>
+                <a href="{% url 'logout' %}" 
                     onclick="return logout();"
                 >
                     Log out
@@ -846,7 +846,8 @@
 <script>
   initialize();
 
-  {% comment %} function initialize(){
+  {% comment %} 
+  function initialize(){
     if(localStorage.getItem("login") === null || 
         localStorage.getItem('login') == 'no')
         {

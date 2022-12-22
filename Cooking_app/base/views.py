@@ -20,7 +20,7 @@ class Authentication(TemplateView):
     f_login = LoginForm
     f_signup = SignupForm
     context = {}
-    template_name = 'login_signup.html'
+    template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
         self.context = {

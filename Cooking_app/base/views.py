@@ -152,39 +152,27 @@ def profile_acc(request):
     """TODO
         show user default avatar onto profile
     """
-    user_info = UserInfo.objects.get(user = request.user)
-    context = {
-        'user_info': user_info
-    }
     template_name = 'profile.html'
-    
+    user_info = UserInfo.objects.get(user=request.user)
     if request.method == 'POST':
         new_fullname = request.POST.get('fullname-input')
         new_gender = request.POST.get('gender')
         new_bday = request.POST.get('birthday')
         new_phone = request.POST.get('phone')
         new_password = request.POST.get('newpassword')
+        # Case: Check old and new password
         user_info.save (
-            user=user_info.user.save(password=make_password(new_password)),
             fullname=new_fullname,
             gender=new_gender,
             bday=new_bday,
             phone=new_phone,
         )
-        
-        
-        
-        
-
-        
-        #User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
+        User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
         print(request.POST.keys())
-        
-        
-        pass
     
-    
-    
+    context = {
+        'user_info': user_info
+    }
     return render(request, template_name, context)
     
 
@@ -262,11 +250,6 @@ We will start again from here on now
 #             }
 #         return render(request, self.template_name, self.context)
 
-# @method_decorator(login_required(login_url='accounts/login'), name='dispatch')
-# class Exit(TemplateView):
-#     def get(self, request, *args, **kwargs):
-#         logout(request)
-#         return redirect('/')
 
 # @method_decorator(login_required(login_url='accounts/login'), name='dispatch')
 # class PersonalInfo(TemplateView):

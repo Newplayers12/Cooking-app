@@ -154,13 +154,13 @@
 }
 
 .sidebar-main-item:hover #home-icon{
-  background-image: url('/icons/home-hover.png');
+  background-image: url('/static/icons/home-hover.png');
   background-size: 24px 24px;
   background-repeat: no-repeat;
 }
 
 .sidebar-main-item:hover #plan-icon{
-  background-image: url('/icons/plan-hover.png');
+  background-image: url('/static/icons/plan-hover.png');
   background-size: 24px 24px;
   background-repeat: no-repeat;
 }
@@ -198,7 +198,7 @@
 }
 
 #saved-recipes:hover img{
-  background-image: url('/icons/saved-hover.png');
+  background-image: url('/static/icons/saved-hover.png');
   background-size: 24px 24px;
   background-repeat: no-repeat;
 }
@@ -299,35 +299,35 @@
 }
 
 #icon-socialmedia-facebook{
-  background-image: url('/icons/facebook.png');
+  background-image: url('/static/icons/facebook.png');
 }
 
 #icon-socialmedia-facebook:hover{
-  background-image: url('/icons/facebook-hover.png');
+  background-image: url('/static/icons/facebook-hover.png');
 }
 
 #icon-socialmedia-twitter{
-  background-image: url('/icons/twitter.png');
+  background-image: url('/static/icons/twitter.png');
 }
 
 #icon-socialmedia-twitter:hover{
-  background-image: url('/icons/twitter-hover.png');
+  background-image: url('/static/icons/twitter-hover.png');
 }
 
 #icon-socialmedia-instagram{
-  background-image: url('/icons/instagram.png');
+  background-image: url('/static/icons/instagram.png');
 }
 
 #icon-socialmedia-instagram:hover{
-  background-image: url('/icons/instagram-hover.png');
+  background-image: url('/static/icons/instagram-hover.png');
 }
 
 #icon-socialmedia-pinterest{
-  background-image: url('/icons/pinterest.png');
+  background-image: url('/static/icons/pinterest.png');
 }
 
 #icon-socialmedia-pinterest:hover{
-  background-image: url('/icons/pinterest-hover.png');
+  background-image: url('/static/icons/pinterest-hover.png');
 }
 
 .sidebar-footer-more{

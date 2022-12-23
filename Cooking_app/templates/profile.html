@@ -237,7 +237,8 @@
           onmouseover="onMouseOverImgFile()"
           onmouseout="onMouseOutImgFile()"
         >
-          <form id = "img-profile-form" action="">
+          <form id="img-profile-form" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <input type="file" id="img-profile" name="img-profile" accept="image/*">
           </form>
         </div>
@@ -252,23 +253,23 @@
 
           <div id = "name-section">
             <!-- Fullname form -->
-            <form  method="POST" id = "fullname-form">
+            <form  method="POST" id="fullname-form">
               {% csrf_token %}
               <input 
                   type="text" 
-                  name = "fullname-input" 
-                  id = "fullname-input" 
+                  name="fullname-input" 
+                  id="fullname-input" 
               >
               <div style="flex:20%"></div>
             </form>
 
             <div id = "name-container">
               <p id = "fullname" onclick="displayModifyFullname()">
-                {{user_info.fullname}}
+                {{ user_info.fullname }}
                 <!-- inline-block Nếu đã có verification ngược lại none. -->
                 <img 
                 style="display: inline-block;"
-                src="/images/tick-mark.png" 
+                src="{% static '/images/tick-mark.png' %}" 
                 
                 alt="check-mark">
               </p>
@@ -765,7 +766,7 @@
             <p style="width: 40px; opacity: 0;"></p>
 
             <div class = "item-setting">
-              <input type="date" id="birthday" name="birthday" value="{{ user_info.bday | date:'Y-m-d'}}">
+              <input type="date" id="birthday" name="birthday" value="{{ user_info.bday | date:'Y-m-d' }}">
               <p style=
               "
               width: 100%;
@@ -1280,7 +1281,7 @@
       document.getElementById("open-file-img").style.background = "\
       url('/static/icons/icons8-camera-96.png') no-repeat center,\
       radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.1) 0%, rgba(80, 80, 80, 0.1) ) no-repeat center,\
-      url('{{user_info.avatar.url}}') center no-repeat"
+      url('{{ user_info.avatar.url }}') center no-repeat"
       document.getElementById("open-file-img").style.backgroundSize = "75%, 100%, 100%";
     }
     function onMouseOutImgFile(){
@@ -1288,7 +1289,7 @@
       //     background-repeat: no-repeat;
       //     background-position: center;
       //     background-size: 100%;
-      document.getElementById("open-file-img").style.backgroundImage = "url('{{user_info.avatar.url}}')";
+      document.getElementById("open-file-img").style.backgroundImage = "url('{{ user_info.avatar.url }}')";
       document.getElementById("open-file-img").style.backgroundRepeat = "no-repeat";
       document.getElementById("open-file-img").style.backgroundPosition = "center";
       document.getElementById("open-file-img").style.backgroundSize = "100%";

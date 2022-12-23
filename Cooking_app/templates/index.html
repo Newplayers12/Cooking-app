@@ -42,7 +42,7 @@
             </span>
           </button>
         </div>
-        <div style="visibility: {% if user %} visible{% else %} hidden {% endif %};" id = "container-01">
+        <div style="visibility: {% if user %} visible {% else %} hidden {% endif %};" id = "container-01">
           <a href="{% url 'profile' %}">
             <img src="{% static '/icons/user.png' %}" alt="">
             <p>{{user.user.username}}</p>

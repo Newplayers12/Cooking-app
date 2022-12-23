@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 
 
@@ -114,6 +115,7 @@ def signup_acc(request):
         UserInfo.objects.create(
             user=user,
             fullname=fullname,
+            gender=gender[0]
         )
         login(request, user)
         return redirect('/')
@@ -163,32 +165,27 @@ def profile_acc(request):
         new_bday = request.POST.get('birthday')
 
         # Case: Compare old and new password
-        if new_password and user_info.user.check_password(new_password):
-            messages.error(request, "New password cannot be the same as your old password.")
-        else:
-            if new_fullname:
-                user_info.save(fullname=new_fullname)
-            if new_password:
+        if new_password:
+            if user_info.user.check_password(new_password):
+                messages.error(request, "New password cannot be the same as your old password.")
+            else:
                 user_info.user.set_password(new_password)
                 user_info.user.save()
-            if new_gender:
-                user_info.save(gender=new_gender)
-            if new_phone:
-                user_info.save(phone=new_phone)
-            if new_bday:
-                user_info.save(bday=new_bday)
-            # User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
-        context = {
-            'user_info.fullname': new_fullname,
-            'user_info.gender': new_gender,
-            'user_info.phone': new_phone,
-            'user_info.bday': new_bday,
-        }
-        print(request.POST.keys())
-    else:
-        context = {
-            'user_info': user_info,
-        }
+        if new_fullname:
+            user_info.fullname = new_fullname
+        if new_gender:
+            user_info.gender = new_gender
+        if new_phone:
+            user_info.phone = new_phone
+        if new_bday:
+            user_info.bday = new_bday
+        if request.FILES['img-profile']:
+            user_info.avatar = request.FILES['img-profile']
+
+        user_info.save(update_fields=['fullname', 'gender', 'phone', 'bday', 'avatar'])
+    context = {
+        'user_info': user_info,
+    }
     return render(request, template_name, context)
 
 @login_required(login_url='login')

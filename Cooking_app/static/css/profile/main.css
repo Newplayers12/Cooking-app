@@ -1,4 +1,11 @@
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 #user-profile-infomation{
   display: flex;
   flex-direction: row;
@@ -36,8 +43,6 @@
   border-radius: 200px;
   position: relative;
   border: 1px lavender solid;
-  background: url('/static/icons/user.png') no-repeat center;
-  background-size: 100%;
 }
 
 #open-file-img input{
@@ -47,14 +52,6 @@
   position: absolute;
   opacity: 0;
   
-}
-#open-file-img:hover{
-  background:
-  url('/static/icons/icons8-camera-96.png') no-repeat center,
-  radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.1) 0%, rgba(80, 80, 80, 0.1) )no-repeat center,
-  url('/static/icons/user.png') no-repeat center;
-  
-  background-size: 75%, 100%, 100%;
 }
 
 #log-out-btn{
@@ -527,7 +524,7 @@ input:focus{
   outline: none;
 }
 
-#username{
+#username, #email{
   height: 20px;
   font-size: 13.5;
   color: rgb(96,96,96);

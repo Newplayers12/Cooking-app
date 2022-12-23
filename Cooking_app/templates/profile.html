@@ -211,7 +211,13 @@
     </div>
 
   </aside>
-   
+
+  {% if messages %}
+    {% for message in messages %}
+      <script> alert("{{ message }}") </script>
+    {% endfor %}
+  {% endif %}
+
   <!-- Main -->
   <main style = "
                 margin: 50px 0 0 calc(2.5%);
@@ -220,8 +226,20 @@
   id = "main">
     <div id = "user-profile-infomation">
       <div id = "profile-img-and-logout-container">
-        <div id = "open-file-img">
-          <input type="file" id="img-profile" name="img-profile" accept="image/*">
+        <div 
+          style="
+          background-image: url('{{user_info.avatar.url}}');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 100%;
+          "
+          id = "open-file-img"
+          onmouseover="onMouseOverImgFile()"
+          onmouseout="onMouseOutImgFile()"
+        >
+          <form id = "img-profile-form" action="">
+            <input type="file" id="img-profile" name="img-profile" accept="image/*">
+          </form>
         </div>
 
         <button id = "log-out-btn">
@@ -247,6 +265,12 @@
             <div id = "name-container">
               <p id = "fullname" onclick="displayModifyFullname()">
                 {{user_info.fullname}}
+                <!-- inline-block Nếu đã có verification ngược lại none. -->
+                <img 
+                style="display: inline-block;"
+                src="/images/tick-mark.png" 
+                
+                alt="check-mark">
               </p>
               <div class = "editing-container">
                 <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
@@ -741,7 +765,7 @@
             <p style="width: 40px; opacity: 0;"></p>
 
             <div class = "item-setting">
-              <input type="date" id="birthday" name="birthday" value="{{ user_info.bday }}">
+              <input type="date" id="birthday" name="birthday" value="{{ user_info.bday | date:'Y-m-d'}}">
               <p style=
               "
               width: 100%;
@@ -763,7 +787,7 @@
 
             <div class = "item-setting">
               
-              <input type="tel" name = "phone" id = "phone" placeholder="{{ user_info.phone }}">
+              <input type="number" name = "phone" id = "phone" placeholder="{{ user_info.phone }}">
               <p style=
               "
               width: 100%;
@@ -781,7 +805,10 @@
 
             <div class = "item-setting">
               
-              <input type="email" name = "email" id = "email" value="{{ user_info.user.email }}">
+              <p id = "email">
+                {{ user_info.user.email }}
+              </p>
+
               <p style=
               "
               width: 100%;
@@ -1054,6 +1081,10 @@
 
 
   <script>
+    
+    document.getElementById("img-profile").onchange = function(){
+      document.getElementById("img-profile-form").submit();
+    }
     initialize();
 
     window.onclick = function(event) {
@@ -1223,10 +1254,19 @@
     }
 
     function submitInf(){
-      alert(
-        document
-        .getElementById("newpassword")
-        .style.textContent)
+      let pw = document.getElementById("newpassword").value;
+      let validPW = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,30})');
+      if(pw.length == 0 || validPW.test(pw)){
+      document.getElementById("display-settings").submit();
+      }
+      else{
+        alert('Password must be contain:\n\
+        - At least 1 (a-z).\n\
+        - At least 1 (A-Z).\n\
+        - At least 1 (0-9).\n\
+        - At least 1 special character.\n\
+        - Range of length (6, 30).\n');
+      }
 
     }
 
@@ -1234,6 +1274,26 @@
       localStorage.setItem('login', 'no');
       return true;
   }
+
+  
+  function onMouseOverImgFile(){
+      document.getElementById("open-file-img").style.background = "\
+      url('/static/icons/icons8-camera-96.png') no-repeat center,\
+      radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.1) 0%, rgba(80, 80, 80, 0.1) ) no-repeat center,\
+      url('{{user_info.avatar.url}}') center no-repeat"
+      document.getElementById("open-file-img").style.backgroundSize = "75%, 100%, 100%";
+    }
+    function onMouseOutImgFile(){
+      // background-image: url('/icons/user.png');
+      //     background-repeat: no-repeat;
+      //     background-position: center;
+      //     background-size: 100%;
+      document.getElementById("open-file-img").style.backgroundImage = "url('{{user_info.avatar.url}}')";
+      document.getElementById("open-file-img").style.backgroundRepeat = "no-repeat";
+      document.getElementById("open-file-img").style.backgroundPosition = "center";
+      document.getElementById("open-file-img").style.backgroundSize = "100%";
+      
+    }
   </script>
 
 </body>

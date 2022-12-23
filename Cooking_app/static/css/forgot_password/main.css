@@ -1,0 +1,96 @@
+.forgot-password-icon{
+  margin-top: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+#fgpw-p{
+  margin: 10px 0;
+  font-size: 25px;
+}
+
+.text1{
+  color: rgb(96, 96, 96);
+  width: 50%;
+  text-align: center;
+}
+.form-template{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input-template{
+  margin-top: 20px;
+  height: 30px;
+  width: 250px;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 2.5px 15px;
+
+}
+
+.input-template:focus{
+  outline: none;
+}
+
+
+.btn-template{
+  margin-top: 10px;
+  height: 30px;
+  width: 150px;
+  border-radius: 20px;
+  border: none;
+  background-color: cornflowerblue;
+  color: white;
+
+  cursor: pointer;
+}
+
+.btn-template:hover{
+  opacity: .9;
+}
+
+.btn-template:active{
+  opacity: .7;
+}
+
+
+#back-to-login{
+  margin-top: 25px;
+  text-decoration: none;
+  color: black;
+  
+}
+
+#back-to-login:hover{
+  text-decoration: underline;
+}
+
+#resend-code-div{
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#resend-form{
+  margin-left: 5px;
+}
+
+#resend-btn{
+  background-color: transparent;
+  border: none;
+  color:  cornflowerblue;
+  cursor: pointer;
+}
+
+#resend-btn:hover{
+  color:blue;
+  text-decoration: underline;
+}
+
+#resend-container{
+  position: absolute;
+  right:15px;
+  display: none;
+}

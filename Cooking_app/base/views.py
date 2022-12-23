@@ -1,18 +1,14 @@
-from django.views.generic import TemplateView
+from django.contrib.auth.models import User
 from django.contrib import messages
 
 
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
 
 from .models import UserInfo
-
-
 
 
 
@@ -69,6 +65,7 @@ from .models import UserInfo
     
         
 def home(request):
+    context = {}
     template_name = 'index.html'
     try:
         user = User.objects.get(username=request.user.username) 
@@ -81,8 +78,8 @@ def home(request):
     return render(request, template_name, context)
 
 def signup_acc(request):
-    template_name = 'signup.html'
     context = {}
+    template_name = 'signup.html'
     if request.method == 'POST':
         fullname = request.POST.get('fullname-signup-input')
         email = request.POST.get('email-signup-input')
@@ -112,7 +109,6 @@ def signup_acc(request):
         user = User.objects.create(
             username=username,
             password=make_password(password1),
-
             email=email,
         )
         UserInfo.objects.create(
@@ -150,43 +146,57 @@ def logout_acc(request):
 @login_required(login_url='login')
 def profile_acc(request):
     """TODO
-        show user default avatar onto profile
+        show user default avatar onto profile: {{ obj.image.url }},
+        cannot add default value in input tag type file?
+        or just add more tags, ex: <img></img>
+        src: https://stackoverflow.com/a/70485949
+        strip(): fullname, password, username ... ?
     """
+    context = {}
     template_name = 'profile.html'
+    user_info = UserInfo.objects.get(user=request.user)
     if request.method == 'POST':
         new_fullname = request.POST.get('fullname-input')
-        new_gender = request.POST.get('gender')
-        new_bday = request.POST.get('birthday')
-        new_phone = request.POST.get('phone')
         new_password = request.POST.get('newpassword')
-        # Case: Check old and new password
-        user_info = UserInfo.objects.get(user=request.user)
-        user_info.save (
-            fullname=new_fullname,
-            gender=new_gender,
-            bday=new_bday,
-            phone=new_phone,
-        )
-        User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
+        new_gender = request.POST.get('gender')
+        new_phone = request.POST.get('phone')
+        new_bday = request.POST.get('birthday')
+
+        # Case: Compare old and new password
+        if new_password and user_info.user.check_password(new_password):
+            messages.error(request, "New password cannot be the same as your old password.")
+        else:
+            if new_fullname:
+                user_info.save(fullname=new_fullname)
+            if new_password:
+                user_info.user.set_password(new_password)
+                user_info.user.save()
+            if new_gender:
+                user_info.save(gender=new_gender)
+            if new_phone:
+                user_info.save(phone=new_phone)
+            if new_bday:
+                user_info.save(bday=new_bday)
+            # User.objects.filter(pk=user_info.user.pk).update(password=make_password(new_password))
+        context = {
+            'user_info.fullname': new_fullname,
+            'user_info.gender': new_gender,
+            'user_info.phone': new_phone,
+            'user_info.bday': new_bday,
+        }
         print(request.POST.keys())
-    
-    context = {
-        'user_info': UserInfo.objects.get(user=request.user)
-    }
+    else:
+        context = {
+            'user_info': user_info,
+        }
     return render(request, template_name, context)
-    
-
-
 
 @login_required(login_url='login')
 def PostARecipe(request):
     # TODO: make a Post Model to create a Post that made by a User
-    template_name = "post_a_recipe.html"
     context = {}
+    template_name = "post_a_recipe.html"
     return render(request, template_name, context)
-    pass
-
-# Starting from here 
 
 
 

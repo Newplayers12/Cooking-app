@@ -1,12 +1,15 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
-from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
+
 
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
 
 from .models import UserInfo
@@ -81,6 +84,7 @@ def home(request):
 def signup_acc(request):
     context = {}
     template_name = 'signup.html'
+
     if request.method == 'POST':
         fullname = request.POST.get('fullname-signup-input').strip()
         email = request.POST.get('email-signup-input').strip()
@@ -106,7 +110,7 @@ def signup_acc(request):
             if dup_email:
                 messages.error(request, "Email was already signed up.")
             return render(request, template_name, context)
-            
+
         user = User.objects.create(
             username=username,
             password=make_password(password1),
@@ -115,8 +119,9 @@ def signup_acc(request):
         UserInfo.objects.create(
             user=user,
             fullname=fullname,
-            gender=gender[0]
+            gender=gender[0],
         )
+
         login(request, user)
         return redirect('/')
         
@@ -125,20 +130,58 @@ def signup_acc(request):
 def login_acc(request):
     context = {}
     template_name = 'login.html'
+
     if request.method == 'POST':
         username = request.POST.get('username-input').strip()
         password = request.POST.get('password-input').strip()
+
         context = {
             'username': username,
         }
+
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
             return redirect('/')
+
         messages.error(request, "Email or Password is incorrect.")
         
     return render(request, template_name, context)
 
+def rspw_acc(request):
+    context = {}
+    template_name = 'forgot_password.html'
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        if User.objects.filter(email=email):
+            return redirect('password_reset_confirm')
+
+        messages.error(request, "Email has not been signed up.")
+        context = {
+            'email': email,
+        }
+    return render(request, template_name, context)
+
+def rspw_acc_cf(request):
+    context = {}
+    template_name = 'forgot_password1.html'
+    return render(request, template_name, context)
+
+def rspw_acc_done(request):
+    context = {}
+    template_name = 'forgot_password2.html'
+    return render(request, template_name, context)
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'forgot_password.html'
+    email_template_name = 'password_reset_email.html'
+    subject_template_name = 'password_reset_subject'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('index')
 
 @login_required(login_url='login')
 def logout_acc(request):
@@ -152,6 +195,7 @@ def profile_acc(request):
     context = {}
     template_name = 'profile.html'
     user_info = UserInfo.objects.get(user=request.user)
+
     if request.method == 'POST':
         new_fullname = request.POST.get('fullname-input')
         new_password = request.POST.get('newpassword')

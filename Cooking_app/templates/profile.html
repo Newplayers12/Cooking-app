@@ -59,7 +59,7 @@
       <div id = "container-11">
         <div class = "dropdown">
           <span class = "username-header" onclick="displayDropdown()">{{user_info.user.username}}</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+          <img class = "profile-header" onclick="displayDropdown()" src="{{user_info.avatar.url }}" alt="">
           <div id="my-dropdown" class="dropdown-content">
             <a href="{% url 'profile' %}">Profile</a>
               <a href="{% url 'profile' %}">Saved Recipes</a>
@@ -99,7 +99,7 @@
         </div>
         <div id = "container-01">
           <a href="{% url 'profile' %}">
-            <img src="{% static '/icons/user.png' %}" alt="">
+            <img src="{{ user_info.avatar.url }}" alt="">
             <p>{{user_info.user.username}}</p>
           </a>
         </div>
@@ -354,10 +354,10 @@
   
             <div id = "country-container" class = "text-location">
               <!-- Source code: https://gist.github.com/danrovito/977bcb97c9c2dfd3398a  -->
-              <select id="country" name="country-form" class="country-form">
+              <select  id="country" name="country-form" class="country-form" >
                   
                   <option value="Country">Country</option>
-                  <option value="Afghanistan">Afghanistan</option>
+                  {% comment %} <option value="Afghanistan">Afghanistan</option>
                   <option value="Åland Islands">Åland Islands</option>
                   <option value="Albania">Albania</option>
                   <option value="Algeria">Algeria</option>
@@ -392,7 +392,7 @@
                   <option value="Brunei Darussalam">Brunei Darussalam</option>
                   <option value="Bulgaria">Bulgaria</option>
                   <option value="Burkina Faso">Burkina Faso</option>
-                  <option value="Burundi">Burundi</option>
+                  <option value="Burundi">Burundi</option> {% endcomment %}
                   <option value="Cambodia">Cambodia</option>
                   <option value="Cameroon">Cameroon</option>
                   <option value="Canada">Canada</option>
@@ -928,7 +928,7 @@
               Discard
             </button>
 
-            <button id = "save-button" class = "button-template-setting" 
+            <button type = "button" id = "save-button" class = "button-template-setting" 
             onclick="submitInf()">
               Save
             </button>
@@ -1257,16 +1257,29 @@
     function submitInf(){
       let pw = document.getElementById("newpassword").value;
       let validPW = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,30})');
-      if(pw.length == 0 || validPW.test(pw)){
-      document.getElementById("display-settings").submit();
+      let bd = document.getElementById("birthday").value;
+      let flag = true;
+
+      if(bd != ""){
+        let date = new Date(bd);
+        let diff = new Date().getFullYear() - date.getFullYear();
+        if(diff < 13 || diff > 100){
+          alert("Age must be in 13 - 100.");
+          flag = false; 
+        }
       }
-      else{
+
+      else if(pw.length >= 0 && !validPW.test(pw)){
         alert('Password must be contain:\n\
         - At least 1 (a-z).\n\
         - At least 1 (A-Z).\n\
         - At least 1 (0-9).\n\
         - At least 1 special character.\n\
         - Range of length (6, 30).\n');
+        flag = false;
+      }
+      if (flag){
+        document.getElementById("display-settings").submit();
       }
 
     }

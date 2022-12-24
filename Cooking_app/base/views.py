@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 
-from .models import UserInfo
+from .models import UserInfo, Post
 
 
 
@@ -72,9 +72,8 @@ def home(request):
     context = {}
     template_name = 'index.html'
     try:
-        user = User.objects.get(username=request.user.username) 
-        user = UserInfo.objects.get(user=user)
-    except User.DoesNotExist:
+        user = UserInfo.objects.get(user=request.user)
+    except :
         user = None
     context = {
         'user': user,
@@ -82,6 +81,9 @@ def home(request):
     return render(request, template_name, context)
 
 def signup_acc(request):
+    # if user already logged in, they will go back to home-page
+    if request.session.session_key is not None:
+        return redirect('/')
     context = {}
     template_name = 'signup.html'
 
@@ -119,7 +121,7 @@ def signup_acc(request):
         UserInfo.objects.create(
             user=user,
             fullname=fullname,
-            gender=gender[0],
+            gender=gender,
         )
 
         login(request, user)
@@ -127,14 +129,18 @@ def signup_acc(request):
         
     return render(request, template_name, context)
 
+
 def login_acc(request):
     context = {}
     template_name = 'login.html'
-
+    
+    # if user already logged in, they will go back to home-page
+    if request.session.session_key is not None:
+        return redirect('/')
+    
     if request.method == 'POST':
         username = request.POST.get('username-input').strip()
         password = request.POST.get('password-input').strip()
-
         context = {
             'username': username,
         }
@@ -148,6 +154,7 @@ def login_acc(request):
         
     return render(request, template_name, context)
 
+@login_required(login_url='login')
 def rspw_acc(request):
     context = {}
     template_name = 'forgot_password.html'
@@ -163,16 +170,20 @@ def rspw_acc(request):
         }
     return render(request, template_name, context)
 
+
+@login_required(login_url='login')
 def rspw_acc_cf(request):
     context = {}
     template_name = 'forgot_password1.html'
     return render(request, template_name, context)
 
+@login_required(login_url='login')
 def rspw_acc_done(request):
     context = {}
     template_name = 'forgot_password2.html'
     return render(request, template_name, context)
 
+@login_required(login_url='login')
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'forgot_password.html'
     email_template_name = 'password_reset_email.html'
@@ -233,6 +244,31 @@ def profile_acc(request):
 @login_required(login_url='login')
 def PostARecipe(request):
     # TODO: make a Post Model to create a Post that made by a User
-    context = {}
+    
+    user_info = UserInfo.objects.get(user=request.user)
+    context = {
+        'user_info': user_info,
+    }
+    if (request.method == 'POST'):
+        ar = request.POST.keys()
+        
+        new_title_recipe = request.POST["title-recipe"]
+        new_description_recipe = request.POST["description-recipe"]
+        new_recipe_ration = request.POST["recipe-ration"]
+        new_recipe_prep_time = request.POST["recipe-prep-time"]
+        
+        new_ingredient0 = request.POST["ingredient0"]
+        new_ingredient1 = request.POST["ingredient1"]
+        new_instruction0 = request.POST["instruction0"]
+        new_instruction1 = request.POST["instruction1"]
+        
+        new_result_img = request.FILES["result-img"]
+        new_country = request.POST["country"]
+        for key in ar:
+            # print(f"if new_{key}:")
+
+            print(f"\tnew_{key.replace('-', '_')} = request.POST.get(\"{key}\")")
+        pass
+    
     template_name = "post_a_recipe.html"
     return render(request, template_name, context)

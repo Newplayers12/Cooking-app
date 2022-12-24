@@ -223,7 +223,7 @@ input::-webkit-inner-spin-button {
   background-color: #fafafa;
 }
 
-.form-control:focus{
+.country-form:focus{
   outline: none;
 }
 

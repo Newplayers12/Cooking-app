@@ -44,7 +44,7 @@
         </div>
         <div style="visibility: {% if user %} visible {% else %} hidden {% endif %};" id = "container-01">
           <a href="{% url 'profile' %}">
-            <img src="{% static '/icons/user.png' %}" alt="">
+            <img src="{{user.avatar.url}}" alt="">
             <p>{{user.user.username}}</p>
           </a>
         </div>
@@ -199,7 +199,7 @@
             
             <div class = "dropdown">
               <span class = "username-header" onclick="displayDropdown()"> {{user.user.username}}</span>
-              <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+              <img class = "profile-header" onclick="displayDropdown()" src="{{user.avatar.url}}" alt="">
               <div id="my-dropdown" class="dropdown-content">
                 <a href="{% url 'profile' %}">Profile</a>
                 <a href="{% url 'profile' %}">Saved Recipes</a>

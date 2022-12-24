@@ -93,6 +93,11 @@
   font-size: 17px;
 }
 
+.name-subsections{
+  margin-top: 10px;
+  font-size: 15px;
+}
+
 .flex-container{
   display: flex;
   flex-direction: column;
@@ -170,3 +175,7 @@
   opacity: 1;
 }
 
+
+.country:focus{
+  outline: none;
+}

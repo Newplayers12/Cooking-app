@@ -45,7 +45,14 @@
               method = "POST"
         >
         {% csrf_token %}
+        
           <p id = "create-an-account">Create an account</p>
+          {% if messages %}
+            {% for message in messages %}
+              <script> alert("{{ message }}") </script>
+            {% endfor %}
+          {% endif %}
+          
           <p id = "Your-infomation">Your information</p>
           <div id = "gender-signup">
               <input type="radio" id="Male" name="gender" value="Male">
@@ -55,12 +62,13 @@
               <input type="radio" id="Custom" name="gender"value="Custom">
               <label for="Custom">Custom</label>
           </div>
-
+          
           <input id = "fullname-signup-input" 
                 name = "fullname-signup-input"
                 class = "input-shape-signup" 
                 type="text" 
                 placeholder="Full name"
+                value="{{ user_info.fullname }}"
                 > 
 
           <input 
@@ -70,6 +78,7 @@
                 class = "input-shape-signup" 
                 type="text" 
                 placeholder= "Email"
+                value="{{user_info.user.email}}" 
                 > 
 
           <p id = "Your-account">Your account</p>
@@ -79,6 +88,7 @@
                 class = "input-shape-signup" 
                 type="text" 
                 placeholder="Username"
+                value="{{ user_info.user.username }}"
                 >
 
           <input id = "password-signup-input" 

@@ -2,422 +2,436 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}"
+    />
 
-  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
-  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
-  <link rel="stylesheet" href="{% static 'css/post_a_recipe/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/common/general.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/post_a_recipe/main.css' %}" />
 
-  <title>Post a recipe</title>
+    <title>Post a recipe</title>
+  </head>
 
-</head>
+  <body>
+    <!-- Header -->
+    <header id="header">
+      <div id="left-header">
+        <img
+          id="icon-nav"
+          onclick="openNav()"
+          src="{% static '/icons/nav.png' %}"
+          alt="nav"
+        />
+        <a href="{% url 'index' %}">
+          <img id="logo-img2" src="{% static '/images/logo2.png' %}" alt="" />
+        </a>
+      </div>
 
-<body>
-  <!-- Header -->
-  <header id = "header">
-    <div id = "left-header">
-      <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
-      <a href="{% url 'index' %}">
-        <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
-      </a>
-    </div>
+      <div id="middle-header">
+        <!-- HEADER SEARCH -->
+        <form action="/search.html">
+          <input
+            id="header-search"
+            name="header-search"
+            type="text"
+            placeholder="Search recipes"
+          />
+          <input type="submit" style="display: none" />
+        </form>
 
-    <div id = "middle-header">
-
-      <!-- HEADER SEARCH -->
-      <form action="/search.html">
-        <input id = "header-search" 
-        name = "header-search"
-        type="text" 
-        placeholder="Search recipes"
-        >
-        <input type="submit" style="display:none"/>
-      </form>
-
-      <button id = "search-btn-header" onclick="openSearchOnHeader()">
-        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
-      </button>
-    </div>
-
-    <div id = "right-header">
-      <div id = "container-10">
-        <button id = "JoinUsButton2">
-          <span>
-            Log In / Sign Up
-          </span>
+        <button id="search-btn-header" onclick="openSearchOnHeader()">
+          <img
+            id="search-icon-header"
+            src="{% static '/icons/search.png' %}"
+            alt="Search-icon"
+          />
         </button>
       </div>
-      <div id = "container-11">
-        <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
-          <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' %}">Profile</a>
+
+      <div id="right-header">
+        <div id="container-10">
+          <button id="JoinUsButton2">
+            <span> Log In / Sign Up </span>
+          </button>
+        </div>
+        <div id="container-11">
+          <div class="dropdown">
+            <span class="username-header" onclick="displayDropdown()"
+              >{{user_info.user.username}}</span
+            >
+            <img
+              class="profile-header"
+              onclick="displayDropdown()"
+              src="{{user_info.avatar.url}}"
+              alt=""
+            />
+            <div id="my-dropdown" class="dropdown-content">
+              <a href="{% url 'profile' %}">Profile</a>
               <a href="{% url 'profile' %}">Saved Recipes</a>
               <a href="{% url 'profile' %}">Settings</a>
-              <a href="{% url 'login' %}" 
-                  onclick="return logout();"
-              >
-                  Log out
+              <a href="{% url 'login' %}" onclick="return logout();">
+                Log out
               </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
 
-  </header> 
+    <aside id="sidebar">
+      <a href="javascript:void(0)" id="closeNav" onclick="closeNav()"
+        >&times;</a
+      >
 
-  <aside id = "sidebar">
-    <a href="javascript:void(0)" id = "closeNav" onclick="closeNav()">&times;</a>
-
-    <!-- Logo website container -->
-    <div class = "logo-container">
-      <a class = "logo-a" href="{% url 'index' %}">
-        <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
-      </a>
-    </div>
-
-    <!-- Sidebar main  -->
-    <div class = "sidebar-main"> 
-
-      <div id = "container-0">
-        <div id = "container-00">
-          <button id = "JoinUsButton">
-            <span>
-              Join Us
-            </span>
-        </button>
-        </div>
-        <div id = "container-01">
-          <a href="#">
-            <img src="{% static '/icons/user.png' %}" alt="">
-            <p>Hoang Phu</p>
-          </a>
-        </div>
+      <!-- Logo website container -->
+      <div class="logo-container">
+        <a class="logo-a" href="{% url 'index' %}">
+          <img class="logo-img" src="{% static '/images/logo.png' %}" alt="" />
+        </a>
       </div>
 
-      <p style="min-height: 10px;"></p>
-        <div class = "sidebar-main-item">
-            <img id = "home-icon" src="{% static '/icons/home.png' %}" alt="">
-            <span>My Feeds</span>
+      <!-- Sidebar main  -->
+      <div class="sidebar-main">
+        <div id="container-0">
+          <div id="container-00">
+            <button id="JoinUsButton">
+              <span> Join Us </span>
+            </button>
+          </div>
+          <div id="container-01">
+            <a href="#">
+              <img src="{{user_info.avatar.url}}" alt="" />
+              <p>{{user_info.user.username}}</p>
+            </a>
+          </div>
         </div>
 
-        <div class = "sidebar-main-item">
-          <img id = "plan-icon" src="{% static '/icons/plan.png' %}" alt="">
+        <p style="min-height: 10px"></p>
+        <div class="sidebar-main-item">
+          <img id="home-icon" src="{% static '/icons/home.png' %}" alt="" />
+          <span>My Feeds</span>
+        </div>
+
+        <div class="sidebar-main-item">
+          <img id="plan-icon" src="{% static '/icons/plan.png' %}" alt="" />
           <span>Meal Planner</span>
         </div>
 
-        <div id = "sidebar-main-item-saved-recipes">
-          <div id = "saved-recipes">
-            <img src="{% static '/icons/saved.png' %}" alt="">
+        <div id="sidebar-main-item-saved-recipes">
+          <div id="saved-recipes">
+            <img src="{% static '/icons/saved.png' %}" alt="" />
             <span>Saved Recipes</span>
           </div>
-          <div class = "saved-recipes-collection">
-            <img src="{% static '/icons/folder.png' %}" alt="">
+          <div class="saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="" />
             <span>All Recipes</span>
           </div>
 
-          <div class = "saved-recipes-collection">
-            <img src="{% static '/icons/folder.png' %}" alt="">
+          <div class="saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="" />
             <span>Breakfasts</span>
           </div>
 
-          <div class = "saved-recipes-collection">
-            <img src="{% static '/icons/folder.png' %}" alt="">
+          <div class="saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="" />
             <span>Dessert</span>
           </div>
 
-          <div class = "saved-recipes-collection">
-            <img src="{% static '/icons/folder.png' %}" alt="">
+          <div class="saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="" />
             <span>Dinners</span>
           </div>
 
-          <div class = "saved-recipes-collection">
-            <img src="{% static '/icons/folder.png' %}" alt="">
+          <div class="saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="" />
             <span>Drinks</span>
           </div>
 
-          <div class = "saved-recipes-collection">
-            <img src="{% static '/icons/folder.png' %}" alt="">
+          <div class="saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="" />
             <span>Soups</span>
           </div>
-
         </div>
-
-    </div>
-
-    <!-- Sidebar footer -->
-    <div class = "sidebar-footer">
-      <div class = "sidebar-footer-socialmedia-icons">
-
-        <div class = "icon-socialmedia-container">
-          <a href="#">
-            <div id = "icon-socialmedia-facebook" class = "icon-socialmedia-icon">
-            </div>
-          </a>
-        </div>
-
-        <div class = "icon-socialmedia-container">
-          <a href="#">
-            <div id = "icon-socialmedia-twitter" class = "icon-socialmedia-icon">
-            </div>
-          </a>
-        </div>
-
-        <div class = "icon-socialmedia-container">
-          <a href="#">
-            <div id = "icon-socialmedia-instagram" class = "icon-socialmedia-icon">
-            </div>
-          </a>
-        </div>
-
-        <div class = "icon-socialmedia-container">
-          <a href="#">
-            <div id = "icon-socialmedia-pinterest" class = "icon-socialmedia-icon">
-            </div>
-          </a>
-        </div>
-
       </div>
-      <div class = "sidebar-footer-more">
-        <p class = "sidebar-footer-more-p">
 
-          <a class = "sidebar-footer-more-nev" href="#">
-            Privacy
-          </a>
+      <!-- Sidebar footer -->
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-socialmedia-icons">
+          <div class="icon-socialmedia-container">
+            <a href="#">
+              <div
+                id="icon-socialmedia-facebook"
+                class="icon-socialmedia-icon"
+              ></div>
+            </a>
+          </div>
 
-          &#9679;
+          <div class="icon-socialmedia-container">
+            <a href="#">
+              <div
+                id="icon-socialmedia-twitter"
+                class="icon-socialmedia-icon"
+              ></div>
+            </a>
+          </div>
 
-          <a class = "sidebar-footer-more-nev" href="#">
-              Terms
-          </a>
+          <div class="icon-socialmedia-container">
+            <a href="#">
+              <div
+                id="icon-socialmedia-instagram"
+                class="icon-socialmedia-icon"
+              ></div>
+            </a>
+          </div>
 
-          &#9679;
+          <div class="icon-socialmedia-container">
+            <a href="#">
+              <div
+                id="icon-socialmedia-pinterest"
+                class="icon-socialmedia-icon"
+              ></div>
+            </a>
+          </div>
+        </div>
+        <div class="sidebar-footer-more">
+          <p class="sidebar-footer-more-p">
+            <a class="sidebar-footer-more-nev" href="#"> Privacy </a>
 
-          <a class = "sidebar-footer-more-nev" href="#">
-            Copyrights
-          </a>
-        </p>
+            &#9679;
+
+            <a class="sidebar-footer-more-nev" href="#"> Terms </a>
+
+            &#9679;
+
+            <a class="sidebar-footer-more-nev" href="#"> Copyrights </a>
+          </p>
+        </div>
       </div>
-    </div>
+    </aside>
 
-  </aside>
+    <main
+      style="
+        margin: 50px 0 0 calc(2.5%);
+        transition: all 1s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+      id="main"
+    >
+      <!-- Logo Image -->
+      <img
+        style="margin-top: -50px; width: 200px; height: auto"
+        src="{% static '/images/logo_noname.png' %}"
+      />
+      <!-- Display when post successfully -->
+      <div id="div1">
+        <p id="thank-you-p">Thank you :)</p>
+        <p id="post-successfully-p">Your recipe was successfully published.</p>
+        <button id="back-to-home-btn" onclick="toHomepage()">
+          <i style="padding-right: 5px" class="fa fa-home"> </i>
+          Back to homepage
+        </button>
+      </div>
 
-  <main style= "
-                margin: 50px 0 0 calc(2.5%);
-                transition: all 1s;
-                display: flex;
-                flex-direction: column;             
-                align-items: center;
-                " 
-        id = "main">
+      <!-- Otherwise -->
+      <div id="div2">
+        <p id="share-your-recipe-p">Share your recipe</p>
+        <p id="feel-free-to-share-p">Feel free to share it!</p>
 
-        <!-- Logo Image -->
-        <img style = 
-        "
-          margin-top: -50px;
-          width: 200px;
-          height: auto;
-        " 
-        src="{% static '/images/logo_noname.png' %}">
-        <!-- Display when post successfully -->
-        <div id =  "div1">
-          <p id = "thank-you-p">
-            Thank you :)
-          </p>
-          <p id = "post-successfully-p">
-            Your recipe was successfully published.
-          </p>
-          <button id = "back-to-home-btn" onclick = "toHomepage()">
-            <i 
-            style=
-            "
-            padding-right: 5px;
-            "
-            class="fa fa-home">
-            </i>
-            Back to homepage
+        <p style="height: 30px"></p>
+        <form method="POST" id="form-recipe" action="">
+          {% csrf_token %}
+          <input
+            name="title-recipe"
+            id="title-recipe"
+            type="text"
+            
+            placeholder="Title (Name your recipe)"
+            class="input-recipe"
+          />
+
+          <textarea
+            name="description-recipe"
+            id="description-recipe"
+            cols="30"
+            rows="10"
+            class="text-area-input"
+            placeholder="Please share your inspirations for this recipe."
+          ></textarea>
+
+          <div class="horizontial-display">
+            <label for="recipe-ration">Ration</label>
+            <input
+              name="recipe-ration"
+              id="recipe-ration"
+              type="number"
+              class="input-recipe number-input"
+              min="1"
+              max="5"
+              placeholder="(1 - 5)"
+            />
+          </div>
+
+          <div class="horizontial-display">
+            <label for="recipe-prep-time">Preparation time (mins)</label>
+            <input
+              name="recipe-prep-time"
+              id="recipe-prep-time"
+              type="number"
+              class="input-recipe number-input"
+              min="5"
+              placeholder="(5 - 120)"
+            />
+          </div>
+
+          <p class="name-sections">Ingredients</p>
+          <div id="ingredients" class="flex-container">
+            <textarea
+              name="ingredient0"
+              id="ingredient0"
+              cols="30"
+              rows="1"
+              class="text-area-input"
+              placeholder="1/4 Cup Fresh Cilantro"
+            ></textarea>
+            <textarea
+              name="ingredient1"
+              id="ingredient1"
+              cols="30"
+              rows="1"
+              class="text-area-input"
+              placeholder="2 Tablespoons All-Purpose Flour"
+            ></textarea>
+          </div>
+          <button
+            type="button"
+            id="more-ingredients-btn"
+            class="more-btn"
+            onclick="addMore('ingredients')"
+          >
+            <span> More </span>
           </button>
 
-        </div>
-
-        <!-- Otherwise -->
-        <div id = "div2">
-          <p id = "share-your-recipe-p">
-            Share your recipe
-          </p>
-          <p id = "feel-free-to-share-p" >
-            Feel free to share it!
-          </p>
-
-          <p style="height: 30px;">
-
-          </p>
-          <form method="POST" id = "form-recipe" action="">
-            <input 
-            name = "title-recipe" 
-            id = "title-recipe" 
-            type="text" placeholder="Title (Name your recipe)" 
-            class = "input-recipe">
-
-            <textarea name="description-recipe" id="description-recipe" 
-            cols="30" rows="10"
-            class = "text-area-input"
-            placeholder="Please share your inspirations for this recipe."
+          <p class="name-sections">Intructions</p>
+          <div id="instructions" class="flex-container">
+            <textarea
+              name="instruction0"
+              id="instruction0"
+              cols="30"
+              rows="3"
+              class="text-area-input"
+              placeholder="Preheat the broiler to high and position the rack 8 inches from the heat."
             ></textarea>
-            <div class = "horizontial-display">
-              <label for="recipe-ration">Ration</label>
-              <input 
-              name = "recipe-ration"
-              id = "recipe-ration"
-              type="number" 
-              class="input-recipe number-input" min = "1" max = "5" 
-              placeholder="2"
-              >
-            </div>
-          
-            <div class = "horizontial-display">
-              <label for="recipe-prep-time">Preparation time (mins)</label>
-              <input 
-              name = "recipe-prep-time"
-              id = "recipe-prep-time"
-              type="number" 
-              class="input-recipe number-input" min = "5"
-              placeholder="45"
-              >
-            </div>
-            <p class = "name-sections">
-              Ingredients
-            </p>
-            <div id = "ingredients" class = "flex-container">
-              <textarea name="ingredient0" id="ingredient0" cols="30" rows="1" class = "text-area-input"
-              placeholder="1/4 Cup Fresh Cilantro"
-              ></textarea>
-              <textarea name="ingredient1" id="ingredient1" cols="30" rows="1" class = "text-area-input"
-              placeholder="2 Tablespoons All-Purpose Flour"
-              ></textarea>
-            </div>
-            <button 
-                type="button"
-                id = "more-ingredients-btn"
-                class = "more-btn"
-                onclick="addMore('ingredients')">
-              <span>
-                More
-              </span>
-            </button>
+            <textarea
+              name="instruction1"
+              id="instruction1"
+              cols="30"
+              rows="3"
+              class="text-area-input"
+              placeholder="Bring a large pot of water to a boil.  Salt the boiling water and cook the pasta al dente."
+            ></textarea>
+          </div>
 
-            <p class = "name-sections">
-              Intructions
-            </p>
-            <div id = "instructions" class = "flex-container">
-              <textarea name="instruction0" 
-                    id="instruction0" 
-                    cols="30" rows="3" 
-                    class = "text-area-input"
-                    placeholder="Preheat the broiler to high and position the rack 8 inches from the heat."
-              ></textarea>
-              <textarea name="instruction1" 
-                  id="instruction1" 
-                  cols="30" rows="3" 
-                  class = "text-area-input"
-                  placeholder="Bring a large pot of water to a boil.  Salt the boiling water and cook the pasta al dente."
-              ></textarea>
-            </div>
-            <button 
-                type="button"
-                id = "more-intructions-btn"
-                class = "more-btn"
-                onclick="addMore('instructions')">
-              <span>
-                More
-              </span>
-            </button>
+          <button
+            type="button"
+            id="more-intructions-btn"
+            class="more-btn"
+            onclick="addMore('instructions')"
+          >
+            <span> More </span>
+          </button>
 
-            <p class = "name-sections">
-              Notes
-            </p>
-            <div id = "notes" class = "flex-container">
-              <textarea name="note0" id="note0" cols="30" rows="3" class = "text-area-input"
-              placeholder="Note"
-              ></textarea>
-            </div>
-            <button 
-                type="button"
-                id = "more-ingredients-btn"
-                class = "more-btn"
-                onclick="addMore('notes')">
-              <span>
-                More
-              </span>
-            </button>
+          <p class="name-sections">Upload image</p>
 
-            <p class = "name-sections">
-              Upload image
-            </p>
+          <input
+            type="file"
+            name="result-img"
+            id="result-img"
+            accept="image/*"
+            style="margin-top: 10px"
+          />
 
-            <input type="file" 
-                  name = "result-img"
-                  id = "result-img"
-                  accept="image/*"
-                  style="
-                  margin-top: 10px;       
-                  "
-            >
-                        <button 
-                    type="button" 
-                    id = "submit-btn" 
-                    onclick="post()"
-            >
-              Post
-              <img src="{% static '/icons/paper-plane.png' %}" alt="">
-            </button>
+          <p class="name-sections">Catergory</p>
 
-          </form>
-          
-        </div>
+          <select 
+          style = "
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 5px;
+            font-size: 13.5px;
+            padding: 2.5px 5px;
+          "
 
-        <!-- Add some space -->
-        <div style="height: 100px;"></div>
-        <img style= "
-          width: 50px; 
-          height: 50px;
-          align-self: center;
-          " 
-          src="{% static '/images/cooking.png' %}" alt="">
-        <div style="height: 50px;"></div>
-  </main>
+          id="country" name="country" class="country">
+            <option value="Country">Country</option>
+            <option value="Vietnam">Vietnam</option>
+            <option value="Laos">Laos</option>
+            <option value="Cambodia">Cambodia</option>
+          </select>
 
-  <script>
-    closeNav();
-    if (localStorage.getItem('isPostSubmitted') == 'no' ||     
-        localStorage.getItem('isPostSubmitted') === null){
-          document.getElementById('div1').style.display = "none";
-          document.getElementById('div2').style.display = "flex";
-        }
-    else{
-      document.getElementById('div1').style.display = "flex";
-      document.getElementById('div2').style.display = "none";
-      localStorage.setItem('isPostSubmitted', 'no');
-    }
+          <button type="button" id="submit-btn" onclick="post()">
+            Post
+            <img src="{% static '/icons/paper-plane.png' %}" alt="" />
+          </button>
+        </form>
+      </div>
 
-    window.onclick = function(event) {
-      if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
-        if (document.getElementById("my-dropdown").style.display == "block"){
-          document.getElementById("my-dropdown").style.display = "none";
-        }
+      <!-- Add some space -->
+      <div style="height: 100px"></div>
+      <img
+        style="width: 50px; height: 50px; align-self: center"
+        src="{% static '/images/cooking.png' %}"
+        alt=""
+      />
+      <div style="height: 50px"></div>
+    </main>
+
+    <script>
+      closeNav();
+      if (
+        localStorage.getItem("isPostSubmitted") == "no" ||
+        localStorage.getItem("isPostSubmitted") === null
+      ) {
+        document.getElementById("div1").style.display = "none";
+        document.getElementById("div2").style.display = "flex";
+      } else {
+        document.getElementById("div1").style.display = "flex";
+        document.getElementById("div2").style.display = "none";
+        localStorage.setItem("isPostSubmitted", "no");
       }
-     
-    }
 
-    function closeNav() {
+      window.onclick = function (event) {
+        if (
+          !event.target.matches(".username-header") &&
+          !event.target.matches(".profile-header")
+        ) {
+          if (document.getElementById("my-dropdown").style.display == "block") {
+            document.getElementById("my-dropdown").style.display = "none";
+          }
+        }
+      };
+
+      function closeNav() {
         document.getElementById("sidebar").style.width = "0";
         document.getElementById("header").style.height = "50px";
         document.getElementById("main").style.padding = "60px 0 0 0";
@@ -433,84 +447,120 @@
         document.getElementById("header").style.overflow = "hidden";
         document.getElementById("main").style.padding = "0 0 0 200px";
         document.getElementById("main").style.marginTop = "50px";
-
       }
 
-      function openSearchOnHeader(){
+      function openSearchOnHeader() {
         document.getElementById("header-search").style.opacity = "1";
-        document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+        document.getElementById("search-btn-header").style.marginLeft = "-35px";
         document.getElementById("search-icon-header").style.width = "18px";
         document.getElementById("search-icon-header").style.height = "18px";
       }
 
-    function displayDropdown(){
-      if (document.getElementById("my-dropdown").style.display == "block"){
-        document.getElementById("my-dropdown").style.display = "none";
-      }
-      else{
-        document.getElementById("my-dropdown").style.display = "block";
-      }
-    }
-
-    let ingre_cnt = 3;
-    let instruction_cnt = 3;
-    let note_cnt = 2;
-
-    function addMore(elementId, type){
-      let element = document.createElement('textarea');
-      var name;
-      
-      switch(elementId){
-        case 'ingredients':
-          name = elementId.slice(0, -1).concat('', String(ingre_cnt - 1));
-        break;
-        case 'instructions':
-          name = elementId.slice(0, -1).concat('', String(instruction_cnt - 1));
-          break;
-        case 'notes':
-          name = elementId.slice(0, -1).concat('', String(note_cnt - 1));
-          break;
+      function displayDropdown() {
+        if (document.getElementById("my-dropdown").style.display == "block") {
+          document.getElementById("my-dropdown").style.display = "none";
+        } else {
+          document.getElementById("my-dropdown").style.display = "block";
+        }
       }
 
-      element.setAttribute('class', 'text-area-input');
-      element.setAttribute('name', name);
-      element.setAttribute('id', name);
-      element.setAttribute('cols', '30');
+      let ingre_cnt = 3;
+      let instruction_cnt = 3;
 
-      switch(elementId){
-        case 'ingredients':
-          element.setAttribute('rows', '1');
-          element.setAttribute('placeholder', 'Ingredient ' + String(ingre_cnt));
-          ingre_cnt++;
-          break;
-        case 'instructions':
-          element.setAttribute('placeholder', 'Instruction ' + String(instruction_cnt));
-          element.setAttribute('rows', '3');
-          instruction_cnt++;
-          break;
-        case 'notes':
-          element.setAttribute('placeholder', 'Note ' + String(note_cnt));
-          element.setAttribute('rows', '3');
-          note_cnt++;
-          break;
+      function addMore(elementId, type) {
+        let element = document.createElement("textarea");
+        var name;
 
-      }   
-      document.getElementById(elementId).appendChild(element); 
-    }
+        switch (elementId) {
+          case "ingredients":
+            name = elementId.slice(0, -1).concat("", String(ingre_cnt - 1));
+            break;
+          case "instructions":
+            name = elementId
+              .slice(0, -1)
+              .concat("", String(instruction_cnt - 1));
+            break;
+        }
 
-    function post(){
-      localStorage.setItem('isPostSubmitted', 'yes');
-      document.getElementById('form-recipe').submit();
-    }
+        element.setAttribute("class", "text-area-input");
+        element.setAttribute("name", name);
+        element.setAttribute("id", name);
+        element.setAttribute("cols", "30");
 
-    function toHomepage(){
-      window.location.href = '/index.html';
-    }
+        switch (elementId) {
+          case "ingredients":
+            element.setAttribute("rows", "1");
+            element.setAttribute(
+              "placeholder",
+              "Ingredient " + String(ingre_cnt)
+            );
+            ingre_cnt++;
+            break;
+          case "instructions":
+            element.setAttribute(
+              "placeholder",
+              "Instruction " + String(instruction_cnt)
+            );
+            element.setAttribute("rows", "3");
+            instruction_cnt++;
+            break;
+        }
+        document.getElementById(elementId).appendChild(element);
+      }
 
-    function logout(){
-      localStorage.setItem('login', 'no');
-      return true;
-  }
-  </script>
-</body>
+      function post() {
+        let flag = true;
+        let title = document.getElementById("title-recipe").value;
+        let description = document.getElementById("description-recipe").value;
+        let prepTime = document.getElementById("recipe-prep-time").value;
+        let ration = document.getElementById("recipe-ration").value;
+
+        if (title == "") {
+          alert("Title can't be left empty.");
+          flag = false;
+        }
+        if (flag && description == "") {
+          alert("Description can't be left empty.");
+          flag = false;
+        }
+        if (flag && prepTime == "") {
+          alert("Preparation time can't be left empty.");
+          flag = false;
+        }
+        if (flag && ration == "") {
+          alert("Ration can't be left empty.");
+          flag = false;
+        }
+
+        for (let i = 0; i < ingre_cnt - 1; i++) {
+          if (flag && document.getElementById("ingredient" + i).value == "") {
+            alert("Ingredient can't be left empty.");
+            flag = false;
+            break;
+          }
+        }
+        for (let i = 0; i < instruction_cnt - 1; i++) {
+          if (flag && document.getElementById("instruction" + i).value == "") {
+            alert("Instruction can't be left empty.");
+            flag = false;
+            break;
+          }
+        }
+
+        if (flag) {
+          localStorage.setItem("isPostSubmitted", "yes");
+          document.getElementById("form-recipe").submit();
+        }
+      }
+
+      function toHomepage() {
+        window.location.href = "{% url 'index' %}";
+      }
+
+      function logout() {
+        localStorage.setItem("login", "no");
+        return true;
+      }
+    </script>
+  </body>
 </html>

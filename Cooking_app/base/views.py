@@ -1,71 +1,14 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
-
 
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 
 
 from .models import UserInfo, Post
-
-
-
-# def login_user(request):
-#     context = {}
-#     if request.method == 'POST':
-#         username = request.POST.get('input')
-#         password = request.POST.get('password')
-#         user = authenticate(username=username, password=password)
-
-#         context = {
-#             'username': username,
-#         }
-#         print(username)
-#         if user is None:
-#             messages.error(request, 'invalid username or password')
-#             return render(request, 'login_signup.html', context)
-#         login(request, user)
-#         return redirect('/') 
-    
-#     return render(request, 'login_signup.html', context)
-
-# def signup_user(request):
-#     context = {}
-#     template_name = 'login_signup.html'
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password1 = request.POST.get('password1')
-#         password2 = request.POST.get('password2')
-#         fullname = request.POST.get('fullname')
-#         email = request.POST.get('email')
-#         gender = 'C'
-#         context = {
-#             'username': username,
-#             'fullname': fullname,
-#             'email': email,
-#             'gender': gender,
-#         }
-#         print(username, password1, password2, fullname, email, gender)
-        
-        
-#         if (password1 != password2):
-#             messages.error(request, 'passwords do not match')
-            
-#             return render(request, template_name, context)
-
-#         user = User.objects._user(username=username, password=make_password(password1), email=email)
-        
-#         user_info = UserInfo.objects.create(user=user, fullname=fullname, gender=gender[0])
-#         login(request, user)
-#         return redirect('/')
-    
-#     return render(request, template_name, context)
     
         
 def home(request):
@@ -153,46 +96,6 @@ def login_acc(request):
         messages.error(request, "Email or Password is incorrect.")
         
     return render(request, template_name, context)
-
-@login_required(login_url='login')
-def rspw_acc(request):
-    context = {}
-    template_name = 'forgot_password.html'
-    if request.method == 'POST':
-        email = request.POST.get('email')
-
-        if User.objects.filter(email=email):
-            return redirect('password_reset_confirm')
-
-        messages.error(request, "Email has not been signed up.")
-        context = {
-            'email': email,
-        }
-    return render(request, template_name, context)
-
-
-@login_required(login_url='login')
-def rspw_acc_cf(request):
-    context = {}
-    template_name = 'forgot_password1.html'
-    return render(request, template_name, context)
-
-@login_required(login_url='login')
-def rspw_acc_done(request):
-    context = {}
-    template_name = 'forgot_password2.html'
-    return render(request, template_name, context)
-
-@login_required(login_url='login')
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'forgot_password.html'
-    email_template_name = 'password_reset_email.html'
-    subject_template_name = 'password_reset_subject'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('index')
 
 @login_required(login_url='login')
 def logout_acc(request):

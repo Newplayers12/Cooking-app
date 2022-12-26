@@ -254,7 +254,7 @@
         <p id="feel-free-to-share-p">Feel free to share it!</p>
 
         <p style="height: 30px"></p>
-        <form method="POST" id="form-recipe" action="">
+        <form method="POST" id="form-recipe" action="" enctype="multipart/form-data">
           {% csrf_token %}
           <input
             name="title-recipe"

@@ -58,15 +58,13 @@
       </div>
       <div id = "container-11">
         <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">{{user_info.user.username}}</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{{user_info.avatar.url }}" alt="">
+          <span class = "username-header" onclick="displayDropdown()">{{request.user.username}}</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="{{current_info.avatar.url }}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' %}">Profile</a>
-              <a href="{% url 'profile' %}">Saved Recipes</a>
-              <a href="{% url 'profile' %}">Settings</a>
-              <a href="{% url 'logout' %}" 
-                  {% comment %} onclick="return logout();" {% endcomment %}
-              >
+            <a href="{% url 'profile' request.user.username %}">Profile</a>
+              <a href="{% url 'profile' request.user.username %}">Saved Recipes</a>
+              <a href="{% url 'profile' request.user.username %}">Settings</a>
+              <a href="{% url 'logout' %}" >
                   Log out
               </a>
           </div>
@@ -98,9 +96,9 @@
         </button>
         </div>
         <div id = "container-01">
-          <a href="{% url 'profile' %}">
-            <img src="{{ user_info.avatar.url }}" alt="">
-            <p>{{user_info.user.username}}</p>
+          <a href="{% url 'profile' request.user.username %}">
+            <img src="{{ current_info.avatar.url }}" alt="">
+            <p>{{request.user.username}}</p>
           </a>
         </div>
       </div>
@@ -357,7 +355,7 @@
               <select  id="country" name="country-form" class="country-form" >
                   
                   <option value="Country">Country</option>
-                  {% comment %} <option value="Afghanistan">Afghanistan</option>
+                  <option value="Afghanistan">Afghanistan</option>
                   <option value="Åland Islands">Åland Islands</option>
                   <option value="Albania">Albania</option>
                   <option value="Algeria">Algeria</option>
@@ -392,7 +390,7 @@
                   <option value="Brunei Darussalam">Brunei Darussalam</option>
                   <option value="Bulgaria">Bulgaria</option>
                   <option value="Burkina Faso">Burkina Faso</option>
-                  <option value="Burundi">Burundi</option> {% endcomment %}
+                  <option value="Burundi">Burundi</option>
                   <option value="Cambodia">Cambodia</option>
                   <option value="Cameroon">Cameroon</option>
                   <option value="Canada">Canada</option>
@@ -710,7 +708,8 @@
           </div>
 
           <div id = "my-post-container">
-            <div id = "saved-recipe1" class = "recipe-container">
+
+            {% comment %} <div id = "saved-recipe1" class = "recipe-container">
               <a href="#" class = "img-recipe-small-preview">
                 <img src="{% static '/images/recipes/1.webp' %}" alt="">
               </a>
@@ -727,7 +726,29 @@
               <div class = "modify-recipe">
                 <img src="{% static '/icons/modify.png' %}" alt="">
               </div>
-            </div>
+            </div> {% endcomment %}
+
+            {% for post  in  user_post %}
+              <div id = "saved-recipe1" class = "recipe-container">
+                <a href="#" class = "img-recipe-small-preview">
+                  
+                  <img src="{% if post.preview  %} {{post.preview.url}} {% else %} {% static '/images/recipes/1.webp' %}{% endif %}" alt="">
+                </a>
+                <div class = "recipe-in-brief">
+                  <a class = "recipe-title-preview" href="#">{{ post.title }}</a>
+                  <a class = "recipe-description-preview" href="#">{{ post.description |truncatewords:50}}</a>
+                  <div class = "time-ration">
+                    <img src="{% static '/icons/clock.png' %}" alt="">
+                    <span style="margin: 2px 10px 0 5px;">{{post.preptime}}m</span>
+                    <img src="{% static '/icons/people.png' %}" alt="">
+                    <span style="margin: 2px 10px 0 5px;">{{post.ration}}</span>
+                  </div>
+                </div>
+                <div class = "modify-recipe">
+                  <img src="{% static '/icons/modify.png' %}" alt="">
+                </div>
+              </div>
+            {% endfor %}
           </div>
 
           

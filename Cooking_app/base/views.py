@@ -200,12 +200,15 @@ def logout_acc(request):
     return redirect('/')
     
 @login_required(login_url='login')
-def profile_acc(request):
+def profile_acc(request, pk):
     """ TODO: Saved recipes, My Posts
     """
     context = {}
     template_name = 'profile.html'
-    user_info = UserInfo.objects.get(user=request.user)
+    
+    current_info = UserInfo.objects.get(user=request.user)
+
+    user_info = User.objects.get(username=pk).userinfo
 
     if request.method == 'POST':
         new_fullname = request.POST.get('fullname-input')
@@ -237,10 +240,25 @@ def profile_acc(request):
         user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday'])
 
     context = {
+        'current_info': current_info,
         'user_info': user_info,
+        'user_post': Post.objects.filter(chef=request.user),
     }
     return render(request, template_name, context)
 
+
+
+
+
+
+
+"""PostARecipe Views
+
+Returns:
+    request: something i don't know 
+"""
+MAX_NUMBER_INGREDIENTS = 10
+MAX_NUMBER_INSTRUCTIONS = 10
 @login_required(login_url='login')
 def PostARecipe(request):
     # TODO: make a Post Model to create a Post that made by a User
@@ -252,23 +270,47 @@ def PostARecipe(request):
     if (request.method == 'POST'):
         ar = request.POST.keys()
         
-        new_title_recipe = request.POST["title-recipe"]
-        new_description_recipe = request.POST["description-recipe"]
-        new_recipe_ration = request.POST["recipe-ration"]
-        new_recipe_prep_time = request.POST["recipe-prep-time"]
+        title_recipe = request.POST.get("title-recipe")
+        description_recipe = request.POST.get("description-recipe")
+        recipe_ration = request.POST.get("recipe-ration")
+        recipe_prep_time = request.POST.get("recipe-prep-time")
         
-        new_ingredient0 = request.POST["ingredient0"]
-        new_ingredient1 = request.POST["ingredient1"]
-        new_instruction0 = request.POST["instruction0"]
-        new_instruction1 = request.POST["instruction1"]
-        
-        new_result_img = request.FILES["result-img"]
-        new_country = request.POST["country"]
-        for key in ar:
-            # print(f"if new_{key}:")
+        total_ingredients = ''
 
-            print(f"\tnew_{key.replace('-', '_')} = request.POST.get(\"{key}\")")
-        pass
+        for i in range(MAX_NUMBER_INGREDIENTS):
+            ingredient = request.POST.get(f'ingredient{i}')
+            if ingredient:
+                total_ingredients += f'Ingredient {i}: {ingredient}\n'
+                
+        total_instructions = ''
+        for i in range(MAX_NUMBER_INSTRUCTIONS):
+            instructions = request.POST.get(f'instruction{i}')
+            if instructions:
+                total_instructions += f'Step {i}: {instructions}\n'
+                
+        
+        context = {
+            'title_recipe': title_recipe,
+            'description_recipe': description_recipe,
+            'recipe_ration': recipe_ration,
+            'recipe_prep_time': recipe_prep_time,
+        }
+        user = request.user
+        preview = request.FILES.get("result-img")
+        categories = request.POST.get("country")
+        
+        Post.objects.create(
+            chef=user,
+            categories=categories,
+            title=title_recipe,
+            description=description_recipe,
+            ingredients=total_ingredients,
+            instructions=total_instructions,
+            ration=recipe_ration,
+            preptime=recipe_prep_time,
+            preview=preview,
+        )
+        
     
     template_name = "post_a_recipe.html"
     return render(request, template_name, context)

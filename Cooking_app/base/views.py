@@ -10,7 +10,8 @@ from django.shortcuts import render, redirect
 
 from .models import UserInfo, Post
     
-        
+# TODO: return a list of post that admin post, sort by contry and try to implement the search ability to the search bar
+################################
 def home(request):
     context = {}
     template_name = 'index.html'
@@ -103,12 +104,16 @@ def logout_acc(request):
     return redirect('/')
     
 @login_required(login_url='login')
-def profile_acc(request):
+def profile_acc(request, pk):
     """ TODO: Saved recipes, My Posts
     """
     context = {}
     template_name = 'profile.html'
-    user_info = UserInfo.objects.get(user=request.user)
+    # Request.user is the user that logged in, there for the profile information take the parameter from the urls to show it.
+    
+    current_info = UserInfo.objects.get(user=request.user)
+
+    user_info = User.objects.get(username=pk).userinfo
 
     if request.method == 'POST':
         new_fullname = request.POST.get('fullname-input')
@@ -139,14 +144,24 @@ def profile_acc(request):
         
         user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday'])
 
-    user_post = Post.objects.filter(chef=request.user)
     context = {
+        'current_info': current_info,
         'user_info': user_info,
-        'user_post': user_post,
+        'user_post': Post.objects.filter(chef=User.objects.get(username=pk)),
     }
     return render(request, template_name, context)
 
 
+
+
+
+
+
+"""PostARecipe Views
+
+Returns:
+    request: something i don't know 
+"""
 MAX_NUMBER_INGREDIENTS = 10
 MAX_NUMBER_INSTRUCTIONS = 10
 @login_required(login_url='login')
@@ -160,45 +175,46 @@ def PostARecipe(request):
     if (request.method == 'POST'):
         ar = request.POST.keys()
         
-        new_title_recipe = request.POST.get("title-recipe")
-        new_description_recipe = request.POST.get("description-recipe")
-        new_recipe_ration = request.POST.get("recipe-ration")
-        new_recipe_prep_time = request.POST.get("recipe-prep-time")
+        title_recipe = request.POST.get("title-recipe")
+        description_recipe = request.POST.get("description-recipe")
+        recipe_ration = request.POST.get("recipe-ration")
+        recipe_prep_time = request.POST.get("recipe-prep-time")
         
-        # new_ingredient0 = request.POST.get("ingredient0")
-        # new_ingredient1 = request.POST.get("ingredient1")
         total_ingredients = ''
-        total_instructions = ''
-        for i in range(MAX_NUMBER_INGREDIENTS):
-            line =  request.POST.get(f"ingredient{i}")
-            if line:
-                total_ingredients += line
-                total_ingredients += '\n'
 
+        for i in range(MAX_NUMBER_INGREDIENTS):
+            ingredient = request.POST.get(f'ingredient{i}')
+            if ingredient:
+                total_ingredients += f'Ingredient {i}: {ingredient}\n'
+                
+        total_instructions = ''
         for i in range(MAX_NUMBER_INSTRUCTIONS):
-            line = request.POST.get(f"instruction{i}")
-            if line:
-                total_instructions += line
-                total_instructions += '\n'
+            instructions = request.POST.get(f'instruction{i}')
+            if instructions:
+                total_instructions += f'Step {i}: {instructions}\n'
+                
         
-        # new_instruction0 = request.POST.get("instruction0")
-        # new_instruction1 = request.POST.get("instruction1")
-        
-        new_result_img = request.FILES.get("result-img")
-        new_country = request.POST.get("country")
+        context = context | {
+            'title_recipe': title_recipe,
+            'description_recipe': description_recipe,
+            'recipe_ration': recipe_ration,
+            'recipe_prep_time': recipe_prep_time,
+        }
+        user = request.user
+        preview = request.FILES.get("result-img")
+        categories = request.POST.get("country")
         
         Post.objects.create(
-            chef=request.user,
-            categories = new_country,
-            title = new_title_recipe,
-            description = new_description_recipe,
-            ration = new_recipe_ration,
-            preptime = new_recipe_prep_time,
-            ingredients = total_ingredients,
-            instructions = total_instructions,
-            preview = new_result_img
+            chef=user,
+            categories=categories,
+            title=title_recipe,
+            description=description_recipe,
+            ingredients=total_ingredients,
+            instructions=total_instructions,
+            ration=recipe_ration,
+            preptime=recipe_prep_time,
+            preview=preview,
         )
-        
         
     
     template_name = "post_a_recipe.html"

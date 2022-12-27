@@ -80,9 +80,9 @@
               alt=""
             />
             <div id="my-dropdown" class="dropdown-content">
-              <a href="{% url 'profile' %}">Profile</a>
-              <a href="{% url 'profile' %}">Saved Recipes</a>
-              <a href="{% url 'profile' %}">Settings</a>
+              <a href="{% url 'profile' request.user.username %}">Profile</a>
+              <a href="{% url 'profile' request.user.username %}">Saved Recipes</a>
+              <a href="{% url 'profile' request.user.username %}">Settings</a>
               <a href="{% url 'login' %}" onclick="return logout();">
                 Log out
               </a>

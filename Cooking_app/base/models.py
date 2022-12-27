@@ -31,14 +31,14 @@ class Post(models.Model):
         ('Cambodia', 'Cambodia'),
     )
     chef = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    categories = models.CharField(blank=False, choices=CATEGORIES_CHOICES, max_length=1000, null=True)
+    categories = models.CharField(blank=False, choices=CATEGORIES_CHOICES, max_length=100, null=True)
     
-    title = models.CharField(blank=False, max_length=200, null=True)
-    description = models.CharField(blank=False, max_length=200, null=True)
+    title = models.CharField(blank=False, max_length=2000, null=True)
+    description = models.TextField(blank=False, max_length=2000, null=True)
     ration = models.IntegerField(blank=False, null=True)
     preptime = models.IntegerField(blank=False, null=True)
-    ingredients = models.CharField(blank=False, max_length=1000, null=True)
-    instructions = models.CharField(blank=False, max_length=1000, null=True)
+    ingredients = models.TextField(blank=False, max_length=1000, null=True)
+    instructions = models.TextField(blank=False, max_length=1000, null=True)
     preview = models.ImageField(upload_to='recipe_preview', default="default_recipe.jpg")
     
     updated = models.DateTimeField(auto_now=True)

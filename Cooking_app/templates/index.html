@@ -43,9 +43,9 @@
           </button>
         </div>
         <div style="visibility: {% if user %} visible {% else %} hidden {% endif %};" id = "container-01">
-          <a href="{% url 'profile' %}">
+          <a href="{% url 'profile' request.user.username %}">
             <img src="{{user.avatar.url}}" alt="">
-            <p>{{user.user.username}}</p>
+            <p>{{request.user.username}}</p>
           </a>
         </div>
       </div>
@@ -170,7 +170,7 @@
 
       <div id = "middle-header">
         <!-- Search on header -->
-        <form action="/search.html">
+        <form action="{% url 'index' %}">
           <input id = "header-search" 
           name = "header-search"
           type="text" 
@@ -201,9 +201,9 @@
               <span class = "username-header" onclick="displayDropdown()"> {{user.user.username}}</span>
               <img class = "profile-header" onclick="displayDropdown()" src="{{user.avatar.url}}" alt="">
               <div id="my-dropdown" class="dropdown-content">
-                <a href="{% url 'profile' %}">Profile</a>
-                <a href="{% url 'profile' %}">Saved Recipes</a>
-                <a href="{% url 'profile' %}">Settings</a>
+                <a href="{% url 'profile' request.user.username %}">Profile</a>
+                <a href="{% url 'profile' request.user.username %}">Saved Recipes</a>
+                <a href="{% url 'profile' request.user.username %}">Settings</a>
                 <a href="{% url 'logout' %}" 
                     onclick="return logout();"
                 >

@@ -708,7 +708,9 @@
               <span class="slider round"></span>
             </label>
           </div>
+          
 
+          
           <div id = "my-post-container">
             <div id = "saved-recipe1" class = "recipe-container">
               <a href="#" class = "img-recipe-small-preview">
@@ -728,6 +730,28 @@
                 <img src="{% static '/icons/modify.png' %}" alt="">
               </div>
             </div>
+            
+            {% for post in user_post %}
+            <div id = "saved-recipe1" class = "recipe-container">
+              <a href="#" class = "img-recipe-small-preview">
+                <img src="{{ post.preview.url }}" alt="">
+              </a>
+              <div class = "recipe-in-brief">
+                <a class = "recipe-title-preview" href="#">{{ post.title }}</a>
+                <a class = "recipe-description-preview" href="#"> {{ post.description|truncatewords:20 }}</a>
+                <div class = "time-ration">
+                  <img src="{% static '/icons/clock.png' %}" alt="">
+                  <span style="margin: 2px 10px 0 5px;">{{post.preptime}}</span>
+                  <img src="{% static '/icons/people.png' %}" alt="">
+                  <span style="margin: 2px 10px 0 5px;">{{post.ration}}</span>
+                </div>
+              </div>
+              <div class = "modify-recipe">
+                <img src="{% static '/icons/modify.png' %}" alt="">
+              </div>
+            </div>
+            {% endfor %}
+
           </div>
 
           

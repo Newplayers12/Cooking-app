@@ -12,16 +12,17 @@ from .models import UserInfo, Post
     
 # TODO: return a list of post that admin post, sort by contry and try to implement the search ability to the search bar
 ################################
+
+
+
 def home(request):
     context = {}
     template_name = 'index.html'
-    if request.method == 'GET':
-        pass
         
     try:
-        user = UserInfo.objects.get(user=request.user)
+        user = request.user
     except :
-        user = None
+        user = User.objects.first()
     context = {
         'user': user,
     }
@@ -110,12 +111,14 @@ def logout_acc(request):
 def profile_acc(request, pk): # pk username
     """ TODO: Saved recipes, My Posts
     """
+    
     context = {}
     template_name = 'profile.html'
     # Request.user is the user that logged in, there for the profile information take the parameter from the urls to show it.
     
     current_info = UserInfo.objects.get(user=request.user)
 
+    
     user_info = User.objects.get(username=pk).userinfo
 
     if request.method == 'POST':

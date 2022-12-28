@@ -1,11 +1,4 @@
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-
 #user-profile-infomation{
   display: flex;
   flex-direction: row;
@@ -51,8 +44,10 @@ input::-webkit-inner-spin-button {
   border-radius: 200px;
   position: absolute;
   opacity: 0;
-  
+  cursor: pointer;
+  display: hidden;
 }
+
 
 #log-out-btn{
   margin-top: 10px;
@@ -102,6 +97,7 @@ input::-webkit-inner-spin-button {
   margin-bottom: 10px;
   cursor: pointer;
   display: none;
+  
 }
 
 #bio-form textarea{
@@ -134,24 +130,31 @@ input::-webkit-inner-spin-button {
   margin-bottom: 10px;
   position: relative;
   flex:80%;
-  cursor: pointer;
 }
 
-#fullname:hover{
+/* EDIT */
+.hover-class1:hover{
   color:cornflowerblue;
+  cursor: pointer;
 }
 
 #bio-container, #name-container{
   display: flex;
 }
 
-#bio-container:hover .editing-container{
-  opacity: 1;
-}
-#name-container:hover .editing-container{
+
+/* EDIT */
+.bio-container-hover:hover .editing-container{
   opacity: 1;
 }
 
+/* EDIT */
+.name-container-hover:hover .editing-container{
+  opacity: 1;
+}
+
+
+/* EDIT */
 #bio{
   flex:80%;
   display: inline-block;
@@ -164,11 +167,8 @@ input::-webkit-inner-spin-button {
   -webkit-line-clamp: 4; /* number of lines to show */
           line-clamp: 4; 
   -webkit-box-orient: vertical;
-  cursor: pointer;
 }
-#bio:hover{
-  color:cornflowerblue;
-}
+
 
 .text-location{
   display: flex;
@@ -210,9 +210,12 @@ input::-webkit-inner-spin-button {
   left:15px;
   opacity: 0;
 }
-#city-display:hover div{
+
+/* EDIT */
+.city-display-hover:hover div{
   opacity: 1;
 }
+
 .country-form{
   flex: 1;
   border:none;
@@ -223,7 +226,7 @@ input::-webkit-inner-spin-button {
   background-color: #fafafa;
 }
 
-.country-form:focus{
+.form-control:focus{
   outline: none;
 }
 
@@ -238,42 +241,42 @@ input::-webkit-inner-spin-button {
 
 #facebook{
   opacity: 0.5;
-  background-image: url('/static/icons/facebook.png');
+  background-image: url('/icons/facebook.png');
 }
 
 #facebook:hover{
   opacity: 1;
-  background-image: url('/static/icons/facebook-hover.png');
+  background-image: url('/icons/facebook-hover.png');
 }
 
 #twitter{
   opacity: 0.5;
-  background-image: url('/static/icons/twitter.png');
+  background-image: url('/icons/twitter.png');
 }
 
 #twitter:hover{
   opacity: 1;
-  background-image: url('/static/icons/twitter-hover.png');
+  background-image: url('/icons/twitter-hover.png');
 }
 
 #instagram{
   opacity: 0.5;
-  background-image: url('/static/icons/instagram.png');
+  background-image: url('/icons/instagram.png');
 }
 
 #instagram:hover{
   opacity: 1;
-  background-image: url('/static/icons/instagram-hover.png');
+  background-image: url('/icons/instagram-hover.png');
 }
 
 #pinterest{
   opacity: 0.5;
-  background-image: url('/static/icons/pinterest.png');
+  background-image: url('/icons/pinterest.png');
 }
 
 #pinterest:hover{
   opacity: 1;
-  background-image: url('/static/icons/pinterest-hover.png');
+  background-image: url('/icons/pinterest-hover.png');
 }
 
 .editing-container{
@@ -403,12 +406,12 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
-.draft-post-switch-container{
+#draft-post-switch-container{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.draft-post-switch-container span{
+#draft-post-switch-container span{
   font-size: 21px;
 }
 .switch {
@@ -732,6 +735,7 @@ input:focus{
   background-color: #0779fa;
 }
 
+/* EDIT */
 .recipe-container{
   display: flex;
   flex-direction: row;
@@ -742,10 +746,16 @@ input:focus{
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+/* EDIT */
 .img-recipe-small-preview{
   min-width: 100px;
-  height: 100px;
+  max-width: 100px;
+  width: 100px
+  min-height: 100px;
+  max-height: 100px;
 }
+
 .img-recipe-small-preview img{
   width: 100%;
   height: 100%;
@@ -753,11 +763,15 @@ input:focus{
   object-position: center;
   border-radius: 10px 0 0 10px ;
 }
+
+/* EDIT */
 .recipe-in-brief{
   display: flex;
   flex-direction: column;
   padding: 5px 20px 10px 15px;
+  justify-content: space-between;
 }
+
 .recipe-in-brief a{
   text-decoration: none;
   color: black;
@@ -778,7 +792,11 @@ input:focus{
   font: 13px;
 } 
 
+/* EDIT */
 .saved-recipe-checkbox{
+  display: flex;
+  flex: 1;
+  justify-content: end;
   min-width: 34px;
   height: 34px;
   padding: 10px 10px 0 0;
@@ -790,7 +808,7 @@ input:focus{
 
 .saved-recipe-checkbox input[type="checkbox"] + label
 {
-  background: url('/static/icons/saved-hover.png') no-repeat center;
+  background: url('/icons/saved-hover.png') no-repeat center;
   background-size: 100%;
   height: 24px;
   width: 24px;
@@ -800,7 +818,7 @@ input:focus{
 
 .saved-recipe-checkbox input[type="checkbox"]:checked + label
 {
-  background: url('/static/icons/saved.png') no-repeat center;
+  background: url('/icons/saved.png') no-repeat center;
   background-size: 100%;
   height: 24px;
   width: 24px;
@@ -812,6 +830,7 @@ input:focus{
   display: flex;
   padding-top: 10px;
 }
+
 .time-ration img{
   width: 18px;
   height: 18px;
@@ -822,13 +841,18 @@ input:focus{
   flex-direction: column;
 }
 
+/* EDIT */
 .modify-recipe{
+  flex: 1;
   min-width: 34px;
   height: 100%;
-
+  display: flex;
+  justify-content: end;
 }
 
+/* EDIT */
 .modify-recipe img{
+
   margin-top: 10px;
   width: 20px;
   height: 20px;

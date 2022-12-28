@@ -15,6 +15,9 @@ from .models import UserInfo, Post
 def home(request):
     context = {}
     template_name = 'index.html'
+    if request.method == 'GET':
+        pass
+        
     try:
         user = UserInfo.objects.get(user=request.user)
     except :
@@ -122,7 +125,6 @@ def profile_acc(request, pk): # pk username
         new_gender = request.POST.get('gender')
         new_phone = request.POST.get('phone')
         new_bday = request.POST.get('birthday')
-
         # Case: Compare old and new password
         if new_password:
             new_password = new_password.strip()

@@ -42,7 +42,7 @@
         >
         <input type="submit" style="display:none"/>
       </form>
-
+ 
       <button id = "search-btn-header" onclick="openSearchOnHeader()">
         <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
       </button>
@@ -751,7 +751,6 @@
             {% for post  in  user_post %}
               <div id = "saved-recipe1" class = "recipe-container">
                 <a href="#" class = "img-recipe-small-preview">
-                  
                   <img src="{% if post.preview  %} {{post.preview.url}} {% else %} {% static '/images/recipes/1.webp' %}{% endif %}" alt="">
                 </a>
                 <div class = "recipe-in-brief">

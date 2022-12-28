@@ -13,6 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}"
@@ -326,6 +327,11 @@
           >
             <span> More </span>
           </button>
+          <div id = "max-ingredients" class = "max-text">
+            <span>
+              Maximum ingredients is 10.
+            </span>
+          </div>
 
           <p class="name-sections">Instructions</p>
           <div id="instructions" class="flex-container">
@@ -349,12 +355,18 @@
 
           <button
             type="button"
-            id="more-intructions-btn"
+            id="more-instructions-btn"
             class="more-btn"
             onclick="addMore('instructions')"
           >
             <span> More </span>
           </button>
+
+          <div id = "max-instructions" class = "max-text">
+            <span>
+              Maximum instructions is 10.
+            </span>
+          </div>
 
           <p class="name-sections">Upload image</p>
 
@@ -481,6 +493,7 @@
             name = elementId
               .slice(0, -1)
               .concat("", String(instruction_cnt - 1));
+            
             break;
         }
 
@@ -508,6 +521,17 @@
             break;
         }
         document.getElementById(elementId).appendChild(element);
+        if(ingre_cnt == 11){
+          document.getElementById("more-ingredients-btn").style.display = "none";
+          document.getElementById("max-ingredients").style.display = "flex";
+          return;
+        }
+
+        if(instruction_cnt == 11){
+          document.getElementById("more-instructions-btn").style.display = "none";
+          document.getElementById("max-instructions").style.display = "flex";
+          return;
+        }
       }
 
       function post() {

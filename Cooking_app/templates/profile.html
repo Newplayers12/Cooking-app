@@ -62,8 +62,7 @@
           <img class = "profile-header" onclick="displayDropdown()" src="{{current_info.avatar.url }}" alt="">
           <div id="my-dropdown" class="dropdown-content">
             <a href="{% url 'profile' current_info.user.username %}">Profile</a>
-              <a href="{% url 'profile' current_info.user.username %}">Saved Recipes</a>
-              <a href="{% url 'profile' current_info.user.username %}">Settings</a>
+              <a href="{% url 'post_a_recipe' %}">Post recipe</a>
               <a href="{% url 'logout' %}" >
                   Log out
               </a>

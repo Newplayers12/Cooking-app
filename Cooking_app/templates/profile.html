@@ -712,6 +712,7 @@
             <img src="{% static '/icons/search.png' %}" alt="">
           </div>
 
+          {% comment %}
           <div class = "draft-post-switch-container">
             <span>
               {% if not user_post %}
@@ -726,6 +727,7 @@
               <span class="slider round"></span>
             </label>
           </div>
+          {% endcomment %}
 
           <div id = "my-post-container">
 

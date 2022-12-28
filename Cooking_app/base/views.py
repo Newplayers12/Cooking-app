@@ -104,7 +104,7 @@ def logout_acc(request):
     return redirect('/')
     
 @login_required(login_url='login')
-def profile_acc(request, pk):
+def profile_acc(request, pk): # pk username
     """ TODO: Saved recipes, My Posts
     """
     context = {}
@@ -147,7 +147,7 @@ def profile_acc(request, pk):
     context = {
         'current_info': current_info,
         'user_info': user_info,
-        'user_post': Post.objects.filter(chef=User.objects.get(username=pk)),
+        'user_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
     }
     return render(request, template_name, context)
 

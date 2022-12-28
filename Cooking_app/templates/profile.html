@@ -764,9 +764,11 @@
                     <span style="margin: 2px 10px 0 5px;">{{post.ration}}</span>
                   </div>
                 </div>
+                {% if user_info.user == request.user %}
                 <div class = "modify-recipe">
                   <img src="{% static '/icons/modify.png' %}" alt="">
                 </div>
+                {% endif %}
               </div>
             {% endfor %}
           </div>

@@ -9,7 +9,9 @@ from django.shortcuts import render, redirect
 
 
 from .models import UserInfo, Post
-    
+
+
+import random # For later use, that we will randomize the Followed User list
 # TODO: return a list of post that admin post, sort by contry and try to implement the search ability to the search bar
 ################################
 
@@ -18,13 +20,15 @@ from .models import UserInfo, Post
 def home(request):
     context = {}
     template_name = 'index.html'
-        
-    try:
-        user = request.user
-    except :
-        user = User.objects.first()
+    
+    # ALL OF THE POST THAT ALL USER HAVE MADE
+    ALL_POST = Post.objects.all()
+    CHOSEN_USER = random.choice(User.objects.all())
+    FAVORITE_USER_POST = Post.objects.filter(chef=CHOSEN_USER).order_by('-created')    
     context = {
-        'user': user,
+        'user': request.user if request.user.is_authenticated else None,
+        'FAVORITE_USER_POST': FAVORITE_USER_POST,
+        'ALL_POST': ALL_POST,
     }
     return render(request, template_name, context)
 
@@ -223,4 +227,23 @@ def PostARecipe(request):
         
     
     template_name = "post_a_recipe.html"
+    return render(request, template_name, context)
+
+
+
+def search_post(request):
+    """Search for a recipe
+
+    Args:
+        request (request): request object
+
+    Returns:
+        render: render template
+    """
+    context = {}
+    if request.method == "GET":
+        
+        pass
+        
+    template_name = "search.html"
     return render(request, template_name, context)

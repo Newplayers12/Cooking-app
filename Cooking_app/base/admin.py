@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserInfo, Post, Message
+from .models import UserInfo, Post, Message, SavedPost, LikesPost
 
 @admin.register(UserInfo)
 class UserInfoAdmin(admin.ModelAdmin):
@@ -11,4 +11,12 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(SavedPost)
+class SavedPostAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(LikesPost)
+class LikesPostAdmin(admin.ModelAdmin):
     pass

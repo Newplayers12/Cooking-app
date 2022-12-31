@@ -8,8 +8,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from django.db.models import Q
 
-from .models import UserInfo, Post
+
+from .models import UserInfo, Post, Security
 from .utils import *
 
 
@@ -22,7 +24,7 @@ def home(request):
     template_name = 'index.html'
     
     # ALL OF THE POST THAT ALL USER HAVE MADE
-    ALL_POST = Post.objects.all()
+    ALL_POST = Post.objects.all().order_by('-created')
     CHOSEN_USER = random.choice(User.objects.all())
     FAVORITE_USER_POST = Post.objects.filter(chef=CHOSEN_USER).order_by('-created')    
     context = {
@@ -70,6 +72,9 @@ def signup_acc(request):
             password=make_password(password1),
             email=email,
         )
+        Security.objects.create(
+            user=user,
+        )
         UserInfo.objects.create(
             user=user,
             fullname=fullname,
@@ -115,9 +120,10 @@ def logout_acc(request):
     logout(request)
     return redirect('/')
 
+
 def verify_acc(request, verify_code, verify_user):
     context = {}
-    template_name = 'verify.html'
+    template_name = 'twostep.html'
     input_code = None
     if request.method == 'POST':
         if 'resend' in request.POST:
@@ -139,7 +145,7 @@ def verify_acc(request, verify_code, verify_user):
     
 @login_required(login_url='login')
 def profile_acc(request, pk): # pk username
-    """ TODO: Saved recipes, My Posts
+    """ TODO: Saved recipes
     """
     
     context = {}
@@ -155,8 +161,10 @@ def profile_acc(request, pk): # pk username
         new_password = request.POST.get('newpassword')
         new_avatar = request.FILES.get('img-profile')
         new_gender = request.POST.get('gender')
+        new_2step = request.POST.get('enable-2factor')
         new_phone = request.POST.get('phone')
         new_bday = request.POST.get('birthday')
+        
         # Case: Compare old and new password
         if new_password:
             new_password = new_password.strip()
@@ -175,7 +183,8 @@ def profile_acc(request, pk): # pk username
             user_info.phone = new_phone.strip()
         if new_bday:
             user_info.bday = new_bday
-        
+
+        user_info.user.security.update(two_step=new_2step)
         user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday'])
 
     context = {
@@ -260,10 +269,27 @@ def search_post(request):
     Returns:
         render: render template
     """
+    
     context = {}
+    
     if request.method == "GET":
+        q = request.GET.get('header-search', '') + request.GET.get('search-main', '')
         
-        pass
+        if q is '':
+            result_post = Post.objects.all().order_by('-created')
+        else:
+            result_post = Post.objects.filter(
+                    Q(title__icontains=q) | 
+                    Q(description__icontains=q) | 
+                    Q()
+                ).order_by('-created')
+        result_amount = len(result_post)
+        context = context | {
+            'q': q,
+            'result_amount': result_amount,
+            'result_post': result_post,
+        }
+            
         
     template_name = "search.html"
     return render(request, template_name, context)

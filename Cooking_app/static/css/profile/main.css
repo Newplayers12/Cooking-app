@@ -336,7 +336,6 @@
 }
 
 .display-section{
-  display: table-cell;
   position: absolute;
   top: 0;
   left: 0;
@@ -573,6 +572,7 @@ input:focus{
 }
 
 .send-code-container{
+  margin-top:10px;
   display: block;
   position: relative;
   padding-left: 35px;

@@ -58,7 +58,7 @@
   border-style: solid;
   border-radius: 20px;
   max-lines: 1;
-
+  display: none;
   opacity: 0;
   transition: all 0.8s;
 }

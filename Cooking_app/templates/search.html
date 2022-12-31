@@ -30,7 +30,8 @@
 
     <div id = "middle-header">
       <!-- HEADER SEARCH -->
-      <form action="/search.html">
+      <form action="{% url 'search' %}" method='GET'>
+        {% csrf_token %}
         <input id = "header-search" 
         name = "header-search"
         type="text" 
@@ -90,7 +91,8 @@
     <div class = "sidebar-main"> 
 
       <div id = "container-0">
-        {% if not request.user.username %}
+        
+        {% if not request.user.is_authenticated %}
         <div id = "container-00">
           <button id = "JoinUsButton">
             <span>
@@ -220,8 +222,8 @@
   <main style = "margin: 0 calc(12%);" id = "main">
     <div style="height: 30px;"></div>
     <p id = "results-text">
-      <span id = "number-of-results">10</span> 
-      result for "<span id = "search-query">Eggs</span>"
+      <span id = "number-of-results">{{number_result}}</span> 
+      result for "<span id = "search-query">{{q}}</span>"
       <div style="
       margin: 5px 0 20px 0;
       height: 2.25px;

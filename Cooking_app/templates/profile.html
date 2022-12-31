@@ -32,7 +32,7 @@
     <div id = "middle-header">
 
       <!-- HEADER SEARCH -->
-      <form action="/search.html">
+      <form action="{% url 'search' %}" method='GET'>
         {% csrf_token %}
 
         <input id = "header-search" 
@@ -269,7 +269,7 @@
             </form>
 
             <div id = "name-container">
-              <p id = "fullname" {% if user_info.user == request.user %} onclick="displayModifyFullname()" {% endif %}>
+              <p id = "fullname" class = "hover-class1" {% if user_info.user == request.user %} onclick="displayModifyFullname()" {% endif %}>
                 {{ user_info.fullname }}
                 <!-- inline-block Nếu đã có verification ngược lại none. -->
                 
@@ -301,7 +301,7 @@
             </form>
 
             <div id = "bio-container">
-              <p id = "bio" onclick="displayModifyBio()">
+              <p id = "bio" class = "hover-class1" onclick="displayModifyBio()">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
               </p>
               <div class = "editing-container">
@@ -638,25 +638,27 @@
       </div>
 
       <div id = "sections-profile">
-
+        
         <div id = "saved-recipes-section" class = "section-profile" onclick="selectSection('saved-recipes-section')">
           Saved recipes
           <div style = "width: 100%;" class = "is-selected">
           </div>
         </div>
+        
         <div id = "my-posts-section" class = "section-profile" onclick="selectSection('my-posts-section')">
           My Posts
           <div class = "is-selected">
           </div>
         </div>
-        {% if user_info.user == request.user %}
+
+        
         <div id = "setting-section" class = "section-profile"
          onclick="selectSection('setting-section')">
           Settings
           <div class = "is-selected">
           </div>
         </div>
-        {% endif %}
+        
         
 
       </div>
@@ -697,9 +699,8 @@
                 <label for="saved-recipes-checkbox-{{key}}"></label>
               </div>
             </div>
-            {% endfor %}
-            
           </div>
+          {% endfor %}
 
         </div>
 
@@ -917,9 +918,14 @@
             Two-factor Authentication
           </p>
 
-          <p>We'll ask for a security code when we need to confirm that it's you logging in.</p>
+          <p>We'll ask for a security code (send to your email) when we need to confirm that it's you logging in.</p>
 
-          <div class = "send-code-form">
+          <label class="send-code-container">Enable
+            <input type="checkbox" name="enable-2factor" id="enable-2factor">
+            <span class = "checkmark"></span>
+          </label>
+
+          <!-- <div class = "send-code-form">
             <label class="send-code-container">Mobile Phone
               <input type="radio" name="radio-send-code" id="send-to-phone" checked = "checked">
               <span class = "checkmark"></span>
@@ -934,7 +940,7 @@
             <button type="button" id = "send-code-button" onclick="sendCodeAndDisplayInput()">
               Send 
             </button>
-          </div>
+          </div> -->
         
           <p style="height: 40px; opacity: 0;"></p>
           <p class = "heading-settings">
@@ -1125,7 +1131,59 @@
 
 
   <script>
-    
+    {% if user_info.user != request.user %}
+      selectSection('my-posts-section');
+      let viewOtherProfile = true;
+      if (viewOtherProfile){
+        selectSection('my-posts-section');
+        document.getElementById("name-container").classList.remove("name-container-hover");
+        document.getElementById("fullname").classList.remove("hover-class1");
+        document.getElementById("fullname").removeAttribute("onclick");
+
+        document.getElementById("bio-container").classList.remove("bio-container-hover");
+        document.getElementById("bio").classList.remove("hover-class1");
+        document.getElementById("bio").removeAttribute("onclick");
+
+        document.getElementById("city-display").classList.remove("city-display-hover");
+        document.getElementById("city-display").removeAttribute("onclick");
+        document.getElementById("country").disabled = true
+
+        document.getElementById("saved-recipes-section").style.display = "none";
+        document.getElementById("setting-section").style.display = "none";
+        document.getElementById("my-posts-section").innerText = "Recipe posts";
+        document.getElementById("draft-post-switch-container").style.display = "none";
+
+        let elements = document.getElementsByClassName("modify-recipe");
+        for (let i = 0; i < elements.length; i++) {
+          elements[i].style.display = "none";
+        }
+      }
+    {% else %}
+      selectSection('my-posts-section');
+      document.getElementById("name-container").classList.add("name-container-hover");
+      document.getElementById("fullname").classList.add("hover-class1");
+      document.getElementById("fullname").addAttribute("onclick");
+
+      document.getElementById("bio-container").classList.add("bio-container-hover");
+      document.getElementById("bio").classList.add("hover-class1");
+      document.getElementById("bio").addAttribute("onclick");
+      
+      document.getElementById("city-display").classList.add("city-display-hover");
+      document.getElementById("city-display").addAttribute("onclick");
+      document.getElementById("country").disabled = false
+
+      document.getElementById("saved-recipes-section").style.display = "flex";
+      document.getElementById("setting-section").style.display = "flex";
+      document.getElementById("my-posts-section").innerText = "My posts";
+      document.getElementById("draft-post-switch-container").style.display = "flex";
+
+      let elements = document.getElementsByClassName("modify-recipe");
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.display = "flex";
+      }
+      
+    {% endif %}
+
     document.getElementById("img-profile").onchange = function(){
       document.getElementById("img-profile-form").submit();
     }
@@ -1238,7 +1296,7 @@
         sections[i].style.display = "none";
       }
 
-      document.getElementById(elementId).style.display = "block";
+      document.getElementById(elementId).style.display = "flex";
       if (elementId == 'display-following' || elementId == 'display-followers'){
         var lines = document.getElementsByClassName('is-selected');
         var sections = document.getElementsByClassName('section-profile');

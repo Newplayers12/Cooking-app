@@ -6,14 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 
 from .models import UserInfo, Post
+from .utils import *
     
 # TODO: return a list of post that admin post, sort by contry and try to implement the search ability to the search bar
 ################################
-
-
 
 def home(request):
     context = {}
@@ -95,6 +95,10 @@ def login_acc(request):
 
         user = authenticate(request, username=username, password=password)
         if user:
+            if user.security.two_step:
+                verify_code = generate_verification_code()
+                send_verification_code(email=user.email, code=verify_code)
+                return reverse('verify',)
             login(request, user)
             return redirect('/')
 
@@ -106,6 +110,21 @@ def login_acc(request):
 def logout_acc(request):
     logout(request)
     return redirect('/')
+
+def verify_acc(request, pk):
+    context = {}
+    template_name = 'verify.html'
+    input_code = None
+    if request.method == 'POST':
+        input_code = request.get('reset-code').strip()
+        if input_code == verify_code:
+            login(request, user)
+            return redirect('/')
+    context = {
+        'code': input_code,
+    }
+    return render(request, template_name, context)
+
     
 @login_required(login_url='login')
 def profile_acc(request, pk): # pk username
@@ -117,7 +136,6 @@ def profile_acc(request, pk): # pk username
     # Request.user is the user that logged in, there for the profile information take the parameter from the urls to show it.
     
     current_info = UserInfo.objects.get(user=request.user)
-
     
     user_info = User.objects.get(username=pk).userinfo
 

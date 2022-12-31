@@ -17,11 +17,7 @@ urlpatterns = [
     path('accounts/logout/', views.logout_acc, name = 'logout'),
     # path('accounts/profile/', views.profile_acc, name = 'profile'),
     path('accounts/profile/<pk>/', views.profile_acc, name = 'profile'),
-    # path('accounts/password_reset/', views.rspw_acc, name = 'password_reset'),
-    # path('accounts/password_reset/confirm/', views.rspw_acc_cf, name = 'password_reset_confirm'),
-    # path('accounts/reset/<uidb64>/<token>/', views.rspw_acc, name = 'password_reset'),
-    # path('accounts/password_reset/done/', views.rspw_acc_done, name = 'password_reset_done'), 
-    # path('accounts/profile/', views.profile_acc, name = 'profile'),
+    path('accounts/verify/<pk>/', views.verify_acc, name = 'verify'),
     path(
         'accounts/password_reset/', 
         auth_views.PasswordResetView.as_view(

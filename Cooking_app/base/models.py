@@ -8,6 +8,13 @@ class FoodType(models.Model):
     def __str__(self):
         return self.name
 
+class Security(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    two_step = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"Username = {self.user.username} and two factor activated = {self.two_step}"
+
 class UserInfo(models.Model):
     GENDER_CHOICES = (
         ('Male', 'Male'),

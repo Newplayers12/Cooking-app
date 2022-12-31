@@ -174,7 +174,8 @@
 
       <div id = "middle-header">
         <!-- Search on header -->
-        <form action="{% url 'index' %}">
+        <form action="{% url 'search' %}" method="GET">
+          {% csrf_token %}
           <input id = "header-search" 
           name = "header-search"
           type="text" 
@@ -226,7 +227,8 @@
     <div id = "Search-Post-Main">
       <span id = "welcome😄">Welcome &#127834; &#127835; &#127857;</span>
       <!-- Searching Form -->
-      <form action="" method="GET">
+      <form action="{% url 'search' %}" method="GET">
+        {% csrf_token %}
         <input id = "search-main" 
               name = "search-main"
               type="text" 
@@ -296,8 +298,32 @@
             New Post
           </p>
           <div id = "new-posts" class = "flex-box-posts">
-            <!-- BEGiN EXAMPLE -->
-            <!-- Recipe 1 -->
+            <!-- BEGIN EXAMPLE -->
+
+            {% for post in ALL_POST %}
+            <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{{ post.preview.url }}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <a class = "author-recipe" href="{% url 'profile' post.chef.username %}">
+                  <img src="{{post.chef.userinfo.avatar.url}}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    {{post.title}}
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+            {% endfor %}
+            <!-- Recipe 1 Use this as the sample --> 
+            {% comment %}             
             <div class = "post-container">
               <a class = "Recipe-img-preview" href="#">
                 <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
@@ -409,7 +435,8 @@
                 <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
               </div>
             </div>
-          </div>
+          </div> 
+          {% endcomment %}
           <!-- END EXAMPLE -->
 
           <button id = "scroll-left-new-posts" class = "btnScroll" onclick="Scroll('new-posts', -125)">

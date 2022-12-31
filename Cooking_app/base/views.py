@@ -11,20 +11,24 @@ from django.urls import reverse
 
 from .models import UserInfo, Post
 from .utils import *
-    
+
+
+import random # For later use, that we will randomize the Followed User list
 # TODO: return a list of post that admin post, sort by contry and try to implement the search ability to the search bar
 ################################
 
 def home(request):
     context = {}
     template_name = 'index.html'
-        
-    try:
-        user = request.user
-    except :
-        user = User.objects.first()
+    
+    # ALL OF THE POST THAT ALL USER HAVE MADE
+    ALL_POST = Post.objects.all()
+    CHOSEN_USER = random.choice(User.objects.all())
+    FAVORITE_USER_POST = Post.objects.filter(chef=CHOSEN_USER).order_by('-created')    
     context = {
-        'user': user,
+        'user': request.user if request.user.is_authenticated else None,
+        'FAVORITE_USER_POST': FAVORITE_USER_POST,
+        'ALL_POST': ALL_POST,
     }
     return render(request, template_name, context)
 
@@ -98,7 +102,7 @@ def login_acc(request):
             if user.security.two_step:
                 verify_code = generate_verification_code()
                 send_verification_code(email=user.email, code=verify_code)
-                return reverse('verify',)
+                return reverse('verify', kwargs={'verify_code': verify_code, 'verify_user': user})
             login(request, user)
             return redirect('/')
 
@@ -111,17 +115,24 @@ def logout_acc(request):
     logout(request)
     return redirect('/')
 
-def verify_acc(request, pk):
+def verify_acc(request, verify_code, verify_user):
     context = {}
     template_name = 'verify.html'
     input_code = None
     if request.method == 'POST':
-        input_code = request.get('reset-code').strip()
-        if input_code == verify_code:
-            login(request, user)
-            return redirect('/')
+        if 'resend' in request.POST:
+            verify_code = generate_verification_code()
+            send_verification_code(email=verify_user.email, code=verify_code)
+        else:
+            input_code = request.POST.get('reset-code').strip()
+            if input_code == verify_code:
+                login(request, verify_user)
+                return redirect('/')
+            messages.error(request, "The verification code you entered is incorrect.")
+
     context = {
-        'code': input_code,
+        'input_code': input_code,
+        'input_email': verify_user.email,
     }
     return render(request, template_name, context)
 
@@ -173,11 +184,6 @@ def profile_acc(request, pk): # pk username
         'user_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
     }
     return render(request, template_name, context)
-
-
-
-
-
 
 
 """PostARecipe Views
@@ -241,4 +247,23 @@ def PostARecipe(request):
         
     
     template_name = "post_a_recipe.html"
+    return render(request, template_name, context)
+
+
+
+def search_post(request):
+    """Search for a recipe
+
+    Args:
+        request (request): request object
+
+    Returns:
+        render: render template
+    """
+    context = {}
+    if request.method == "GET":
+        
+        pass
+        
+    template_name = "search.html"
     return render(request, template_name, context)

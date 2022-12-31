@@ -17,7 +17,8 @@ urlpatterns = [
     path('accounts/logout/', views.logout_acc, name = 'logout'),
     # path('accounts/profile/', views.profile_acc, name = 'profile'),
     path('accounts/profile/<pk>/', views.profile_acc, name = 'profile'),
-    path('accounts/verify/<pk>/', views.verify_acc, name = 'verify'),
+    path('accounts/verify/', views.verify_acc, name = 'verify'),
+    path('index/search/', views.search_post, name= 'search'),
     path(
         'accounts/password_reset/', 
         auth_views.PasswordResetView.as_view(

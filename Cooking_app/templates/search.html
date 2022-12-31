@@ -45,6 +45,8 @@
     </div>
 
     <div id = "right-header">
+      {% if not request.user.is_authenticated %}
+      
       <div id = "container-10">
         <button id = "JoinUsButton2">
           <span>
@@ -52,12 +54,14 @@
           </span>
         </button>
       </div>
+      {% else %}
+      
       <div id = "container-11">
         <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+          <span class = "username-header" onclick="displayDropdown()">{{request.user.username}}</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="{{request.user.userinfo.avatar.url}}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'profile' request.user.username%}">Profile</a>
             <a href="{% url 'post_a_recipe' %}">Post recipe</a>
             <a href="{% url 'login' %}" 
                 onclick="return logout();"
@@ -67,6 +71,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
     </div>
 
   </header> 
@@ -85,6 +90,7 @@
     <div class = "sidebar-main"> 
 
       <div id = "container-0">
+        {% if not request.user.username %}
         <div id = "container-00">
           <button id = "JoinUsButton">
             <span>
@@ -92,12 +98,15 @@
             </span>
         </button>
         </div>
+        {% else %}
+        
         <div id = "container-01">
-          <a href="{% url 'profile' %}">
-            <img src="{% static '/icons/user.png' %}" alt="">
-            <p>Hoang Phu</p>
+          <a href="{% url 'profile' request.user.username %}">
+            <img src="{{request.user.userinfo.avatar.url}}" alt="">
+            <p>{{request.user.username}}</p>
           </a>
         </div>
+        {% endif %}
       </div>
 
       <p style="min-height: 10px;"></p>

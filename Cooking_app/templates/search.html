@@ -30,7 +30,8 @@
 
     <div id = "middle-header">
       <!-- HEADER SEARCH -->
-      <form action="{% url 'search' %}" method='GET'>
+       <!-- Search on header -->
+       <form class = "form-search-header" action="{% url 'search' %}" method="GET">
         {% csrf_token %}
         <input id = "header-search" 
         name = "header-search"
@@ -38,11 +39,11 @@
         placeholder="Search recipes"
         >
         <input type="submit" style="display:none"/>
+        <button type = "button" id = "search-btn-header" onclick="openSearchOnHeader()">
+          <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
+        </button>
       </form>
 
-      <button id = "search-btn-header" onclick="openSearchOnHeader()">
-        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
-      </button>
     </div>
 
     <div id = "right-header">
@@ -479,18 +480,21 @@
   <script>
 
     function closeNav() {
+    
+
         document.getElementById("sidebar").style.width = "0";
         document.getElementById("header").style.height = "50px";
         document.getElementById("main").style.padding = "60px 0 0 0"
-        document.getElementById("header-search").style.opacity = "0";
-        document.getElementById("search-btn-header").style.marginLeft = "425px";
-
         document.getElementById("header").style.overflow = "visible";
 
         document.getElementById("recipes-search-grid").style.gridTemplateColumns = "auto auto auto auto";
         }
 
       function openNav() {
+        document.getElementById("header-search").style.opacity = "0";
+        document.getElementById("middle-header").style.justifyContent = "right";
+        document.getElementById("search-btn-header").style.display = "block";
+
         document.getElementById("sidebar").style.width = "200px";
         document.getElementById("header").style.height = "0";
         document.getElementById("header").style.overflow = "hidden";
@@ -501,9 +505,9 @@
 
       function openSearchOnHeader(){
         document.getElementById("header-search").style.opacity = "1";
-        document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
-        document.getElementById("search-icon-header").style.width = "18px";
-        document.getElementById("search-icon-header").style.height = "18px";
+        document.getElementById("header-search").style.display = "block";
+        document.getElementById("search-btn-header").style.display = "none";
+        document.getElementById("middle-header").style.justifyContent = "center";
       }
 
     function displayDropdown(){

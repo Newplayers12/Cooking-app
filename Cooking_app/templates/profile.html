@@ -32,20 +32,20 @@
     <div id = "middle-header">
 
       <!-- HEADER SEARCH -->
-      <form action="{% url 'search' %}" method="GET">
+       <!-- Search on header -->
+       <form class = "form-search-header" action="{% url 'search' %}" method="GET">
         {% csrf_token %}
-
         <input id = "header-search" 
         name = "header-search"
         type="text" 
         placeholder="Search recipes"
         >
         <input type="submit" style="display:none"/>
+        <button type = "button" id = "search-btn-header" onclick="openSearchOnHeader()">
+          <img id = "search-icon-header" src="{% static '/icons/search.png' %}"alt="Search-icon">
+        </button>
       </form>
- 
-      <button id = "search-btn-header" onclick="openSearchOnHeader()">
-        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
-      </button>
+
     </div>
 
     <div id = "right-header">
@@ -60,6 +60,8 @@
         <div class = "dropdown">
           <span class = "username-header" onclick="displayDropdown()">{{current_info.user.username}}</span>
           <img class = "profile-header" onclick="displayDropdown()" src="{{current_info.avatar.url }}" alt="">
+
+
           <div id="my-dropdown" class="dropdown-content">
             <a href="{% url 'profile' current_info.user.username %}">Profile</a>
               <a href="{% url 'post_a_recipe' %}">Post recipe</a>
@@ -245,11 +247,18 @@
           
         </div>
         
-        <button id = "log-out-btn">
-          <a href="{% url 'logout' %}">
-            Log out
-          </a>
-        </button>
+        <div id = "container-logout-follow">
+          <button id = "log-out-btn">
+            <a href="{% url 'logout' %}">
+              Log out
+            </a>
+          </button>
+          <form action="">
+            <button id = "follow-btn">
+              Follow
+            </button>
+          </form>
+        </div>
         
       </div>
       <div id = "brief-infomation-container">
@@ -714,7 +723,7 @@
           </div>
 
           
-          <div class = "draft-post-switch-container">
+          <!-- <div class = "draft-post-switch-container">
             <span>
               {% if not user_post %}
               There is no post here :V 
@@ -727,7 +736,7 @@
               <input type="checkbox" checked>
               <span class="slider round"></span>
             </label>
-          </div>
+          </div> -->
           
 
           <div id = "my-post-container">
@@ -1177,11 +1186,10 @@
     }
 
     function closeNav() {
+
         document.getElementById("sidebar").style.width = "0";
         document.getElementById("header").style.height = "50px";
         document.getElementById("main").style.padding = "60px 0 0 0";
-        document.getElementById("header-search").style.opacity = "0";
-        document.getElementById("search-btn-header").style.marginLeft = "425px";
         document.getElementById("main").style.marginTop = "0";
         document.getElementById("main").style.alignItems = "center";
         document.getElementById("user-profile-infomation").style.width = "60%";
@@ -1189,6 +1197,11 @@
       }
 
       function openNav() {
+        
+        document.getElementById("header-search").style.opacity = "0";
+        document.getElementById("middle-header").style.justifyContent = "right";
+        document.getElementById("search-btn-header").style.display = "block";
+
         document.getElementById("sidebar").style.width = "200px";
         document.getElementById("header").style.height = "0";
         document.getElementById("header").style.overflow = "hidden";
@@ -1200,9 +1213,9 @@
 
       function openSearchOnHeader(){
         document.getElementById("header-search").style.opacity = "1";
-        document.getElementById("search-btn-header").style.marginLeft = "-35px";
-        document.getElementById("search-icon-header").style.width = "18px";
-        document.getElementById("search-icon-header").style.height = "18px";
+      document.getElementById("header-search").style.display = "block";
+      document.getElementById("search-btn-header").style.display = "none";
+      document.getElementById("middle-header").style.justifyContent = "center";
       }
 
     function displayDropdown(){
@@ -1261,7 +1274,7 @@
     }
 
     function initialize(){
-      selectSection('saved-recipes-section');
+      //selectSection('saved-recipes-section');
     }
 
     function displayModifyFullname(){
@@ -1336,9 +1349,12 @@
     {% else %}
     let viewOtherProfile = false;
     {% endif %} 
+
     if (viewOtherProfile){
 
       selectSection('my-posts-section');
+      document.getElementById("log-out-btn").style.display = "none";
+      document.getElementById("follow-btn").style.display = "block";
       document.getElementById("name-container").classList.remove("name-container-hover");
       document.getElementById("fullname").classList.remove("hover-class1");
       document.getElementById("fullname").removeAttribute("onclick");
@@ -1349,47 +1365,67 @@
 
       document.getElementById("city-display").classList.remove("city-display-hover");
       document.getElementById("city-display").removeAttribute("onclick");
-      document.getElementById("country").disabled = true
+      document.getElementById("country").disabled = true;
 
       document.getElementById("saved-recipes-section").style.display = "none";
       document.getElementById("setting-section").style.display = "none";
-      document.getElementById("my-posts-section").innerText = "Recipe posts";
-      document.getElementById("draft-post-switch-container").style.display = "none";
+      document.getElementById("my-post-span").innerText = "Recipe posts";
+      //document.getElementById("draft-post-switch-container").style.display = "none";
 
       let elements = document.getElementsByClassName("modify-recipe");
       for (let i = 0; i < elements.length; i++) {
         elements[i].style.display = "none";
       }
+      document.getElementById("open-file-img").onmouseover = null;
+      document.getElementById("open-file-img").onmouseout = null;
+      document.getElementById("img-profile").disabled = true;
+
     }
     else{
+      selectSection('my-posts-section');
+      document.getElementById("log-out-btn").style.display = "block";
+      document.getElementById("follow-btn").style.display = "none";
 
       document.getElementById("name-container").classList.add("name-container-hover");
       document.getElementById("fullname").classList.add("hover-class1");
       document.getElementById("fullname").onclick = function(){
-                                                              displayModifyFullname();
-                                                          };
+          displayModifyFullname();
+      };
 
       document.getElementById("bio-container").classList.add("bio-container-hover");
       document.getElementById("bio").classList.add("hover-class1");
       document.getElementById("bio").onclick = function(){
-                                                          displayModifyBio();
-                                                          };
+        displayModifyBio();
+      };
       
       document.getElementById("city-display").classList.add("city-display-hover");
       document.getElementById("city-display").onclick = function(){
-                                                              displayModifyCity();
-                                                          };
-      document.getElementById("country").disabled = false
+        displayModifyCity();
+      };
+      document.getElementById("country").disabled = false;
 
       document.getElementById("saved-recipes-section").style.display = "flex";
+      document.getElementById("saved-recipes-section").style.flexDirection = "column";
       document.getElementById("setting-section").style.display = "flex";
-      document.getElementById("my-posts-section").innerText = "My posts";
-      document.getElementById("draft-post-switch-container").style.display = "flex";
+      document.getElementById("setting-section").style.flexDirection = "column";
+      document.getElementById("my-post-span").innerText = "My posts";
+
+      //document.getElementById("draft-post-switch-container").style.display = "flex";
 
       let elements = document.getElementsByClassName("modify-recipe");
       for (let i = 0; i < elements.length; i++) {
         elements[i].style.display = "flex";
       }
+
+      
+      document.getElementById("open-file-img").onmouseover = function(){
+        onMouseOverImgFile();
+      };
+      
+      document.getElementById("open-file-img").onmouseout = function(){
+        onMouseOutImgFile()
+      };
+      document.getElementById("img-profile").disabled = false;
     }
   </script>
 

@@ -160,18 +160,19 @@
       let usr = document.getElementById("username-input").value;
       let pw = document.getElementById("password-input").value;
   
-      if(usr.length < 6 || usr.length > 30){
-        alert('Username\'s length must be in 6-30');
-      }
-      else if(pw.length < 8 || pw.length > 30){
-        alert('Password\'s length must be in 8-30');
-      }
-      else if(valid){
-        localStorage.setItem('login', 'yes');
-        document.getElementById("login-form").submit();
-        {% comment %} window.location.href = "{% url 'index' %}";   {% endcomment %}
-      }
-
+      // if(usr.length < 6 || usr.length > 30){
+      //   alert('Username\'s length must be in 6-30');
+      // }
+      // else if(pw.length < 8 || pw.length > 30){
+      //   alert('Password\'s length must be in 8-30');
+      // }
+      // else if(valid){
+      //   localStorage.setItem('login', 'yes');
+      //   document.getElementById("login-form").submit();
+      //   {% comment %} window.location.href = "{% url 'index' %}";   {% endcomment %}
+      // }
+      // //localStorage.setItem('login', 'yes');
+      document.getElementById("login-form").submit();
     }
 
     function toHomepageWithoutLogin(){

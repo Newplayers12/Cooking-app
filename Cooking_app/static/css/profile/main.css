@@ -48,20 +48,40 @@
   display: hidden;
 }
 
-
-#log-out-btn{
-  margin-top: 10px;
+#container-logout-follow{
   width: 100px;
   height: 17.5%;
+}
+
+#log-out-btn, #follow-btn{
+  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+#follow-btn{
+  display: block;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 7.5px 10px;
+  border-radius: 20px;
+}
+
+#follow-btn:hover{
+  opacity: 0.8;
+}
+
+#log-out-btn{
+  display: none;
   border: 1.5px rgb(0, 157, 255) solid;
   border-radius: 20px;  
   background-color: white; 
   position: relative;
-  cursor: pointer;
 }
 
 #log-out-btn:hover{
-  background-color: rgb(242, 242, 242);
   padding-right: 10px;
 }
 
@@ -864,3 +884,5 @@ input:focus{
   height: 20px;
   cursor: pointer;
 }
+
+

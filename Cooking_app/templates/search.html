@@ -222,7 +222,7 @@
   <main style = "margin: 0 calc(12%);" id = "main">
     <div style="height: 30px;"></div>
     <p id = "results-text">
-      <span id = "number-of-results">{{number_result}}</span> 
+      <span id = "number-of-results">{{result_amount}}</span> 
       result for "<span id = "search-query">{{q}}</span>"
       <div style="
       margin: 5px 0 20px 0;
@@ -233,28 +233,33 @@
       "></div>
     </p>
     <div id = "recipes-search-grid" class = "recipes-grid">
-      <div class = "post-grid-container">
-        <a class = "Recipe-img-preview" href="#">
-          <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
-        </a>
-        <div class = "card-info">
-          <!-- Link to Users -->
-          <a class = "author-recipe" href="#">
-            <img src="{% static '/icons/user.png' %}" alt="user">
+
+      {% for post in result_post %}
+        <div class = "post-grid-container">
+          <a class = "Recipe-img-preview" href="#">
+            <img src="{{ post.preview.url }}" alt="recipe img">
           </a>
-          <div class = "infomation-recipe">
-            <a class = "recipe-title" href="#">
-              Oven Fried Chicken Legs
+          <div class = "card-info">
+            <!-- Link to Users -->
+            <a class = "author-recipe" href="{% url 'profile' post.chef.username %}">
+              <img src="{{ post.chef.userinfo.avatar.url }}" alt="user">
             </a>
-            <div>
-              <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+            <div class = "infomation-recipe">
+              <a class = "recipe-title" href="#">
+                {{ post.title }}
+              </a>
+              <div>
+                
+                <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+              </div>
             </div>
+            <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
           </div>
-          <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+
         </div>
-
-      </div>
-
+      {% endfor %}
+      
+{% comment %} 
       <!-- Recipe 2             -->
       <div class = "post-grid-container">
         <a class = "Recipe-img-preview" href="#">
@@ -455,7 +460,7 @@
           </div>
           <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
         </div>
-      </div>
+      </div> {% endcomment %}
       <!-- END-EXAMPLE -->
     </div>
 

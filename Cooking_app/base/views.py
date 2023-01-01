@@ -24,7 +24,7 @@ def home(request):
     template_name = 'index.html'
     
     # ALL OF THE POST THAT ALL USER HAVE MADE
-    ALL_POST = Post.objects.all().order_by('-created')
+    ALL_POST = Post.objects.all().order_by('-created')[:12]
     CHOSEN_USER = random.choice(User.objects.all())
     FAVORITE_USER_POST = Post.objects.filter(chef=CHOSEN_USER).order_by('-created')    
     context = {
@@ -33,6 +33,9 @@ def home(request):
         'ALL_POST': ALL_POST,
     }
     return render(request, template_name, context)
+
+
+
 
 def signup_acc(request):
     # if user already logged in, they will go back to home-page
@@ -152,11 +155,12 @@ def profile_acc(request, pk): # pk username
     template_name = 'profile.html'
     # Request.user is the user that logged in, there for the profile information take the parameter from the urls to show it.
     
-    current_info = UserInfo.objects.get(user=request.user)
+    
     
     user_info = User.objects.get(username=pk).userinfo
 
     if request.method == 'POST':
+        print(request.POST.keys())
         new_fullname = request.POST.get('fullname-input')
         new_password = request.POST.get('newpassword')
         new_avatar = request.FILES.get('img-profile')
@@ -183,9 +187,14 @@ def profile_acc(request, pk): # pk username
             user_info.phone = new_phone.strip()
         if new_bday:
             user_info.bday = new_bday
-
-        user_info.user.security.update(two_step=new_2step)
+        if new_2step:
+            user_info.user.security.two_step = (new_2step == "on")
+            
+        user_info.user.security.save(update_fields=['two_step'])
         user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday'])
+    
+    current_info = UserInfo.objects.get(user=request.user)    
+    
 
     context = {
         'current_info': current_info,
@@ -275,14 +284,14 @@ def search_post(request):
     if request.method == "GET":
         q = request.GET.get('header-search', '') + request.GET.get('search-main', '')
         
-        if q is '':
+        if q == '':
             result_post = Post.objects.all().order_by('-created')
         else:
             result_post = Post.objects.filter(
-                    Q(title__icontains=q) | 
-                    Q(description__icontains=q) | 
-                    Q()
+                    Q(title__icontains = q) | 
+                    Q(description__icontains = q)
                 ).order_by('-created')
+            
         result_amount = len(result_post)
         context = context | {
             'q': q,

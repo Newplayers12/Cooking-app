@@ -32,7 +32,7 @@
     <div id = "middle-header">
 
       <!-- HEADER SEARCH -->
-      <form action="{% url 'search' %}" method='GET'>
+      <form action="{% url 'search' %}" method="GET">
         {% csrf_token %}
 
         <input id = "header-search" 
@@ -232,31 +232,31 @@
           "
           id = "open-file-img"
           
-          {% if user_info.user == request.user %}
+          
           onmouseover="onMouseOverImgFile()"
           onmouseout="onMouseOutImgFile()"
-          {% endif %}
+          
         >
-          {% if user_info.user == request.user %}
+          
           <form id="img-profile-form" action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" id="img-profile" name="img-profile" accept="image/*">
           </form>
-          {% endif %}
+          
         </div>
-        {% if user_info.user == request.user %}
+        
         <button id = "log-out-btn">
           <a href="{% url 'logout' %}">
             Log out
           </a>
         </button>
-        {% endif %}
+        
       </div>
       <div id = "brief-infomation-container">
 
           <div id = "name-section">
             <!-- Fullname form -->
-            {% if user_info.user == request.user %}
+            
             <form  method="POST" id="fullname-form">
               {% csrf_token %}
               <input 
@@ -264,12 +264,13 @@
                   name="fullname-input" 
                   id="fullname-input" 
               >
-              {% endif %}
+              
               <div style="flex:20%"></div>
             </form>
+            
 
             <div id = "name-container">
-              <p id = "fullname" class = "hover-class1" {% if user_info.user == request.user %} onclick="displayModifyFullname()" {% endif %}>
+              <p id = "fullname" class = "hover-class1"  onclick="displayModifyFullname()" >
                 {{ user_info.fullname }}
                 <!-- inline-block Nếu đã có verification ngược lại none. -->
                 
@@ -279,11 +280,11 @@
                 
                 alt="check-mark">
               </p>
-              {% if user_info.user == request.user %}
+              
               <div class = "editing-container">
                 <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
               </div>
-              {% endif %}
+              
 
             </div>
   
@@ -646,7 +647,7 @@
         </div>
         
         <div id = "my-posts-section" class = "section-profile" onclick="selectSection('my-posts-section')">
-          My Posts
+          <span id = "my-post-span">My Posts</span>
           <div class = "is-selected">
           </div>
         </div>
@@ -712,7 +713,7 @@
             <img src="{% static '/icons/search.png' %}" alt="">
           </div>
 
-          {% comment %}
+          
           <div class = "draft-post-switch-container">
             <span>
               {% if not user_post %}
@@ -727,7 +728,7 @@
               <span class="slider round"></span>
             </label>
           </div>
-          {% endcomment %}
+          
 
           <div id = "my-post-container">
 
@@ -1131,63 +1132,12 @@
 
 
   <script>
-    {% if user_info.user != request.user %}
-      selectSection('my-posts-section');
-      let viewOtherProfile = true;
-      if (viewOtherProfile){
-        selectSection('my-posts-section');
-        document.getElementById("name-container").classList.remove("name-container-hover");
-        document.getElementById("fullname").classList.remove("hover-class1");
-        document.getElementById("fullname").removeAttribute("onclick");
-
-        document.getElementById("bio-container").classList.remove("bio-container-hover");
-        document.getElementById("bio").classList.remove("hover-class1");
-        document.getElementById("bio").removeAttribute("onclick");
-
-        document.getElementById("city-display").classList.remove("city-display-hover");
-        document.getElementById("city-display").removeAttribute("onclick");
-        document.getElementById("country").disabled = true
-
-        document.getElementById("saved-recipes-section").style.display = "none";
-        document.getElementById("setting-section").style.display = "none";
-        document.getElementById("my-posts-section").innerText = "Recipe posts";
-        document.getElementById("draft-post-switch-container").style.display = "none";
-
-        let elements = document.getElementsByClassName("modify-recipe");
-        for (let i = 0; i < elements.length; i++) {
-          elements[i].style.display = "none";
-        }
-      }
-    {% else %}
-      selectSection('my-posts-section');
-      document.getElementById("name-container").classList.add("name-container-hover");
-      document.getElementById("fullname").classList.add("hover-class1");
-      document.getElementById("fullname").addAttribute("onclick");
-
-      document.getElementById("bio-container").classList.add("bio-container-hover");
-      document.getElementById("bio").classList.add("hover-class1");
-      document.getElementById("bio").addAttribute("onclick");
-      
-      document.getElementById("city-display").classList.add("city-display-hover");
-      document.getElementById("city-display").addAttribute("onclick");
-      document.getElementById("country").disabled = false
-
-      document.getElementById("saved-recipes-section").style.display = "flex";
-      document.getElementById("setting-section").style.display = "flex";
-      document.getElementById("my-posts-section").innerText = "My posts";
-      document.getElementById("draft-post-switch-container").style.display = "flex";
-
-      let elements = document.getElementsByClassName("modify-recipe");
-      for (let i = 0; i < elements.length; i++) {
-        elements[i].style.display = "flex";
-      }
-      
-    {% endif %}
-
+    initialize();
     document.getElementById("img-profile").onchange = function(){
       document.getElementById("img-profile-form").submit();
     }
-    initialize();
+
+
 
     window.onclick = function(event) {
       if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
@@ -1199,22 +1149,22 @@
       if(document.getElementById("name-container").style.display == "none" &&
         !document.getElementById("name-section").contains(event.target) &&
         document.getElementById("main").contains(event.target)
-      ){  
+      ){
         document.getElementById("fullname-form").submit();
         document.getElementById("name-container").style.display = "flex";
         document.getElementById("fullname-form").style.display = "none";
       }
-      
+
       if(document.getElementById("bio-container").style.display == "none" &&
         !document.getElementById("bio-section").contains(event.target) &&
         document.getElementById("main").contains(event.target)
-      ){  
+      ){
         document.getElementById("bio-form").submit();
         document.getElementById("bio-container").style.display = "flex";
         document.getElementById("bio-form").style.display = "none";
       }
 
-      
+
       if(document.getElementById("city-display").style.display == "none" &&
         !document.getElementById("city-section").contains(event.target) &&
         document.getElementById("main").contains(event.target)
@@ -1250,7 +1200,7 @@
 
       function openSearchOnHeader(){
         document.getElementById("header-search").style.opacity = "1";
-        document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+        document.getElementById("search-btn-header").style.marginLeft = "-35px";
         document.getElementById("search-icon-header").style.width = "18px";
         document.getElementById("search-icon-header").style.height = "18px";
       }
@@ -1306,43 +1256,25 @@
         }
       }
 
-      document.getElementById("display-section-container").style.height = 
+      document.getElementById("display-section-container").style.height =
       (document.getElementById(elementId).offsetHeight + 100) + 'px';
     }
 
     function initialize(){
       selectSection('saved-recipes-section');
-      document.getElementById("send-code-button").textContent = 'Send'
     }
 
-    function sendCodeAndDisplayInput(){
-
-      if(document.getElementById("send-code-button").textContent == 'Send'){
-        document.getElementById("code-authen").style.width = "100px";
-        document.getElementById("code-authen").style.opacity = "1";
-        document.getElementById("send-code-button").textContent = "Verify";  
-        document.getElementById("send-code-button").style.marginLeft = "0";
-      }
-
-      else if (document.getElementById("send-code-button").textContent == 'Verify'){
-        document.getElementById("code-authen").style.width = "0";
-        document.getElementById("code-authen").style.opacity = "0";
-        document.getElementById("send-code-button").textContent = "Send";  
-        document.getElementById("send-code-button").style.marginLeft = "-30px";
-        
-      }
-    }
     function displayModifyFullname(){
       document.getElementById("name-container").style.display = "none";
       document.getElementById("fullname-form").style.display = "flex";
-      document.getElementById("fullname-input").placeholder = 
+      document.getElementById("fullname-input").placeholder =
       document.getElementById("fullname").textContent.trim();
     }
-    
+
     function displayModifyBio(){
       document.getElementById("bio-container").style.display = "none";
       document.getElementById("bio-form").style.display = "flex";
-      document.getElementById("bio-input").placeholder = 
+      document.getElementById("bio-input").placeholder =
       document.getElementById("bio").textContent.trim();
       document.getElementById("bio-input").textContent=""
     }
@@ -1350,7 +1282,7 @@
     function displayModifyCity(){
       document.getElementById("city-display").style.display = "none";
       document.getElementById("city-form").style.display = "flex";
-      document.getElementById("city-input").placeholder = 
+      document.getElementById("city-input").placeholder =
       document.getElementById("city-display").textContent.trim();
       document.getElementById("city-input").textContent=""
     }
@@ -1358,31 +1290,17 @@
     function submitInf(){
       let pw = document.getElementById("newpassword").value;
       let validPW = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,30})');
-      let bd = document.getElementById("birthday").value;
-      let flag = true;
-
-      if(bd != ""){
-        let date = new Date(bd);
-        let diff = new Date().getFullYear() - date.getFullYear();
-        if(diff < 13 || diff > 100){
-          alert("Age must be in 13 - 100.");
-          flag = false; 
-        }
+      if(pw.length == 0 || validPW.test(pw)){
+      document.getElementById("display-settings").submit();
       }
-
-      else if(pw.length >= 0 && !validPW.test(pw)){
+      else{
         alert('Password must be contain:\n\
         - At least 1 (a-z).\n\
         - At least 1 (A-Z).\n\
         - At least 1 (0-9).\n\
         - At least 1 special character.\n\
         - Range of length (6, 30).\n');
-        flag = false;
       }
-      if (flag){
-        document.getElementById("display-settings").submit();
-      }
-
     }
 
     function logout(){
@@ -1390,12 +1308,11 @@
       return true;
   }
 
-  
-  function onMouseOverImgFile(){
+    function onMouseOverImgFile(){
       document.getElementById("open-file-img").style.background = "\
-      url('/static/icons/icons8-camera-96.png') no-repeat center,\
+      url({% static '/icons/icons8-camera-96.png' %}) no-repeat center,\
       radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.1) 0%, rgba(80, 80, 80, 0.1) ) no-repeat center,\
-      url('{{ user_info.avatar.url }}') center no-repeat"
+      url({{user_info.avatar.url }}) center no-repeat"
       document.getElementById("open-file-img").style.backgroundSize = "75%, 100%, 100%";
     }
     function onMouseOutImgFile(){
@@ -1403,11 +1320,76 @@
       //     background-repeat: no-repeat;
       //     background-position: center;
       //     background-size: 100%;
-      document.getElementById("open-file-img").style.backgroundImage = "url('{{ user_info.avatar.url }}')";
+      document.getElementById("open-file-img").style.backgroundImage = "url({{user_info.avatar.url}})";
       document.getElementById("open-file-img").style.backgroundRepeat = "no-repeat";
       document.getElementById("open-file-img").style.backgroundPosition = "center";
       document.getElementById("open-file-img").style.backgroundSize = "100%";
       
+    }
+
+
+    /* EDIT */
+    // hết cục dưới này
+    
+    {% if user_info.user != request.user %}
+    let viewOtherProfile = true;
+    {% else %}
+    let viewOtherProfile = false;
+    {% endif %} 
+    if (viewOtherProfile){
+
+      selectSection('my-posts-section');
+      document.getElementById("name-container").classList.remove("name-container-hover");
+      document.getElementById("fullname").classList.remove("hover-class1");
+      document.getElementById("fullname").removeAttribute("onclick");
+
+      document.getElementById("bio-container").classList.remove("bio-container-hover");
+      document.getElementById("bio").classList.remove("hover-class1");
+      document.getElementById("bio").removeAttribute("onclick");
+
+      document.getElementById("city-display").classList.remove("city-display-hover");
+      document.getElementById("city-display").removeAttribute("onclick");
+      document.getElementById("country").disabled = true
+
+      document.getElementById("saved-recipes-section").style.display = "none";
+      document.getElementById("setting-section").style.display = "none";
+      document.getElementById("my-posts-section").innerText = "Recipe posts";
+      document.getElementById("draft-post-switch-container").style.display = "none";
+
+      let elements = document.getElementsByClassName("modify-recipe");
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.display = "none";
+      }
+    }
+    else{
+
+      document.getElementById("name-container").classList.add("name-container-hover");
+      document.getElementById("fullname").classList.add("hover-class1");
+      document.getElementById("fullname").onclick = function(){
+                                                              displayModifyFullname();
+                                                          };
+
+      document.getElementById("bio-container").classList.add("bio-container-hover");
+      document.getElementById("bio").classList.add("hover-class1");
+      document.getElementById("bio").onclick = function(){
+                                                          displayModifyBio();
+                                                          };
+      
+      document.getElementById("city-display").classList.add("city-display-hover");
+      document.getElementById("city-display").onclick = function(){
+                                                              displayModifyCity();
+                                                          };
+      document.getElementById("country").disabled = false
+
+      document.getElementById("saved-recipes-section").style.display = "flex";
+      document.getElementById("setting-section").style.display = "flex";
+      document.getElementById("my-posts-section").innerText = "My posts";
+      document.getElementById("draft-post-switch-container").style.display = "flex";
+
+      let elements = document.getElementsByClassName("modify-recipe");
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.display = "flex";
+      }
     }
   </script>
 

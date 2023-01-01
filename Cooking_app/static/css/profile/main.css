@@ -393,6 +393,12 @@
   top: 10px;
 }
 
+#my-post-span{
+  font-size: 18px;
+  font-family: Montserrat;
+  font-weight: 500;
+}
+
 #saved-recipes-container, #my-post-container{
   display: flex;
   flex-direction: column;

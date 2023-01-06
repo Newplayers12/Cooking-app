@@ -1,0 +1,1230 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/meal-planner/main.css' %}">
+
+  <title>Meal Planner</title>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header id = "header">
+    <div id = "left-header">
+      <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
+      <a href="{% url 'index' %}">
+        <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
+      </a>
+    </div>
+
+    <div id = "middle-header">
+      <!-- HEADER SEARCH -->
+      <form action="{% url 'search' %}">
+        <input id = "header-search" 
+        name = "header-search"
+        type="text" 
+        placeholder="Search recipes"
+        >
+        <input type="submit" style="display:none"/>
+      </form>
+
+      <button id = "search-btn-header" onclick="openSearchOnHeader()">
+        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
+      </button>
+    </div>
+
+    <div id = "right-header">
+      <div id = "container-10">
+        <button id = "JoinUsButton2">
+          <span>
+            Log In / Sign Up
+          </span>
+        </button>
+      </div>
+      <div id = "container-11">
+        <div class = "dropdown">
+          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+          <div id="my-dropdown" class="dropdown-content">
+            <a href="{% url 'profile' %}">Profile</a>
+              <a href="{% url 'profile' %}">Saved Recipes</a>
+              <a href="{% url 'profile' %}">Settings</a>
+              <a href="{% url 'login' %}" 
+                  onclick="return logout();"
+              >
+                  Log out
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header> 
+
+  <aside id = "sidebar">
+    <a href="javascript:void(0)" id = "closeNav" onclick="closeNav()">&times;</a>
+
+    <!-- Logo website container -->
+    <div class = "logo-container">
+      <a class = "logo-a" href="{% url 'index' %}">
+        <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
+      </a>
+    </div>
+
+    <!-- Sidebar main  -->
+    <div class = "sidebar-main"> 
+
+      <div id = "container-0">
+        <div id = "container-00">
+          <button id = "JoinUsButton">
+            <span>
+              Join Us
+            </span>
+        </button>
+        </div>
+        <div id = "container-01">
+          <a href="{% url 'profile' %}">
+            <img src="{% static '/icons/user.png' %}" alt="">
+            <p>Hoang Phu</p>
+          </a>
+        </div>
+      </div>
+
+      <p style="min-height: 10px;"></p>
+        <div class = "sidebar-main-item">
+            <img id = "home-icon" src="{% static '/icons/home.png' %}" alt="">
+            <span>My Feeds</span>
+        </div>
+
+        <div class = "sidebar-main-item">
+          <img id = "plan-icon" src="{% static '/icons/plan.png' %}" alt="">
+          <span>Meal Planner</span>
+        </div>
+
+        <div id = "sidebar-main-item-saved-recipes">
+          <div id = "saved-recipes">
+            <img src="{% static '/icons/saved.png' %}" alt="">
+            <span>Saved Recipes</span>
+          </div>
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>All Recipes</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Breakfasts</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dessert</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dinners</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Drinks</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Soups</span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <!-- Sidebar footer -->
+    <div class = "sidebar-footer">
+      <div class = "sidebar-footer-socialmedia-icons">
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-facebook" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-twitter" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-instagram" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-pinterest" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <div class = "sidebar-footer-more">
+        <p class = "sidebar-footer-more-p">
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Privacy
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+              Terms
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Copyrights
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </aside>
+   
+  <!-- Main -->
+  <main style = "margin: 0 calc(12%);" id = "main">
+    <div style="height: 30px;"></div>
+
+    <p class = "meal-planner-text">
+      <a class="icon-food" href="#">
+        <img src="{% static '/icons/icons-for-meal-planner/ice-cream.png' %}">
+      </a>
+      Come here and create your custom meal plans!
+      <a class="icon-food" href="#">
+        <img src="{% static '/icons/icons-for-meal-planner/chips.png' %}">
+      </a>
+      <div style="
+      margin: 5px 0 20px 0;
+      height: 2.25px;
+      width: 100%;
+      background-color: lightgrey;
+      border-radius: 100px;
+      "></div>
+    </p>
+
+    <form id="meal-planner-table">
+      <div id="meal-planner-header">
+        <p class="date-selector-and-show">
+          Select date:
+          <input type="date" onchange="update()"/>
+          <span id="date-selector"></span>
+          <textarea readonly 
+          name="date-selector"
+          id="hidden-date"
+          ></textarea>
+        </p>
+
+        <p class="meal-planner-text">
+          <a class="icon-food" href="#">
+            <img src="{% static '/icons/plan.png' %}">
+          </a>
+          Meal Planner for the week
+          <a class="icon-food" href="#">
+            <img src="{% static '/icons/plan-hover.png' %}">
+          </a>
+        </p>
+
+        <div style="
+          margin: 5px 0 20px 0;
+          height: 1.5px;
+          width: 100%;
+          background-color: lightgrey;
+          border-radius: 100px;
+        ">
+        </div>
+      </div>
+
+      <div id="meal-planner-week">
+        <div id="Sunday">
+          <p class="date">
+            <span id="sunday" class="date"></span>
+          </p>
+  
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Sun-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-sun-b" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-sun-b-1" 
+                id="food-sun-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Overnight oats"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-sun-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-sun-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Sun-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-sun-l" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-sun-l-1" 
+                id="food-sun-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Kale, Apple & Feta Salad"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-sun-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-sun-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Sun-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-sun-d" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-sun-d-1" 
+                id="food-sun-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-sun-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-sun-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="Monday">
+          <p class="date">
+            <span id="monday" class="date"></span>
+          </p>
+          
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Mon-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-mon-b" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-mon-b-1" 
+                id="food-mon-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Peanut butter granola bars"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-mon-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-mon-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Mon-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-mon-l" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-mon-l-1" 
+                id="food-mon-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-mon-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-mon-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Mon-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-mon-d" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-mon-d-1" 
+                id="food-mon-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-mon-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-mon-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+            
+        
+        <div id="Tuesday">
+          <p class="date">
+            <span id="tuesday" class="date"></span>
+          </p>
+          
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Tue-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-tue-b" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-tue-b-1" 
+                id="food-tue-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Loaded avocado toast"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-tue-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-tue-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Tue-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-tue-l" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-tue-l-1" 
+                id="food-tue-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-tue-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-tue-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Tue-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-tue-d" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-tue-d-1" 
+                id="food-tue-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-tue-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-tue-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="Wednesday">
+          <p class="date">
+            <span id="wednesday" class="date"></span>
+          </p>  
+  
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Wed-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-wed-b" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-wed-b-1" 
+                id="food-wed-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Bell pepper egg cups"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-wed-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-wed-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Wed-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-wed-l" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-wed-l-1" 
+                id="food-wed-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-wed-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-wed-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Wed-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-wed-d" class = "flex-container">
+                <textarea 
+                class="text-area-input"
+                name="food-wed-d-1" 
+                id="food-wed-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-wed-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-wed-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="Thursday">
+          <p class="date">
+            <span id="thursday" class="date"></span>
+          </p>
+          
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Thu-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-thu-b" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-thu-b-1" 
+                id="food-thu-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Chocolate cherry chia pudding"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-thu-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-thu-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Thu-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-thu-l" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-thu-l-1" 
+                id="food-thu-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-thu-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-thu-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Thu-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-thu-d" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-thu-d-1" 
+                id="food-thu-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-thu-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-thu-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="Friday">
+          <p class="date">
+            <span id="friday" class="date"></span>
+          </p>
+  
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Fri-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-fri-b" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-fri-b-1" 
+                id="food-fri-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Yogurt and fruit parfaits"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-fri-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-fri-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Fri-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-fri-l" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-fri-l-1" 
+                id="food-fri-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-fri-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-fri-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Fri-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-fri-d" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-fri-d-1" 
+                id="food-fri-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-fri-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-fri-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div id="Saturday">
+          <p class="date">
+            <span id="saturday" class="date"></span>
+          </p>
+  
+          <div class="Row">
+            <div class="Column">
+              <p class = "meal-name">
+                Breakfast
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Sat-B.png' %}">
+                </a>
+              </p>
+              <div id = "food-sat-b" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-sat-b-1" 
+                id="food-sat-b-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Broccoli and cheese egg bake"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-sat-b-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-sat-b')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          
+            <div class="Column">
+              <p class = "meal-name">
+                Lunch
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Sat-L.png' %}">
+                </a>
+              </p>
+              <div id = "food-sat-l" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-sat-l-1" 
+                id="food-sat-l-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-sat-l-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-sat-l')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+            
+            <div class="Column">
+              <p class = "meal-name">
+                Dinner
+                <a class="icon-food" href="#">
+                  <img src="{% static '/icons/icons-for-meal-planner/Sat-D.png' %}">
+                </a>
+              </p>
+              <div id = "food-sat-d" class = "flex-container">
+                <textarea
+                class="text-area-input"
+                name="food-sat-d-1" 
+                id="food-sat-d-1"
+                cols="30" 
+                rows="1" 
+                placeholder="Spaghetti"
+                ></textarea>
+              </div>
+              <button 
+                  type="button"
+                  id = "more-food-sat-d-btn"
+                  class = "more-btn"
+                  onclick="addMore('food-sat-d')">
+                <span>
+                  More
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="
+        margin: 5px 0 20px 0;
+        height: 2.25px;
+        width: 100%;
+        background-color: lightgrey;
+        border-radius: 100px;
+      "></div>
+
+      <button 
+        type="button" 
+        id = "save-btn" 
+        class="save-btn"
+        onclick="save()"
+      >
+        <span>
+          Save &#x1f5ab;
+        </span>
+      </button> 
+    
+    </form>
+
+    <!-- Add some space -->
+    <div style="display: flex; justify-content: center;">
+      <div style="height: 100px;"></div>
+      <img style= "
+        width: 50px; 
+        height: 50px;
+        align-self: center;
+        " 
+        src="{% static '/images/cooking.png' %}" alt="">
+      <div style="height: 50px;"></div>
+    </div>
+    
+    
+  </main>
+
+  <script>
+    var cur = new Date();
+    var first = cur.getDate() - cur.getDay();
+    var monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var sun = new Date(cur); sun.setDate(first);
+    var mon = new Date(cur); mon.setDate(first + 1);
+    var tue = new Date(cur); tue.setDate(first + 2);
+    var wed = new Date(cur); wed.setDate(first + 3);
+    var thu = new Date(cur); thu.setDate(first + 4);
+    var fri = new Date(cur); fri.setDate(first + 5);
+    var sat = new Date(cur); sat.setDate(first + 6);
+    document.getElementById("sunday").innerHTML = 'Sunday, ' + monthArr[sun.getMonth()] + ' ' + sun.getDate() + ', ' + sun.getFullYear();
+    document.getElementById("monday").innerHTML = 'Monday, ' + monthArr[mon.getMonth()] + ' ' + mon.getDate() + ', ' + mon.getFullYear();
+    document.getElementById("tuesday").innerHTML = 'Tuesday, ' + monthArr[tue.getMonth()] + ' ' + tue.getDate() + ', ' + tue.getFullYear();
+    document.getElementById("wednesday").innerHTML = 'Wednesday, ' + monthArr[wed.getMonth()] + ' ' + wed.getDate() + ', ' + wed.getFullYear();
+    document.getElementById("thursday").innerHTML = 'Thursday, ' + monthArr[thu.getMonth()] + ' ' + thu.getDate() + ', ' + thu.getFullYear();
+    document.getElementById("friday").innerHTML = 'Friday, ' + monthArr[fri.getMonth()] + ' ' + fri.getDate() + ', ' + fri.getFullYear();
+    document.getElementById("saturday").innerHTML = 'Saturday, ' + monthArr[sat.getMonth()] + ' ' + sat.getDate() + ', ' + sat.getFullYear();
+    document.querySelector('input[type="date"]').value = String(cur.getFullYear()) + '-' + String(cur.getMonth() + 1).padStart(2, '0') + '-' + String(cur.getDate()).padStart(2, '0');
+    document.getElementById("date-selector").innerHTML = monthArr[cur.getMonth()] + ' ' + cur.getDate() + ', ' + cur.getFullYear();
+    document.getElementById("hidden-date").value = (cur.getFullYear()) + '-' + (cur.getMonth() + 1) + '-' + (cur.getDate());
+
+    function update(){
+      cur = new Date(document.querySelector('input[type="date"]').value);
+      first = cur.getDate() - cur.getDay();
+      sun = new Date(cur); sun.setDate(first);
+      mon = new Date(cur); mon.setDate(first + 1);
+      tue = new Date(cur); tue.setDate(first + 2);
+      wed = new Date(cur); wed.setDate(first + 3);
+      thu = new Date(cur); thu.setDate(first + 4);
+      fri = new Date(cur); fri.setDate(first + 5);
+      sat = new Date(cur); sat.setDate(first + 6);
+      document.getElementById("sunday").innerHTML = 'Sunday, ' + monthArr[sun.getMonth()] + ' ' + sun.getDate() + ', ' + sun.getFullYear();
+      document.getElementById("monday").innerHTML = 'Monday, ' + monthArr[mon.getMonth()] + ' ' + mon.getDate() + ', ' + mon.getFullYear();
+      document.getElementById("tuesday").innerHTML = 'Tuesday, ' + monthArr[tue.getMonth()] + ' ' + tue.getDate() + ', ' + tue.getFullYear();
+      document.getElementById("wednesday").innerHTML = 'Wednesday, ' + monthArr[wed.getMonth()] + ' ' + wed.getDate() + ', ' + wed.getFullYear();
+      document.getElementById("thursday").innerHTML = 'Thursday, ' + monthArr[thu.getMonth()] + ' ' + thu.getDate() + ', ' + thu.getFullYear();
+      document.getElementById("friday").innerHTML = 'Friday, ' + monthArr[fri.getMonth()] + ' ' + fri.getDate() + ', ' + fri.getFullYear();
+      document.getElementById("saturday").innerHTML = 'Saturday, ' + monthArr[sat.getMonth()] + ' ' + sat.getDate() + ', ' + sat.getFullYear();
+      document.getElementById("date-selector").innerHTML = monthArr[cur.getMonth()] + ' ' + cur.getDate() + ', ' + cur.getFullYear();
+      document.getElementById("hidden-date").value = (cur.getFullYear()) + '-' + (cur.getMonth() + 1) + '-' + (cur.getDate());
+    }
+    
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("header").style.height = "50px";
+        document.getElementById("main").style.padding = "60px 0 0 0"
+        document.getElementById("header-search").style.opacity = "0";
+        document.getElementById("search-btn-header").style.marginLeft = "425px";
+        document.getElementById("header").style.overflow = "visible";
+        document.getElementById("recipes-search-grid").style.gridTemplateColumns = "auto auto auto auto";
+    }
+
+    function openNav() {
+      document.getElementById("sidebar").style.width = "200px";
+      document.getElementById("header").style.height = "0";
+      document.getElementById("header").style.overflow = "hidden";
+      document.getElementById("main").style.padding = "0 0 0 200px"
+      document.getElementById("recipes-search-grid").style.gridTemplateColumns = "auto auto auto";
+    }
+
+    function openSearchOnHeader(){
+      document.getElementById("header-search").style.opacity = "1";
+      document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+      document.getElementById("search-icon-header").style.width = "18px";
+      document.getElementById("search-icon-header").style.height = "18px";
+    }
+
+    function displayDropdown(){
+      if (document.getElementById("my-dropdown").style.display == "block"){
+        document.getElementById("my-dropdown").style.display = "none";
+      }
+      else{
+        document.getElementById("my-dropdown").style.display = "block";
+      }
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
+        if (document.getElementById("my-dropdown").style.display == "block"){
+          document.getElementById("my-dropdown").style.display = "none";
+        }
+      }
+    }
+
+    function logout(){
+      localStorage.setItem('login', 'no');
+      return true;
+    }
+
+    let food_cnt11 = 1, food_cnt12 = 1, food_cnt13 = 1;
+    let food_cnt21 = 1, food_cnt22 = 1, food_cnt23 = 1;
+    let food_cnt31 = 1, food_cnt32 = 1, food_cnt33 = 1;
+    let food_cnt41 = 1, food_cnt42 = 1, food_cnt43 = 1;
+    let food_cnt51 = 1, food_cnt52 = 1, food_cnt53 = 1;
+    let food_cnt61 = 1, food_cnt62 = 1, food_cnt63 = 1;
+    let food_cnt71 = 1, food_cnt72 = 1, food_cnt73 = 1;
+    
+    function addMore(elementId, type){
+      let element = document.createElement('textarea');
+      var name;
+      
+      switch(elementId){
+        case 'food-sun-b':
+          name = elementId.concat('-', String(++food_cnt11));
+        break;
+        case 'food-sun-l':
+          name = elementId.concat('-', String(++food_cnt12));
+        break;
+        case 'food-sun-d':
+          name = elementId.concat('-', String(++food_cnt13));
+        break;
+        case 'food-mon-b':
+          name = elementId.concat('-', String(++food_cnt21));
+        break;
+        case 'food-mon-l':
+          name = elementId.concat('-', String(++food_cnt22));
+        break;
+        case 'food-mon-d':
+          name = elementId.concat('-', String(++food_cnt23));
+        break;
+        case 'food-tue-b':
+          name = elementId.concat('-', String(++food_cnt31));
+        break;
+        case 'food-tue-l':
+          name = elementId.concat('-', String(++food_cnt32));
+        break;
+        case 'food-tue-d':
+          name = elementId.concat('-', String(++food_cnt33));
+        break;
+        case 'food-wed-b':
+          name = elementId.concat('-', String(++food_cnt41));
+        break;
+        case 'food-wed-l':
+          name = elementId.concat('-', String(++food_cnt42));
+        break;
+        case 'food-wed-d':
+          name = elementId.concat('-', String(++food_cnt43));
+        break;
+        case 'food-thu-b':
+          name = elementId.concat('-', String(++food_cnt51));
+        break;
+        case 'food-thu-l':
+          name = elementId.concat('-', String(++food_cnt52));
+        break;
+        case 'food-thu-d':
+          name = elementId.concat('-', String(++food_cnt53));
+        break;
+        case 'food-fri-b':
+          name = elementId.concat('-', String(++food_cnt61));
+        break;
+        case 'food-fri-l':
+          name = elementId.concat('-', String(++food_cnt62));
+        break;
+        case 'food-fri-d':
+          name = elementId.concat('-', String(++food_cnt63));
+        break;
+        case 'food-sat-b':
+          name = elementId.concat('-', String(++food_cnt71));
+        break;
+        case 'food-sat-l':
+          name = elementId.concat('-', String(++food_cnt72));
+        break;
+        case 'food-sat-d':
+          name = elementId.concat('-', String(++food_cnt73));
+        break;
+      }
+
+      element.setAttribute('class', 'text-area-input');
+      element.setAttribute('name', name);
+      element.setAttribute('id', name);
+      element.setAttribute('cols', '30');
+
+      switch(elementId){
+        case 'food-sun-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt11));
+          break;
+        case 'food-sun-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt12));
+          break;
+        case 'food-sun-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt13));
+          break;
+        case 'food-mon-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt21));
+          break;
+        case 'food-mon-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt22));
+          break;
+        case 'food-mon-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt23));
+          break;
+        case 'food-tue-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt31));
+          break;
+        case 'food-tue-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt32));
+          break;
+        case 'food-tue-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt33));
+          break;
+        case 'food-wed-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt41));
+          break;
+        case 'food-wed-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt42));
+          break;
+        case 'food-wed-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt43));
+          break;
+        case 'food-thu-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt51));
+          break;
+        case 'food-thu-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt52));
+          break;
+        case 'food-thu-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt53));
+          break;
+        case 'food-fri-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt61));
+          break;
+        case 'food-fri-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt62));
+          break;
+        case 'food-fri-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt63));
+          break;
+        case 'food-sat-b':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt71));
+          break;
+        case 'food-sat-l':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt72));
+          break;
+        case 'food-sat-d':
+          element.setAttribute('rows', '1');
+          element.setAttribute('placeholder', 'Food ' + String(food_cnt73));
+          break;
+      }   
+      document.getElementById(elementId).appendChild(element); 
+    }
+
+    function save(){
+      localStorage.setItem('isPostSubmitted', 'yes');
+      let flag = true;
+
+      if(flag){
+        localStorage.setItem("meal-planner", document.body.innerHTML);
+        document.getElementById("meal-planner-table").submit();
+      }
+    }
+
+    function reloadPage(){
+      let content = localStorage.getItem("meal-planner");
+      if (content){
+        document.body.innerHTML = content;
+        localStorage.clear();
+      }
+    }
+  </script>
+
+</body>
+
+</html>

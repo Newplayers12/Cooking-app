@@ -1,0 +1,168 @@
+button{
+  margin: 3px 8px;
+  width: 90px;
+  height: 30px;
+  background-color: white;
+  color: black;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 15px;
+  transition: all .15s;
+  align-self: center;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #aaaaaa;
+}
+
+button span {
+  position: relative;
+}
+
+button span::after {
+  position: absolute;
+  right: -25px;
+  opacity: 0;
+  transition: 0.15s;
+}
+
+button:active{
+  opacity: 0.5;
+}
+
+.like-btn:active{
+  color:blue;
+  background-color: rgb(224, 224, 255);
+  opacity: 1;
+}
+
+.save-btn:hover{
+  background-color: green;
+  color: white;
+}
+
+#the-post {
+  padding: 20px 20px 20px 20px;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.text-area-input{
+  text-align:start;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 3.5px 15px;
+  margin: 5px 0;
+  resize: none;
+  transition: all .3s;
+}
+
+.text-area-input:focus{
+  outline: none;
+}
+
+p{
+  font-size: 16px;
+  margin: 6px 0;
+}
+
+.the-post i {
+  margin: 0 6px;
+}
+
+#author {
+  font-size: 20px;
+}
+
+.author-name{
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.15s;
+}
+
+.author-name:hover {
+  color:blue;
+  text-decoration: underline;
+  cursor: pointer;  
+}
+
+#title {
+  font-size: 18px;
+}
+
+#post-date{
+  color: #aaaaaa;
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+.recipe-image-show {
+  display: flex;
+  justify-content:center;
+}
+
+.recipe-image-show img{
+  width: 256px;
+  height: 256px;
+  border-radius: 10px;
+  object-fit: cover;
+  align-self: center;
+  margin: 6px;
+}
+
+.cooking-instructions, .cooking-ingredients, .nutrition-info{
+  color:#444444;
+}
+
+.cooking-instructions li, .cooking-ingredients li, .nutrition-info li{
+  font-size: 15px;
+  margin: 3px 12px;
+}
+
+.username {
+  font-size: 15px;
+  color: blue;
+  font-weight: bold;
+}
+
+span.username {
+  font-size: 14px;
+  color: rgb(160, 160, 255);
+  font-weight:normal;
+  transition: all 0.15s;
+}
+
+.username:hover{
+  text-decoration:underline;
+  color:blue;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comment {
+  font-size: 14px;
+}
+
+#count-likes, #count-comments {
+  font-size: 15px;
+}
+
+#liked {
+  display: none;
+}
+
+.the-post {
+  border: 2px solid black;
+  padding: 6px 24px;
+  border-radius: 18px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0;
+}

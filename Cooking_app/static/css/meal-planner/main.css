@@ -1,0 +1,170 @@
+.Row {
+  display: flex;
+  flex-direction: row;
+  width: 100%; /*Optional*/
+  table-layout: fixed; /*Optional*/
+  border-spacing: 10px; /*Optional*/
+  margin: 8px;
+}
+
+.Column {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  align-items: center;
+  margin: 8px;
+}
+
+#meal-planner-table{
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top:0;
+  left:0;
+}
+
+#meal-planner-table{
+  display: flex;
+}
+
+.meal-planner-text {
+  font-family: Martian Mono;
+  font-size: 16px;
+  color:black;
+  align-self: center;
+  text-align: center;
+}
+
+.meal-planner-text span{
+  font-size: 25px;
+}
+
+.meal-name {
+  font-family: Martian Mono;
+  font-size: 14px;
+  color:chocolate;
+  text-align: center;
+}
+
+.icon-food {
+  width: 40px;
+  height: 40px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  transition: opacity 15ms;
+  cursor: pointer;
+  align-items: center;
+}
+
+.icon-food:hover{
+  opacity: 0.8;
+}
+
+.icon-food img{
+  object-fit: cover;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.text-area-input{
+  text-align:start;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 3.5px 15px;
+  margin: 5px 0;
+  resize: none;
+  transition: all .3s;
+}
+
+.text-area-input:focus{
+  outline: none;
+}
+
+button{
+  margin-top: 5px;
+  width: 80px;
+  height: 27.5px;
+  background-color: white;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 15px;
+  transition: all 0.3s;
+  align-self: center;
+}
+
+.more-btn:hover{
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.more-btn span{
+  position: relative;
+}
+
+.more-btn span::after{
+  content: '\002B';
+  position: absolute;
+  right: -25px;
+  opacity: 0;
+  transition: 0.15s;
+}
+
+.more-btn:hover span{
+  padding-right: 5px;
+}
+
+.more-btn:hover span::after{
+  opacity: 1;
+  right: -10px;
+}
+
+.save-btn:hover{
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+
+.save-btn:active{
+  opacity: 0.8;
+}
+
+.date {
+  font-family: Martian Mono;
+  font-size: 16px;
+  color:olivedrab;
+  text-align: center;
+}
+
+#sunday {
+  color:red;
+}
+
+#saturday {
+  color:deepskyblue;
+}
+
+.date-selector-and-show {
+  font-size: 14px;
+  color: chocolate;
+  text-align: center;
+}
+
+#show-date{
+  font-size: 12px;
+}
+
+#meal-planner-header{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#hidden-date {
+  display: none;
+}

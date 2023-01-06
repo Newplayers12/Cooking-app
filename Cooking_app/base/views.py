@@ -7,11 +7,11 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from django.http import Http404
 from django.db.models import Q
 
 
-from .models import UserInfo, Post, Security
+from .models import UserInfo, Post, Security, Follower
 from .utils import *
 
 
@@ -147,8 +147,10 @@ def login_acc(request):
         if user:
             if user.security.two_step:
                 verify_code = generate_verification_code()
-                send_verification_code(email=user.email, code=verify_code)
-                return reverse('verify', kwargs={'verify_code': verify_code, 'verify_user': user})
+                send_verification_code(to_email=user.email, code=verify_code)
+                request.session['verify_code'] = verify_code
+                request.session['verify_email'] = user.email
+                return redirect('verify')
             login(request, user)
             return redirect('/')
 
@@ -162,40 +164,42 @@ def logout_acc(request):
     return redirect('/')
 
 
-def verify_acc(request, verify_code, verify_user):
+def verify_acc(request):
     context = {}
     template_name = 'twostep.html'
     input_code = None
+    verify_code = request.session['verify_code']
+    verify_email = request.session['verify_email']
     if request.method == 'POST':
         if 'resend' in request.POST:
             verify_code = generate_verification_code()
-            send_verification_code(email=verify_user.email, code=verify_code)
+            send_verification_code(to_email=verify_email, code=verify_code)
+            request.session['verify_code'] = verify_code
+            messages.info(request, "We have resent the verification code.")
         else:
             input_code = request.POST.get('reset-code').strip()
             if input_code == verify_code:
-                login(request, verify_user)
+                login(request, User.objects.get(email=verify_email))
                 return redirect('/')
             messages.error(request, "The verification code you entered is incorrect.")
 
     context = {
         'input_code': input_code,
-        'input_email': verify_user.email,
+        'input_email': verify_email,
     }
     return render(request, template_name, context)
 
     
 @login_required(login_url='login')
 def profile_acc(request, pk): # pk username
-    """ TODO: Saved recipes
-    """
     
     context = {}
     template_name = 'profile.html'
     # Request.user is the user that logged in, there for the profile information take the parameter from the urls to show it.
-    
-    
-    
-    user_info = User.objects.get(username=pk).userinfo
+    try:
+        user_info = User.objects.get(username=pk).userinfo
+    except User.DoesNotExist:
+        raise Http404
 
     if request.method == 'POST':
         print(request.POST.keys())
@@ -206,7 +210,7 @@ def profile_acc(request, pk): # pk username
         new_2step = request.POST.get('enable-2factor')
         new_phone = request.POST.get('phone')
         new_bday = request.POST.get('birthday')
-        
+        new_bio = request.POST.get('bio-input')
         # Case: Compare old and new password
         if new_password:
             new_password = new_password.strip()
@@ -225,19 +229,50 @@ def profile_acc(request, pk): # pk username
             user_info.phone = new_phone.strip()
         if new_bday:
             user_info.bday = new_bday
+        if new_bio:
+            user_info.bio = new_bio.strip()
         if new_2step:
             user_info.user.security.two_step = (new_2step == "on")
             
         user_info.user.security.save(update_fields=['two_step'])
-        user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday'])
+        user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday', 'bio'])
+        
+        if request.POST.get('follow'):
+            try:
+                status = Follower.objects.get(user=user_info.user, user_followers=request.user)
+            except Follower.DoesNotExist:
+                status = None
+            if not status:
+                Follower.objects.create(
+                    user=user_info.user, 
+                    user_followers=request.user
+                )
+            else:
+                status.delete()
+        
     
     current_info = UserInfo.objects.get(user=request.user)    
     
-
+    
     context = {
         'current_info': current_info,
         'user_info': user_info,
         'user_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
+    }
+    
+    if (current_info != user_info):
+        try:
+            status = Follower.objects.get(user=user_info.user, user_followers=request.user)
+        except Follower.DoesNotExist:
+            status = None
+        
+        context = context | {
+            'follow_status': 'Follow' if not status else 'Unfollow'
+        }
+    print(Follower.objects.filter(user=user_info.user))
+    context = context | {
+        'following_list': Follower.objects.filter(user_followers=user_info.user),
+        'follower_list': Follower.objects.filter(user=user_info.user),
     }
     return render(request, template_name, context)
 

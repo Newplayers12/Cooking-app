@@ -23,6 +23,7 @@ class UserInfo(models.Model):
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fullname = models.CharField(blank=False, max_length=150, null=False)
+    bio = models.TextField(blank=False, max_length=2000, null=True)
     gender = models.CharField(blank=False, choices=GENDER_CHOICES, max_length=6, null=True)
     phone = models.CharField(blank=False, max_length=20, null=True)
     avatar = models.ImageField(upload_to='personal_avatar', default="default_avatar.png")
@@ -88,9 +89,20 @@ class LikesPost(models.Model):
         return self.name
     
     
-# class Following(models.Model):
-#     followee = models.ManyToManyField(User, on_delete=models.CASCADE)
-#     followed = models.ManyToManyField(User, on_delete=models.CASCADE)
-    
-#     def __str__(self):
-#         return f'{self.followee.username} is following {self.followed.username}'
+class Follower(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="first")
+    user_followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name="second")
+     
+    def __str__(self):
+        return f"{self.user_followers.username} is following {self.user.username}"
+
+""" class MealPlan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    breakfast = models.ForeignKey(Post, on_delete=models.CASCADE)
+    lunch = models.ForeignKey(Post, on_delete=models.CASCADE)
+    dinner = models.ForeignKey(Post, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.breakfast.title}, {self.lunch.title}, {self.dinner.title}"
+"""

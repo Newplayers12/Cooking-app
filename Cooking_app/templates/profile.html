@@ -253,11 +253,15 @@
               Log out
             </a>
           </button>
-          <form action="">
-            <button id = "follow-btn">
-              Follow
+
+          <form action="" method="POST">
+            {% csrf_token %}
+
+            <button id = "follow-btn" name="follow" value="ticked">
+              {{follow_status}}
             </button>
           </form>
+
         </div>
         
       </div>
@@ -299,7 +303,7 @@
   
           </div>
           <div id = "bio-section">
-            <form id = "bio-form" method="post">
+            <form id = "bio-form" method="POST">
               {% csrf_token %}
               <textarea 
                   name = "bio-input" 
@@ -312,7 +316,10 @@
 
             <div id = "bio-container">
               <p id = "bio" class = "hover-class1" onclick="displayModifyBio()">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
+                {% comment %}
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
+                {% endcomment %}
+                {{user_info.bio}}
               </p>
               <div class = "editing-container">
                 <img class = "editing"src="{% static '/icons/editing.png' %}" alt="">
@@ -998,10 +1005,28 @@
         <!-- FOLLOWERS -->
         <div id = "display-followers" class = "display-section">
           <div class = "other-user-container">
+            {% for f in follower_list %}
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href={% url 'profile' f.user_followers.username %}>
+                <img src={{f.user_followers.userinfo.avatar.url}} alt="">
+              </a>
+
+              <div class = "other-user-infomation">
+                <a class = "other-username" href={% url 'profile' f.user_followers.username %}>{{f.user_followers.username}}</a>
+                <a class = "other-user-bio" href={% url 'profile' f.user_followers.username %}>{{f.user_followers.userinfo.bio}}</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+            {% endfor %}
+
+            {% comment %} 
             <div class = "other-user-preview">
               <a class = "other-img-profile" href="#">
                 <img src="{% static '/icons/user.png' %}" alt="">
               </a>
+
               <div class = "other-user-infomation">
                 <a class = "other-username" href="#">Other-user1</a>
                 <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
@@ -1010,65 +1035,30 @@
                 Remove
               </button>
             </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user2</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class="remove-button">
-                Remove
-              </button>
-            </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user3</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class="remove-button">
-                Remove
-              </button>
-            </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user4</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class="remove-button">
-                Remove
-              </button>
-            </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user5</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class="remove-button">
-                Remove
-              </button>
-            </div>
+             {% endcomment %}
 
           </div>
         </div>
 
         <div id = "display-following" class = "display-section"> 
           <div class = "other-user-container">
+
+            {% for f in following_list %}
             <div class = "other-user-preview">
+              <a class = "other-img-profile" href="{% url 'profile' f.user.username %}">
+                <img src={{ f.user.userinfo.avatar.url }} alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" href={% url 'profile' f.user.username %}>{{f.user.username}}</a>
+                <a class = "other-user-bio" href={% url 'profile' f.user.username %}>{{f.user.userinfo.bio}}</a>
+              </div>
+              <button class = "unfollow-button">
+                Unfollow
+              </button>
+            </div>
+            {% endfor %}
+
+            {% comment %} <div class = "other-user-preview">
               <a class = "other-img-profile" href="#">
                 <img src="{% static '/icons/user.png' %}" alt="">
               </a>
@@ -1131,7 +1121,7 @@
               <button class="unfollow-button">
                 Unfollow
               </button>
-            </div>
+            </div> {% endcomment %}
 
           </div>
         </div>

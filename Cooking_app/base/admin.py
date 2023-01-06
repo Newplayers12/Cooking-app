@@ -24,3 +24,8 @@ class SavedPostAdmin(admin.ModelAdmin):
 @admin.register(LikesPost)
 class LikesPostAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Follower)
+class FollowerAdmin(admin.ModelAdmin):
+    pass

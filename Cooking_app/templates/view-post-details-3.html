@@ -1,0 +1,507 @@
+{% load static %}
+<!-- Replacement -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Martian+Mono:wght@300;400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300&family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/common/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/sidebar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/common/general.css' %}">
+  <link rel="stylesheet" href="{% static 'css/view-post-details-3/main.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>View Post Details</title>
+  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header id = "header">
+    <div id = "left-header">
+      <img id = "icon-nav"  onclick="openNav()" src="{% static '/icons/nav.png' %}" alt="nav">
+      <a href="index.html">
+        <img id = "logo-img2" src="{% static '/images/logo2.png' %}" alt="">
+      </a>
+    </div>
+
+    <div id = "middle-header">
+      <!-- HEADER SEARCH -->
+      <form action="/search.html">
+        <input id = "header-search" 
+        name = "header-search"
+        type="text" 
+        placeholder="Search recipes"
+        >
+        <input type="submit" style="display:none"/>
+      </form>
+
+      <button id = "search-btn-header" onclick="openSearchOnHeader()">
+        <img id = "search-icon-header" src="{% static '/icons/search.png' %}" alt="Search-icon">
+      </button>
+    </div>
+
+    <div id = "right-header">
+      <div id = "container-10">
+        <button id = "JoinUsButton2">
+          <span>
+            Log In / Sign Up
+          </span>
+        </button>
+      </div>
+      <div id = "container-11">
+        <div class = "dropdown">
+          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+          <div id="my-dropdown" class="dropdown-content">
+            <a href="/profile.html">Profile</a>
+              <a href="/profile.html">Saved Recipes</a>
+              <a href="/profile.html">Settings</a>
+              <a href="/login.html" 
+                  onclick="return logout();"
+              >
+                  Log out
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header> 
+
+  <aside id = "sidebar">
+    <a href="javascript:void(0)" id = "closeNav" onclick="closeNav()">&times;</a>
+
+    <!-- Logo website container -->
+    <div class = "logo-container">
+      <a class = "logo-a" href="index.html">
+        <img class = "logo-img" src="{% static '/images/logo.png' %}" alt="">
+      </a>
+    </div>
+
+    <!-- Sidebar main  -->
+    <div class = "sidebar-main"> 
+
+      <div id = "container-0">
+        <div id = "container-00">
+          <button id = "JoinUsButton">
+            <span>
+              Join Us
+            </span>
+        </button>
+        </div>
+        <div id = "container-01">
+          <a href="/profile.html">
+            <img src="{% static '/icons/user.png' %}" alt="">
+            <p>Hoang Phu</p>
+          </a>
+        </div>
+      </div>
+
+      <p style="min-height: 10px;"></p>
+        <div class = "sidebar-main-item">
+            <img id = "home-icon" src="{% static '/icons/home.png' %}" alt="">
+            <span>My Feeds</span>
+        </div>
+
+        <div class = "sidebar-main-item">
+          <img id = "plan-icon" src="{% static '/icons/plan.png' %}" alt="">
+          <span>Meal Planner</span>
+        </div>
+
+        <div id = "sidebar-main-item-saved-recipes">
+          <div id = "saved-recipes">
+            <img src="{% static '/icons/saved.png' %}" alt="">
+            <span>Saved Recipes</span>
+          </div>
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>All Recipes</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Breakfasts</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dessert</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Dinners</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Drinks</span>
+          </div>
+
+          <div class = "saved-recipes-collection">
+            <img src="{% static '/icons/folder.png' %}" alt="">
+            <span>Soups</span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <!-- Sidebar footer -->
+    <div class = "sidebar-footer">
+      <div class = "sidebar-footer-socialmedia-icons">
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-facebook" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-twitter" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-instagram" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+        <div class = "icon-socialmedia-container">
+          <a href="#">
+            <div id = "icon-socialmedia-pinterest" class = "icon-socialmedia-icon">
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <div class = "sidebar-footer-more">
+        <p class = "sidebar-footer-more-p">
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Privacy
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+              Terms
+          </a>
+
+          &#9679;
+
+          <a class = "sidebar-footer-more-nev" href="#">
+            Copyrights
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </aside>
+   
+  <!-- Main -->
+  <main style = "margin: 0 calc(12%);" id = "main">
+    <div style="height: 30px;"></div>
+
+    <div id = "view-post-details">
+      <div class="the-post">
+        
+        <p id="author">
+          <span class="author-name">David Dave</span>
+          <a>
+            <img src="{% static '/icons/people.png' %}">
+          </a>
+        </p>
+        <p id="title">
+          Oven fried chicken legs
+        </p>
+        <p id="post-date">
+          <i class="fa fa-clock-o"></i> January 5, 2022, 09:25 (UTC+7)
+        </p>
+        <p class="recipe-image-show">
+          <img src="{% static '/images/recipes/0.webp" alt="recipe img">
+          <img src="{% static '/images/recipes/oven-fried-chicken-leg.jpeg" alt="recipe img">
+        </p>
+        
+        <p id="description">
+          <i class="fa fa-file"></i>
+          Description: These whole chicken legs make a delicious and economical meal, and removing the skin from the legs makes them relatively low in fat. The seasoned coating turns out so crispy, you won't miss the skin. Serve with your favorite vegetable side dishes or potatoes and a salad.
+        </p>
+        <p id="time-preparation">
+          <i class="fa fa-clock-o"></i> Preparation time: 15 minutes.
+        </p>
+        <p id="cooking-time">
+          <i class="fa fa-clock-o"></i> Cooking time: 45 minutes.
+        </p>
+        <p id="number-of-meal-servings">
+          <i class="fa fa-users"></i> Number of meal servings: 4.
+        </p>
+        <p id="nutrition-facts">
+          <i class="fa fa-heartbeat"></i>Nutrition Facts (per serving): 
+          <ul class="nutrition-info">
+            <li>Calories: 340</li>
+            <li>Fat: 14g</li>
+            <li>Carbonates: 30g</li>
+            <li>Protein: 22g</li>
+          </ul>
+        </p>
+        <p id="ingredients">
+          <i class="fa fa-apple"></i>Ingredients:
+          <ul class="cooking-ingredients">
+            <li>4 whole chicken legs</li>
+            <li>1 1/2 cups buttermilk</li>
+            <li>3 tablespoons hot sauce, such as Frank's or Texas Pete</li>
+            <li>1 1/2 tablespoons unsalted butter, for the pan</li>
+            <li>1 cup all-purpose flour</li>
+            <li>2 teaspoons paprika</li>
+            <li>1 teaspoon salt</li>
+            <li>1/2 teaspoon garlic powder</li>
+            <li>1/2 teaspoon freshly ground black pepper</li>
+            <li>1 tablespoon unsalted butter, melted, for drizzling over the chicken</li>  
+          </ul>
+        </p>
+        <p id="instructions">
+          &#10004 Instructions:
+          <ol class="cooking-instructions">
+            <li>Remove the skin from the chicken legs and cut away any visible fat. Using a small sharp knife, prick the chicken pieces in several places.</li>
+            <li>Put the buttermilk and hot sauce in a large covered container or heavy-duty food storage bag. Add the chicken legs to the container or bag and turn to coat thoroughly. Cover or seal and refrigerate for 2 to 4 hours.</li>
+            <li>Heat the oven to 425 F. Line a rimmed baking sheet (such as a jelly roll pan or a 13 x 9-inch pan) with nonstick or regular foil. Grease the pan generously with butter, about 1 to 1 1/2 tablespoons. The butter helps to crisp the coating on the chicken.</li>
+            <li>Put the flour, paprika, salt, pepper, and garlic powder in a wide shallow bowl. Mix to blend thoroughly.</li>
+            <li>Take each chicken leg out of the buttermilk mixture and let excess drip off. Coat with the flour mixture and place in the prepared pan. Repeat with the remaining chicken legs then drizzle each leg with some of the melted butter. </li>
+            <li>Bake for 25 minutes, then turn the chicken pieces. Bake for 20 minutes longer. The chicken juices should run clear when pricked with a fork. If using a food thermometer, the chicken should register at least 165 F.</li>
+          </ol>
+        </p>
+        <p><span id="count-likes">9 </span>Likes</p>
+      </div>
+  
+      <div
+      id="buttons"
+      style="align-self: center;
+      width: 100%;"
+      >
+        <button id="like-btn" class="like-btn" onclick="onLikeButtonClickEvent()">
+          <span>
+            Like <i class="fa fa-thumbs-up"></i>
+          </span>        
+        </button>
+        <button id="comment-btn" class="comment-btn" onclick="showOrHideComments()"">
+          <span>
+            Comment <i class="fa fa-comment"></i>
+          </span>        
+        </button>
+        <button id="share-btn" class="share-btn">
+          <span>
+            Share <i class="fa fa-share-alt"></i>
+          </span>        
+        </button>      
+        <button id="save-btn" class="save-btn" onclick="save()">
+          <span>
+            Save &#x1f5ab;
+          </span>        
+        </button>      
+      </div>
+      
+      <div style="
+      margin: 12px 0 3px 0;
+      height: 2px;
+      width: 100%;
+      background-color: lightgrey;
+      border-radius: 100px;
+      ">
+      </div>
+
+      <form id="comments" class="flex-container" onkeypress="textAreaListener(event)">
+        <p>
+          <span id="count-comments"></span>Comments
+        </p>
+
+        <textarea readonly 
+          name="liked"
+          id="liked"
+        ></textarea>
+        
+        <p class="username" style="color:blue;">
+          Hoang Phu
+        </p>
+        <textarea class="text-area-input"
+        id="text-area-comment"
+        cols="30" rows="1" 
+        placeholder="Write your comment here..."
+        ></textarea>
+
+        
+        <p class="username">
+          My Name Is Christine
+        </p>
+        <p class="comment">
+          Hi <span class="username">David Dave</span>, could I repost this recipe, please?
+        </p>
+      
+        <p class="username">
+          David Dave
+        </p>
+        <p class="comment">
+          Of course, <span class="username">My Name Is Christine</span>, hope you like it :D
+        </p>
+        
+      </form>
+    </div>
+    
+    <div style="
+    margin: 5px 0 20px 0;
+    height: 2.25px;
+    width: 100%;
+    background-color: lightgrey;
+    border-radius: 100px;
+    ">
+    </div>
+
+    <!-- Add some space -->
+    <div style="height: 100px;"></div>
+    <img style= "
+      width: 50px; 
+      height: 50px;
+      align-self: center;
+      " 
+      src="{% static '/images/cooking.png' %}" alt="">
+    <div style="height: 50px;"></div>
+    
+    
+  </main>
+
+  <script>
+    let thisuser = "Hoang Phu";
+
+    function closeNav() {
+      document.getElementById("sidebar").style.width = "0";
+      document.getElementById("header").style.height = "50px";
+      document.getElementById("main").style.padding = "60px 0 0 0"
+      document.getElementById("header-search").style.opacity = "0";
+      document.getElementById("search-btn-header").style.marginLeft = "425px";
+      document.getElementById("header").style.overflow = "visible";
+      document.getElementById("recipes-search-grid").style.gridTemplateColumns = "auto auto auto auto";
+    }
+
+    function openNav() {
+      document.getElementById("sidebar").style.width = "200px";
+      document.getElementById("header").style.height = "0";
+      document.getElementById("header").style.overflow = "hidden";
+      document.getElementById("main").style.padding = "0 0 0 200px"
+      document.getElementById("recipes-search-grid").style.gridTemplateColumns = "auto auto auto";
+    }
+
+    function openSearchOnHeader(){
+      document.getElementById("header-search").style.opacity = "1";
+      document.getElementById("search-btn-header").style.marginLeft = "-35px"; 
+      document.getElementById("search-icon-header").style.width = "18px";
+      document.getElementById("search-icon-header").style.height = "18px";
+    }
+
+    function displayDropdown(){
+      if (document.getElementById("my-dropdown").style.display == "block"){
+        document.getElementById("my-dropdown").style.display = "none";
+      }
+      else{
+        document.getElementById("my-dropdown").style.display = "block";
+      }
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.username-header') && !event.target.matches('.profile-header')) {
+        if (document.getElementById("my-dropdown").style.display == "block"){
+          document.getElementById("my-dropdown").style.display = "none";
+        }
+      }
+    }
+    
+    function logout(){
+      localStorage.setItem('login', 'no');
+      return true;
+    }
+
+    let liked = false;
+    function onLikeButtonClickEvent(){
+      liked = !liked;
+      if (liked){
+        document.getElementById("like-btn").style.color = "blue";
+        document.getElementById("like-btn").style.backgroundColor = "rgb(224, 224, 255)";
+        document.getElementById("like-btn").style.opacity = "1.0";
+        document.getElementById("like-btn").style.transitionDuration = "0.15s";
+        document.getElementById("count-likes").innerHTML = String(parseInt(document.getElementById("count-likes").innerHTML, 10) + 1).concat(' ');
+        document.getElementById("liked").value = true;
+      }
+      else {
+        document.getElementById("like-btn").style = document.getElementsByClassName("button").style;
+        document.getElementById("count-likes").innerHTML = String(parseInt(document.getElementById("count-likes").innerHTML, 10) - 1).concat(' ');
+        document.getElementById("liked").value = false;
+      }
+    }
+
+    let comments = 2;
+    document.getElementById('count-comments').innerHTML = String(comments).concat(' ');
+
+    function addMoreComments(){
+      ++comments;
+      document.getElementById('count-comments').innerHTML = String(comments).concat(' ');
+      
+      let p = document.createElement('p');
+      p.setAttribute('class', 'username');
+      p.innerHTML = thisuser;
+      document.getElementById('comments').appendChild(p); 
+      
+      p = document.createElement('p');
+      p.setAttribute('class', 'comment');
+      
+      document.getElementById('comments').appendChild(p); 
+      p.innerText = document.getElementById('text-area-comment').value;
+      document.getElementById('text-area-comment').value = '';
+    }
+
+    function textAreaListener(event) {
+        // 13 is the keycode for "enter"
+        if (event.keyCode == 13 && event.shiftKey) {
+          document.getElementById('text-area-comment').innerHTML = "Triggered enter+shift";
+          document.getElementById('text-area-comment').setAttribute('rows', String(parseInt(document.getElementById('text-area-comment').getAttribute('rows')) + 1));
+        }
+        if (event.keyCode == 13 && !event.shiftKey) {
+          event.preventDefault();
+          addMoreComments();
+          document.getElementById('text-area-comment').setAttribute('rows', '1');
+          return true;
+        }
+    }
+
+    function save(){
+      localStorage.setItem('isPostSubmitted', 'yes');
+      let flag = true;
+      
+      if(flag){
+        localStorage.setItem("comments", document.body.innerHTML);
+        document.getElementById("comments").submit();
+      }
+    }
+
+    function reloadPage(){
+      let content = localStorage.getItem("comments");
+      if (content){
+        document.body.innerHTML = content;
+        localStorage.clear();
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

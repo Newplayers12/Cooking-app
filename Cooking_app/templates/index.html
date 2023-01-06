@@ -364,13 +364,50 @@
         <div id = "following-post-preview" class = "post-previews">
 
           <p>
-            By kitchen friends
+            By {{CHOSEN_USER.userinfo.fullname}}
           </p>
           
           <div id = "following-posts" class = "flex-box-posts">
             <!-- BEGIN EXAMPLE -->
+            
             <!-- Recipe 1 -->
+            {% for post in FAVORITE_USER_POST %}
             <div class = "post-container">
+              <a class = "Recipe-img-preview" href="#">
+                <img src="{{ post.preview.url }}" alt="recipe img">
+              </a>
+              <div class = "card-info">
+                <!-- Link to Users -->
+                <a class = "author-recipe" href={% url 'profile' post.chef.username %}>
+                  <img src="{{ post.chef.userinfo.avatar.url }}" alt="user">
+                </a>
+                <div class = "infomation-recipe">
+                  <a class = "recipe-title" href="#">
+                    {{post.title}}
+                  </a>
+                  <div>
+                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
+                  </div>
+                </div>
+                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
+              </div>
+
+            </div>
+            <button id = "scroll-left-following-posts" class = "btnScroll" onclick="Scroll('following-posts', -125)">
+              <img src="{% static '/icons/left-arrow.png' %}" alt="">
+            </button>
+  
+            <button id = "scroll-right-following-posts" class = "btnScroll" onclick="Scroll('following-posts', 125)">
+              <img src="{% static '/icons/right-arrow.png' %}" alt="">
+            </button>
+            {% empty %}
+             <div>
+              <p>
+                This user doesn't have a post yet. Come back later :>
+              </p>
+             </div>
+            {% endfor %}
+            {% comment %} <div class = "post-container">
               <a class = "Recipe-img-preview" href="#">
                 <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
               </a>
@@ -390,107 +427,9 @@
                 <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
               </div>
 
-            </div>
+            </div> {% endcomment %}
 
-          <!-- Recipe 2             -->
-            <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
-                <img src="{% static '/images/recipes/1.webp' %}" alt="recipe img">
-              </a>
-              <div class = "card-info">
-                <!-- Link to Users -->
-                <a class = "author-recipe" href="#">
-                  <img src="{% static '/icons/user.png' %}" alt="user">
-                </a>
-                <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
-                    Cowboy Caviar
-                  </a>
-                  <div>
-                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
-                  </div>
-                </div>
-                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
-              </div>
-
-            </div>
-
-            <!-- Recipe 3-->
-            <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
-                <img src="{% static '/images/recipes/2.webp' %}" alt="recipe img">
-              </a>
-              <div class = "card-info">
-                <!-- Link to Users -->
-                <a class = "author-recipe" href="#">
-                  <img src="{% static '/icons/user.png' %}" alt="user">
-                </a>
-                <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
-                    Copycat Cafe Rio Sweet Pulled Pork {Crock Pot}
-                  </a>
-                  <div>
-                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
-                  </div>
-                </div>
-                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
-              </div>
-
-            </div>
-
-            <!-- Recipe 4-->
-            <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
-                <img src="{% static '/images/recipes/3.webp' %}" alt="recipe img">
-              </a>
-              <div class = "card-info">
-                <!-- Link to Users -->
-                <a class = "author-recipe" href="#">
-                  <img src="{% static '/icons/user.png' %}" alt="user">
-                </a>
-                <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
-                    Silken tofu ceviche
-                  </a>
-                  <div>
-                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
-                  </div>
-                </div>
-                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
-              </div>
-            </div>
-
-            <!-- Recipe 5-->
-            <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
-                <img src="{% static '/images/recipes/4.webp' %}" alt="recipe img">
-              </a>
-              <div class = "card-info">
-                <!-- Link to Users -->
-                <a class = "author-recipe" href="#">
-                  <img src="{% static '/icons/user.png' %}" alt="user">
-                </a>
-                <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
-                    Chicken Salad Chick Chicken Salad
-                  </a>
-                  <div>
-                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
-                  </div>
-                </div>
-                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
-              </div>
-            </div>
-          </div>
-
-          <!-- END EXAMPLE -->
-          <button id = "scroll-left-following-posts" class = "btnScroll" onclick="Scroll('following-posts', -125)">
-            <img src="{% static '/icons/left-arrow.png' %}" alt="">
-          </button>
-
-          <button id = "scroll-right-following-posts" class = "btnScroll" onclick="Scroll('following-posts', 125)">
-            <img src="{% static '/icons/right-arrow.png' %}" alt="">
-          </button>
+          
 
         </div>
 

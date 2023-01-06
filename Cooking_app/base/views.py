@@ -24,15 +24,53 @@ def home(request):
     template_name = 'index.html'
     
     # ALL OF THE POST THAT ALL USER HAVE MADE
-    ALL_POST = Post.objects.all().order_by('-created')[:12]
+    ALL_POST = Post.objects.all().order_by('-created')[:12] # only the first 12 posts 
     CHOSEN_USER = random.choice(User.objects.all())
     FAVORITE_USER_POST = Post.objects.filter(chef=CHOSEN_USER).order_by('-created')    
     context = {
         'user': request.user if request.user.is_authenticated else None,
         'FAVORITE_USER_POST': FAVORITE_USER_POST,
+        'CHOSEN_USER': CHOSEN_USER,
         'ALL_POST': ALL_POST,
     }
     return render(request, template_name, context)
+
+
+def search_post(request):
+    """Search for a recipe
+
+    Args:
+        request (request): request object
+
+    Returns:
+        render: render template
+    """
+    
+    context = {}
+    
+    if request.method == "GET":
+        q = request.GET.get('header-search', '') + request.GET.get('search-main', '')
+        
+        if q == '':
+            result_post = Post.objects.all().order_by('-created')
+            q = 'All post created'
+        else:
+            result_post = Post.objects.filter(
+                    Q(title__icontains = q) | 
+                    Q(description__icontains = q)
+                ).order_by('-created')
+            
+        result_amount = len(result_post)
+        context = context | {
+            'q': q,
+            'result_amount': result_amount,
+            'result_post': result_post,
+        }
+            
+        
+    template_name = "search.html"
+    return render(request, template_name, context)
+
 
 
 
@@ -207,7 +245,6 @@ def profile_acc(request, pk): # pk username
 """PostARecipe Views
 
 Returns:
-    request: something i don't know 
 """
 MAX_NUMBER_INGREDIENTS = 10
 MAX_NUMBER_INSTRUCTIONS = 10
@@ -269,36 +306,3 @@ def PostARecipe(request):
 
 
 
-def search_post(request):
-    """Search for a recipe
-
-    Args:
-        request (request): request object
-
-    Returns:
-        render: render template
-    """
-    
-    context = {}
-    
-    if request.method == "GET":
-        q = request.GET.get('header-search', '') + request.GET.get('search-main', '')
-        
-        if q == '':
-            result_post = Post.objects.all().order_by('-created')
-        else:
-            result_post = Post.objects.filter(
-                    Q(title__icontains = q) | 
-                    Q(description__icontains = q)
-                ).order_by('-created')
-            
-        result_amount = len(result_post)
-        context = context | {
-            'q': q,
-            'result_amount': result_amount,
-            'result_post': result_post,
-        }
-            
-        
-    template_name = "search.html"
-    return render(request, template_name, context)

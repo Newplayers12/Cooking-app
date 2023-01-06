@@ -32,7 +32,7 @@
 
     <div id = "middle-header">
       <!-- HEADER SEARCH -->
-      <form action="/search.html">
+      <form action="">
         <input id = "header-search" 
         name = "header-search"
         type="text" 
@@ -59,9 +59,9 @@
           <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
           <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' %}">Profile</a>
-              <a href="{% url 'profile' %}">Saved Recipes</a>
-              <a href="{% url 'profile' %}">Settings</a>
+            <a href="{% url 'profile' post.chef.username %}">Profile</a>
+              <a href="{% url 'profile' post.chef.username %}">Saved Recipes</a>
+              <a href="{% url 'profile' post.chef.username %}">Settings</a>
               <a href="{% url 'login' %}" 
                   onclick="return logout();"
               >
@@ -224,10 +224,10 @@
           </a>
         </p>
         <p id="title">
-          Oven fried chicken legs
+          {{ post.title }}
         </p>
         <p id="post-date">
-          <i class="fa fa-clock-o"></i> January 5, 2022, 09:25 (UTC+7)
+          <i class="fa fa-clock-o"></i> {{ post.updated | date:"M d, Y" }}
         </p>
         <p class="recipe-image-show">
           <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
@@ -236,16 +236,16 @@
         
         <p id="description">
           <i class="fa fa-file"></i>
-          Description: These whole chicken legs make a delicious and economical meal, and removing the skin from the legs makes them relatively low in fat. The seasoned coating turns out so crispy, you won't miss the skin. Serve with your favorite vegetable side dishes or potatoes and a salad.
+          Description: {{ post.description }}
         </p>
         <p id="time-preparation">
-          <i class="fa fa-clock-o"></i> Preparation time: 15 minutes.
+          <i class="fa fa-clock-o"></i> Preparation time: {{ post.preptime }} minutes.
         </p>
         <p id="cooking-time">
           <i class="fa fa-clock-o"></i> Cooking time: 45 minutes.
         </p>
         <p id="number-of-meal-servings">
-          <i class="fa fa-users"></i> Number of meal servings: 4.
+          <i class="fa fa-users"></i> Number of meal servings: {{ post.ration }}.
         </p>
         <p id="nutrition-facts">
           <i class="fa fa-heartbeat"></i>Nutrition Facts (per serving): 
@@ -259,7 +259,11 @@
         <p id="ingredients">
           <i class="fa fa-apple"></i>Ingredients:
           <ul class="cooking-ingredients">
-            <li>4 whole chicken legs</li>
+            {% ingredients = post.ingredients.split('\n') %}
+            {% for ingre in ingredients %}
+                <li>{{ ingre }}</li>
+            {% endfor %}
+            <!-- <li>4 whole chicken legs</li>
             <li>1 1/2 cups buttermilk</li>
             <li>3 tablespoons hot sauce, such as Frank's or Texas Pete</li>
             <li>1 1/2 tablespoons unsalted butter, for the pan</li>
@@ -268,18 +272,22 @@
             <li>1 teaspoon salt</li>
             <li>1/2 teaspoon garlic powder</li>
             <li>1/2 teaspoon freshly ground black pepper</li>
-            <li>1 tablespoon unsalted butter, melted, for drizzling over the chicken</li>  
+            <li>1 tablespoon unsalted butter, melted, for drizzling over the chicken</li>   -->
           </ul>
         </p>
         <p id="instructions">
           &#10004 Instructions:
           <ol class="cooking-instructions">
-            <li>Remove the skin from the chicken legs and cut away any visible fat. Using a small sharp knife, prick the chicken pieces in several places.</li>
+            {% instructions = post.instructions.split('\n') %}
+            {% for instr in instructions %}
+                <li>{{ instr }}</li>
+            {% endfor %}
+            <!-- <li>Remove the skin from the chicken legs and cut away any visible fat. Using a small sharp knife, prick the chicken pieces in several places.</li>
             <li>Put the buttermilk and hot sauce in a large covered container or heavy-duty food storage bag. Add the chicken legs to the container or bag and turn to coat thoroughly. Cover or seal and refrigerate for 2 to 4 hours.</li>
             <li>Heat the oven to 425 F. Line a rimmed baking sheet (such as a jelly roll pan or a 13 x 9-inch pan) with nonstick or regular foil. Grease the pan generously with butter, about 1 to 1 1/2 tablespoons. The butter helps to crisp the coating on the chicken.</li>
             <li>Put the flour, paprika, salt, pepper, and garlic powder in a wide shallow bowl. Mix to blend thoroughly.</li>
             <li>Take each chicken leg out of the buttermilk mixture and let excess drip off. Coat with the flour mixture and place in the prepared pan. Repeat with the remaining chicken legs then drizzle each leg with some of the melted butter. </li>
-            <li>Bake for 25 minutes, then turn the chicken pieces. Bake for 20 minutes longer. The chicken juices should run clear when pricked with a fork. If using a food thermometer, the chicken should register at least 165 F.</li>
+            <li>Bake for 25 minutes, then turn the chicken pieces. Bake for 20 minutes longer. The chicken juices should run clear when pricked with a fork. If using a food thermometer, the chicken should register at least 165 F.</li> -->
           </ol>
         </p>
         <p><span id="count-likes">9 </span>Likes</p>

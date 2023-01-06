@@ -31,7 +31,7 @@
       We sent a password reset code to {{ input_email }}
     </p>
 
-    <form class="form-template">
+    <form class="form-template" method="POST">
       {% csrf_token %}
 
       <input id = "reset-code" 
@@ -50,9 +50,9 @@
     <div id = "resend-code-div">
       <p style="color: rgb(96, 96, 96);">Didn't receive the email?</p>
 
-      <form action="" onsubmit="" id = "resend-form" name="resend">
+      <form id = "resend-form" method="POST">
         {% csrf_token %}
-        <button type="button" id = "resend-btn" onclick="resendEmail()">
+        <button name="resend" id = "resend-btn" onclick="resendEmail()">
           Resend
         </button>
       </form>

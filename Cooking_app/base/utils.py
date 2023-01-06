@@ -15,7 +15,8 @@ def send_verification_code(to_email, code):
     try:
         send_mail(
             subject=subject,
-            message=message, 
+            message=message,
+            from_email=None,
             recipient_list=[to_email],
         )
     except Exception as e:

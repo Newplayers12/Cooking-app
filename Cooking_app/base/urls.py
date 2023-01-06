@@ -15,7 +15,6 @@ urlpatterns = [
     path('accounts/login/', views.login_acc, name = 'login'),
     path('accounts/signup/', views.signup_acc, name = 'signup'),
     path('accounts/logout/', views.logout_acc, name = 'logout'),
-    # path('accounts/profile/', views.profile_acc, name = 'profile'),
     path('accounts/profile/<pk>/', views.profile_acc, name = 'profile'),
     path('accounts/verify/', views.verify_acc, name = 'verify'),
     path('index/search/', views.search_post, name= 'search'),
@@ -47,4 +46,5 @@ urlpatterns = [
         name='password_reset_confirm',
     ),
     path('post_a_recipe/', views.PostARecipe, name = 'post_a_recipe'),
+    path('posts/<pk>', views.post_detail, name = 'post_detail'),
 ]

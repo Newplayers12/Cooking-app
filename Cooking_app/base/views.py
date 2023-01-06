@@ -16,7 +16,7 @@ from .utils import *
 
 
 import random # For later use, that we will randomize the Followed User list
-# TODO: return a list of post that admin post, sort by contry and try to implement the search ability to the search bar
+# TODO: return a list of post that admin post, sort by country and try to implement the search ability to the search bar
 ################################
 
 def home(request):
@@ -72,7 +72,19 @@ def search_post(request):
     return render(request, template_name, context)
 
 
-
+def post_detail(request, pk):
+    context = {}
+    template_name = 'view-post-details.html'
+    try:
+        recipe_post = Post.objects.get(pk=pk)
+    except User.DoesNotExist:
+        raise Http404
+    if request.method == 'POST':
+        pass
+    context = {
+        'post': recipe_post,
+    }
+    return render(request, template_name, context)
 
 
 def signup_acc(request):

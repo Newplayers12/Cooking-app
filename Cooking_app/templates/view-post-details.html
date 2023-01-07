@@ -96,7 +96,7 @@
         </button>
         </div>
         <div id = "container-01">
-          <a href="{% url 'profile' %}">
+          <a href="{% url 'profile' post.chef.username %}">
             <img src="{% static '/icons/user.png' %}" alt="">
             <p>Hoang Phu</p>
           </a>
@@ -218,7 +218,7 @@
       <div class="the-post">
         
         <p id="author">
-          <span class="author-name">David Dave</span>
+          <span class="author-name">{{ post.chef.userinfo.fullname }}</span>
           <a>
             <img src="{% static '/icons/people.png' %}">
           </a>
@@ -230,8 +230,9 @@
           <i class="fa fa-clock-o"></i> {{ post.updated | date:"M d, Y" }}
         </p>
         <p class="recipe-image-show">
-          <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
-          <img src="{% static '/images/recipes/oven-fried-chicken-leg.jpeg' %}" alt="recipe img">
+          <img src="{{post.preview.url}}" alt="recipe img">
+          <!-- <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
+          <img src="{% static '/images/recipes/oven-fried-chicken-leg.jpeg' %}" alt="recipe img"> -->
         </p>
         
         <p id="description">
@@ -259,8 +260,7 @@
         <p id="ingredients">
           <i class="fa fa-apple"></i>Ingredients:
           <ul class="cooking-ingredients">
-            {% ingredients = post.ingredients.split('\n') %}
-            {% for ingre in ingredients %}
+            {% for ingre in post.ingredients %}
                 <li>{{ ingre }}</li>
             {% endfor %}
             <!-- <li>4 whole chicken legs</li>
@@ -278,8 +278,7 @@
         <p id="instructions">
           &#10004 Instructions:
           <ol class="cooking-instructions">
-            {% instructions = post.instructions.split('\n') %}
-            {% for instr in instructions %}
+            {% for instr in post.instructions %}
                 <li>{{ instr }}</li>
             {% endfor %}
             <!-- <li>Remove the skin from the chicken legs and cut away any visible fat. Using a small sharp knife, prick the chicken pieces in several places.</li>

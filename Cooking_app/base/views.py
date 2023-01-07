@@ -77,9 +77,12 @@ def post_detail(request, pk):
     template_name = 'view-post-details.html'
     try:
         recipe_post = Post.objects.get(pk=pk)
+        recipe_post.ingredients = recipe_post.ingredients.split('\n')
+        recipe_post.instructions = recipe_post.instructions.split('\n')
     except User.DoesNotExist:
         raise Http404
     if request.method == 'POST':
+        #Maybe post comments and likes
         pass
     context = {
         'post': recipe_post,
@@ -244,8 +247,10 @@ def profile_acc(request, pk): # pk username
         if new_bio:
             user_info.bio = new_bio.strip()
         if new_2step:
-            user_info.user.security.two_step = (new_2step == "on")
-            
+            user_info.user.security.two_step = True
+            #(new_2step == "on")
+        else:
+            user_info.user.security.two_step = False
         user_info.user.security.save(update_fields=['two_step'])
         user_info.save(update_fields=['fullname', 'avatar', 'gender', 'phone', 'bday', 'bio'])
         

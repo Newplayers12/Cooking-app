@@ -309,7 +309,7 @@
                   <img src="{{post.chef.userinfo.avatar.url}}" alt="user">
                 </a>
                 <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
+                  <a class = "recipe-title" href="{% url 'post_detail' post.pk %}">
                     {{post.title}}
                   </a>
                   <div>
@@ -382,7 +382,7 @@
                   <img src="{{ post.chef.userinfo.avatar.url }}" alt="user">
                 </a>
                 <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
+                  <a class = "recipe-title" href="{% url 'post_detail' post.pk %}">
                     {{post.title}}
                   </a>
                   <div>

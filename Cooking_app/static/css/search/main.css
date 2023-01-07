@@ -98,3 +98,31 @@
   cursor: pointer;
 
 }
+.result{
+  display: flex;
+  justify-content: space-between;
+}
+.filter-container{
+  display: flex;
+
+}
+
+.form-template{
+  margin: 0 5px;
+}
+
+#search-btn{
+  background: lightgray;
+  padding: 2.5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#search-btn:hover{
+  opacity: 0.8;
+}
+
+#search-btn:active{
+  opacity: 0.7;
+}

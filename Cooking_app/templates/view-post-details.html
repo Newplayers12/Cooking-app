@@ -334,14 +334,17 @@
           <span>
             Save &#x1f5ab;
           </span>        
-        </button>     
+        </button>
+
+        {% comment %}
         {% else %}
         <button id="save-btn" name="saved" class="save-btn" onclick="save()">
           <span>
             Undo &#x1f5ab;
           </span>        
         </button>
-        {% endif %}     
+        {% endif %}
+        {% endcomment %}
       </form>
       </div>
       

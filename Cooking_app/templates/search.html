@@ -225,8 +225,33 @@
   <main style = "margin: 0 calc(12%);" id = "main">
     <div style="height: 30px;"></div>
     <p id = "results-text">
-      <span id = "number-of-results">{{result_amount}}</span> 
-      result for "<span id = "search-query">{{q}}</span>"
+      <div class = "result">
+        <div style="font-size: 20px;">
+          <span style="font-size: 20px;" id = "number-of-results">{{result_amount}}</span> 
+          result for "
+          <span style="font-size: 20px;" id = "search-query">{{q}}</span>"
+        </div>
+
+        <form class="filter-container">
+
+          <select name="filter" id="filter" class = "form-template">
+            <option selected="Filter">Filter</option>
+            <option value="Country">Country</option>
+          </select>
+
+          <select name="sort" id="sort" class = "form-template">
+            <option selected="Sort">Sort</option>
+            <option value="Date">Date</option>
+            <option value="Like">Like</option>
+          </select>
+          
+          <button id = "search-btn" >
+            Search
+          </button>
+
+        </form>
+
+      </div>
       <div style="
       margin: 5px 0 20px 0;
       height: 2.25px;
@@ -234,7 +259,9 @@
       background-color: lightgrey;
       border-radius: 100px;
       "></div>
+
     </p>
+
     <div id = "recipes-search-grid" class = "recipes-grid">
 
       {% for post in result_post %}

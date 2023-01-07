@@ -391,8 +391,15 @@
                 </div>
                 <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
               </div>
-
             </div>
+            
+            {% empty %}
+            <div>
+              <p>
+                This user doesn't have a post yet. Come back later :>
+              </p>
+            </div>
+            {% endfor %}
             <button id = "scroll-left-following-posts" class = "btnScroll" onclick="Scroll('following-posts', -125)">
               <img src="{% static '/icons/left-arrow.png' %}" alt="">
             </button>
@@ -400,35 +407,9 @@
             <button id = "scroll-right-following-posts" class = "btnScroll" onclick="Scroll('following-posts', 125)">
               <img src="{% static '/icons/right-arrow.png' %}" alt="">
             </button>
-            {% empty %}
-             <div>
-              <p>
-                This user doesn't have a post yet. Come back later :>
-              </p>
-             </div>
-            {% endfor %}
-            {% comment %} <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
-                <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
-              </a>
-              <div class = "card-info">
-                <!-- Link to Users -->
-                <a class = "author-recipe" href="#">
-                  <img src="{% static '/icons/user.png' %}" alt="user">
-                </a>
-                <div class = "infomation-recipe">
-                  <a class = "recipe-title" href="#">
-                    Oven Fried Chicken Legs
-                  </a>
-                  <div>
-                    <span>3</span> <span>&#128077;</span> <span>5</span> <span>&#x2764;&#xfe0f;</span>
-                  </div>
-                </div>
-                <img class = "add-saved-recipe"src="{% static '/icons/add-saved-recipe.png' %}" alt="">
-              </div>
-
-            </div> {% endcomment %}
-
+            
+          </div>
+          
           
 
         </div>
@@ -723,7 +704,7 @@
 
 <!-- javascript Code -->
 <script>
-  initialize();
+  {% comment %} initialize(); {% endcomment %}
 
   {% comment %} 
   function initialize(){

@@ -1,7 +1,7 @@
 
 #Search-Post-Main{
   height: 500px;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2)), url('/static/images/background-search-post-main.jpg');
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2)), url('/images/background-search-post-main.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
   display: flex;

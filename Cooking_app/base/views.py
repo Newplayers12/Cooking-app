@@ -145,7 +145,7 @@ def login_acc(request):
     template_name = 'login.html'
     
     # if user already logged in, they will go back to home-page
-    if request.session.session_key is not None:
+    if request.user.is_authenticated == True:
         return redirect('/')
     
     if request.method == 'POST':

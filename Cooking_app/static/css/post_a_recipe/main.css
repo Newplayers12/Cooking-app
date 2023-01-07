@@ -47,7 +47,6 @@
 #form-recipe{
   display: flex;
   flex-direction: column;
-
 }
 .input-recipe{
   width: 250px;
@@ -64,7 +63,7 @@
   width: 250px;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 3.5px 15px;
+  padding: 5px 15px;
   margin: 5px 0;
   resize: none;
   transition: all .3s;
@@ -93,10 +92,14 @@
   font-size: 17px;
 }
 
+.name-subsections{
+  margin-top: 10px;
+  font-size: 15px;
+}
+
 .flex-container{
   display: flex;
   flex-direction: column;
-
 }
 
 
@@ -120,8 +123,8 @@
 }
 .more-btn span{
   position: relative;
+  
 }
-
 .more-btn span::after{
   content: '\002B';
   position: absolute;
@@ -171,26 +174,12 @@
 }
 
 
-.country-form{
-  margin-top: 5px;
-  flex: 1;
-  border:none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  font-size: 14px;
-  padding: 2.5px 5px;
-  
-}
-
-.country-form:focus{
+.country:focus{
   outline: none;
 }
-.name-subsections{
-  margin-top: 10px;
-  font-size: 15px;
+
+.max-text{
+  display: none;
+  justify-content: center;
+  align-items: center;
 }

@@ -14,11 +14,6 @@
   width: 50%;
   text-align: center;
 }
-.text2{
-  color: rgb(96, 96, 96);
-  width: 60%;
-  text-align: center;
-}
 .form-template{
   display: flex;
   flex-direction: column;

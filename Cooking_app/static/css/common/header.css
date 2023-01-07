@@ -1,5 +1,5 @@
 #left-header{
-  flex: 1;
+  flex: 20%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -7,23 +7,23 @@
 }
 
 #middle-header{
-  flex: 1;
+  flex: 70%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   position: relative;
 }
 
 #right-header{
-  flex: 1;
+  flex: 10%;
 
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-
+  justify-content: end;
+  margin-right: 30px;
 }
 
 /* Left */
@@ -58,7 +58,7 @@
   border-style: solid;
   border-radius: 20px;
   max-lines: 1;
-
+  display: none;
   opacity: 0;
   transition: all 0.8s;
 }
@@ -67,7 +67,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  margin-left: 425px;
+  margin-right: 20px;
 
   transition: all 0.8s;
 }
@@ -183,6 +183,9 @@
   opacity: 0.8;
 }
 
+.form-search-header{
+  display: flex;
+}
 
 
 

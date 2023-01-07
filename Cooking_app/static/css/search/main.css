@@ -2,6 +2,9 @@
 #results-text{
   font-size: 20px;
 }
+#results-text span{
+  font-size: 22px;
+}
 
 .recipes-grid{
   width: 100%;

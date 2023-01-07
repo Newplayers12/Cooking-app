@@ -938,7 +938,7 @@
           <p>We'll ask for a security code (send to your email) when we need to confirm that it's you logging in.</p>
 
           <label class="send-code-container">Enable
-            <input type="checkbox" name="enable-2factor" id="enable-2factor">
+            <input type="checkbox" name="enable-2factor" id="enable-2factor" {% if user_info.user.security.two_step %} checked="checked"{% endif %}>
             <span class = "checkmark"></span>
           </label>
 

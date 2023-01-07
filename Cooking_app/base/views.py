@@ -75,7 +75,7 @@ def search_post(request):
 def post_detail(request, pk):
     context = {}
     template_name = 'view-post-details.html'
-    like_count = LikesPost.objects.filter(Liked_post.pk=pk).count()
+    #like_count = LikesPost.objects.filter(Liked_post.pk=pk).count()
     try:
         recipe_post = Post.objects.get(pk=pk)
         recipe_post.ingredients = recipe_post.ingredients.strip().split('\n')
@@ -87,6 +87,7 @@ def post_detail(request, pk):
         pass
     context = {
         'post': recipe_post,
+        'likes': None,
     }
     return render(request, template_name, context)
 

@@ -317,6 +317,8 @@
       >
       <form action="" method="POST">
         {% csrf_token %}
+        {% if request.user.is_authenticated %}
+        
         {% if not like_status %}
         <button id="like-btn" name="liked" value="like" class="like-btn">
           <span>
@@ -332,17 +334,20 @@
           </span>        
         </button>
         {% endif %}
+        
         <button id="comment-btn" class="comment-btn button-template"  onclick="showOrHideComments()">
           <span>
             Comment <i class="fa fa-comment"></i>
           </span>        
         </button>
+        {% endif %}
         <button id="share-btn" class="share-btn button-template">
           <span>
             Share <i class="fa fa-share-alt"></i>
           </span>        
         </button>    
         
+        {% if request.user.is_authenticated %}
         {% if not save_status %}
         <button id="save-btn" name="saved" value="save" class="save-btn">
           <span>
@@ -352,9 +357,10 @@
         {% else %}
         <button id="save-btn" name="saved" value="save" class="save-btn">
           <span>
-            Undo &#x1f5ab;
+            Un-save &#x1f5ab;
           </span>        
         </button>
+        {% endif %}
         {% endif %}
       </form>
       </div>
@@ -368,7 +374,8 @@
       ">
       </div>
 
-      <form id="comments" class="flex-container " onkeypress="textAreaListener(event)">
+      <form id="comments" class="flex-container " onkeypress="textAreaListener(event)" method="POST" >
+          {% csrf_token %}
         <textarea readonly 
           name="liked"
           id="liked"

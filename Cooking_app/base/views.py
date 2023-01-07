@@ -82,45 +82,58 @@ def post_detail(request, pk):
     except Post.DoesNotExist:
         raise Http404
     like_status, save_status = None, None
-    
-    if request.method == 'POST' and request.user.is_authenticated:
-        print(request.POST.keys())
-        
+    if request.user.is_authenticated:
         try:
             like_status = LikesPost.objects.get(user=request.user, Liked_post=recipe_post)
         except:
             like_status = None
-        
-        if request.POST.get('liked') == "like":
-            if like_status is None:
-                LikesPost.objects.create(
-                    user=request.user,
-                    Liked_post=recipe_post,
-                )
-            else:
-                like_status.delete()
-                
         try:
             save_status = SavedPost.objects.get(user=request.user, Saved_post=recipe_post)
         except:
             save_status = None
+        if request.method == 'POST':
+            print(request.POST.keys())
             
-        if request.POST.get('saved') == "save":
-            if save_status is None:
-                SavedPost.objects.create(
+            try:
+                like_status = LikesPost.objects.get(user=request.user, Liked_post=recipe_post)
+            except:
+                like_status = None
+            
+            if request.POST.get('liked') == "like":
+                if like_status is None:
+                    LikesPost.objects.create(
+                        user=request.user,
+                        Liked_post=recipe_post,
+                    )
+                    like_status = True
+                else:
+                    like_status.delete()
+                    like_status = None
+                    
+            try:
+                save_status = SavedPost.objects.get(user=request.user, Saved_post=recipe_post)
+            except:
+                save_status = None
+                
+            if request.POST.get('saved') == "save":
+                if save_status is None:
+                    SavedPost.objects.create(
+                        user=request.user,
+                        Saved_post=recipe_post,
+                    )
+                    save_status = True
+                else:
+                    save_status.delete()
+                    save_status = None
+            
+            new_comment = request.POST.get('comment-1')
+            if new_comment:
+                Message.objects.create(
                     user=request.user,
-                    Saved_post=recipe_post,
+                    post=recipe_post,
+                    body=new_comment,
                 )
-            else:
-                save_status.delete()
         
-        new_comment = request.POST.get('comment-1')
-        if new_comment:
-            Message.objects.create(
-                user=request.user,
-                post=recipe_post,
-                body=new_comment,
-            )
     comments_list = Message.objects.filter(post=recipe_post).order_by('-created')
     # comments_ammount = comments_list.count()
     context = {

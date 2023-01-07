@@ -330,9 +330,7 @@
 
             <div id = "bio-container">
               <p id = "bio" class = "hover-class1" onclick="displayModifyBio()">
-                {% comment %}
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ex, nam assumenda deserunt officia nobis sit quos harum aliquid enim, adipisci voluptas neque quae dolore delectus esse sequi qui laboriosam repudiandae corrupti voluptates unde! Totam eum deleniti provident ab vitae doloribus tenetur sequi ipsam corporis vero quisquam optio fugit voluptatum quis debitis mollitia dignissimos quia repellendus maxime a, vel, asperiores voluptatem! Similique nihil, aliquid veritatis consectetur possimus molestias optio, modi minima officia dolorum aspernatur aperiam soluta voluptatibus quia tempora ad, est sunt nostrum repudiandae eveniet maiores iusto quasi facilis amet. Excepturi consequatur modi cum saepe culpa ducimus, possimus vitae totam.
-                {% endcomment %}
+                
                 {{user_info.bio}}
               </p>
               <div class = "editing-container">
@@ -727,10 +725,12 @@
                   <span style="margin: 2px 10px 0 5px;">{{post.Saved_post.ration}}</span>
                 </div>
               </div>
+              {% comment %} 
               <div class = "saved-recipe-checkbox">
                 <input type="checkbox" id="saved-recipes-checkbox-{{key}}" name="saved-recipes-checkbox" />
                 <label for="saved-recipes-checkbox-{{key}}"></label>
-              </div>
+              </div> 
+              {% endcomment %}
             </div>
             {% endfor %}
           </div>
@@ -1083,56 +1083,7 @@
             </div>
 
             {% comment %} <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user1</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class = "unfollow-button">
-                Unfollow
-              </button>
-            </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user2</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class = "unfollow-button">
-                Unfollow
-              </button>
-            </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user3</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class= "unfollow-button">
-                Unfollow
-              </button>
-            </div>
-
-            <div class = "other-user-preview">
-              <a class = "other-img-profile" href="#">
-                <img src="{% static '/icons/user.png' %}" alt="">
-              </a>
-              <div class = "other-user-infomation">
-                <a class = "other-username" href="#">Other-user4</a>
-                <a class = "other-user-bio" href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ratione dolores, suscipit corporis quod reprehenderit voluptatibus obcaecati expedita ducimus earum explicabo dolore nostrum quisquam eveniet accusantium at! Laudantium, enim quasi.</a>
-              </div>
-              <button class= "unfollow-button">
-                Unfollow
-              </button>
-            </div>
+              
 
             <div class = "other-user-preview">
               <a class = "other-img-profile" href="#">

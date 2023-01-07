@@ -33,6 +33,7 @@
     <div id = "middle-header">
       <!-- HEADER SEARCH -->
       <form action="">
+        {% csrf_token %}
         <input id = "header-search" 
         name = "header-search"
         type="text" 
@@ -309,17 +310,17 @@
       <form action="" method="POST">
         {% csrf_token %}
         {% if not like_status %}
-        <button id="like-btn" name="liked" class="like-btn">
+        <button id="like-btn" name="liked" value="like" class="like-btn">
           <span>
             Like 
             <i class="fa fa-thumbs-up"></i>
           </span>        
         </button>
         {% else %}
-        <button id="like-btn" name="liked" class="like-btn">
+        <button id="like-btn" name="liked" value="like" class="like-btn">
           <span>
             Unliked 
-            <i class="fa fa-thumbs-up"></i>
+            <i class="fa fa-thumbs-down"></i>
           </span>        
         </button>
         {% endif %}
@@ -333,14 +334,15 @@
             Share <i class="fa fa-share-alt"></i>
           </span>        
         </button>    
+        
         {% if not save_status %}
-        <button id="save-btn" name="saved" class="save-btn" onclick="save()">
+        <button id="save-btn" name="saved" value="save" class="save-btn">
           <span>
             Save &#x1f5ab;
           </span>        
         </button>     
         {% else %}
-        <button id="save-btn" name="saved" class="save-btn" onclick="save()">
+        <button id="save-btn" name="saved" value="save" class="save-btn">
           <span>
             Undo &#x1f5ab;
           </span>        

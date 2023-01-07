@@ -81,18 +81,17 @@ def post_detail(request, pk):
         recipe_post.instructions = recipe_post.instructions.strip().split('\n')
     except Post.DoesNotExist:
         raise Http404
+    like_status, save_status = None, None
     
-    try:
-        like_status = LikesPost.objects.get(user=request.user, Liked_post=recipe_post)
-    except LikesPost.DoesNotExist:
-        like_status = None
-    try:
-        save_status = SavedPost.objects.get(user=request.user, Saved_post=recipe_post)
-    except SavedPost.DoesNotExist:
-        save_status = None
-    
-    if request.method == 'POST':
-        if 'liked' in request.POST:
+    if request.method == 'POST' and request.user.is_authenticated:
+        print(request.POST.keys())
+        
+        try:
+            like_status = LikesPost.objects.get(user=request.user, Liked_post=recipe_post)
+        except:
+            like_status = None
+        
+        if request.POST.get('liked') == "like":
             if like_status is None:
                 LikesPost.objects.create(
                     user=request.user,
@@ -100,7 +99,13 @@ def post_detail(request, pk):
                 )
             else:
                 like_status.delete()
-        if 'saved' in request.POST:
+                
+        try:
+            save_status = SavedPost.objects.get(user=request.user, Saved_post=recipe_post)
+        except:
+            save_status = None
+            
+        if request.POST.get('saved') == "save":
             if save_status is None:
                 SavedPost.objects.create(
                     user=request.user,
@@ -108,7 +113,7 @@ def post_detail(request, pk):
                 )
             else:
                 save_status.delete()
-        print(request.POST.keys())
+        
         new_comment = request.POST.get('comment-1')
         if new_comment:
             Message.objects.create(
@@ -117,7 +122,7 @@ def post_detail(request, pk):
                 body=new_comment,
             )
     comments_list = Message.objects.filter(post=recipe_post).order_by('-created')
-    comments_ammount = comments_list.count()
+    # comments_ammount = comments_list.count()
     context = {
         'post': recipe_post,
         'likes': LikesPost.objects.filter(Liked_post=recipe_post).count(),

@@ -104,8 +104,8 @@
         
         <div id = "container-01">
           <a href="{% url 'profile' request.user.username %}">
-            <img src="{{request.user.userinfo.avatar.url}}" alt="">
-            <p> {{ request.user.username }}</p>
+            <img src="{{ request.user.userinfo.avatar.url }}" alt="">
+            <p>{{ request.user.username }}</p>
           </a>
         </div>
         {% endif %}
@@ -228,7 +228,7 @@
         <p id="author">
           
           <a href = "{% url 'profile' post.chef.username %}">
-            <span class="author-name" href=>{{ post.chef.userinfo.fullname }}</span>
+            <span class="author-name" >{{ post.chef.userinfo.fullname }}</span>
             <img src="{{ post.chef.userinfo.avatar.url}}">
           </a>
         </p>
@@ -298,7 +298,7 @@
             <li>Bake for 25 minutes, then turn the chicken pieces. Bake for 20 minutes longer. The chicken juices should run clear when pricked with a fork. If using a food thermometer, the chicken should register at least 165 F.</li> -->
           </ol>
         </p>
-        <p><span id="count-likes">9 </span>Likes</p>
+        <p><span id="count-likes">{{ likes }}</span> Likes </p>
       </div>
   
       <div
@@ -306,26 +306,47 @@
       style="align-self: center;
       width: 100%;"
       >
-        <button id="like-btn" class="like-btn" onclick="onLikeButtonClickEvent()">
+      <form action="" method="POST">
+        {% csrf_token %}
+        {% if not like_status %}
+        <button id="like-btn" name="liked" class="like-btn">
           <span>
-            Like <i class="fa fa-thumbs-up"></i>
+            Like 
+            <i class="fa fa-thumbs-up"></i>
           </span>        
         </button>
-        <button id="comment-btn" class="comment-btn" onclick="showOrHideComments()">
+        {% else %}
+        <button id="like-btn" name="liked" class="like-btn">
+          <span>
+            Unliked 
+            <i class="fa fa-thumbs-up"></i>
+          </span>        
+        </button>
+        {% endif %}
+        <!-- <button id="comment-btn" class="comment-btn" onclick="showOrHideComments()">
           <span>
             Comment <i class="fa fa-comment"></i>
           </span>        
-        </button>
+        </button> -->
         <button id="share-btn" class="share-btn">
           <span>
             Share <i class="fa fa-share-alt"></i>
           </span>        
-        </button>      
-        <button id="save-btn" class="save-btn" onclick="save()">
+        </button>    
+        {% if not save_status %}
+        <button id="save-btn" name="saved" class="save-btn" onclick="save()">
           <span>
             Save &#x1f5ab;
           </span>        
-        </button>      
+        </button>     
+        {% else %}
+        <button id="save-btn" name="saved" class="save-btn" onclick="save()">
+          <span>
+            Undo &#x1f5ab;
+          </span>        
+        </button>
+        {% endif %}     
+      </form>
       </div>
       
       <div style="
@@ -337,16 +358,24 @@
       ">
       </div>
 
-      <form id="comments" class="flex-container" onkeypress="textAreaListener(event)">
+      <form id="comments" method="POST" class="flex-container" onkeypress="textAreaListener(event)">
+        {% csrf_token %}
         <textarea readonly 
           name="liked"
           id="liked"
         ></textarea>
         <p>
-          <span id="count-comments">2</span>Comments
+          <span id="count-comments"> {{ comments|length }}</span> Comments
         </p>
-        
-        <p class="username">
+        {% for cmt in comments %}
+          <p class="username">
+            {{ cmt.user.username }}
+          </p>
+          <p class="other-user-comments">
+            {{ cmt.body }}
+          </p>
+        {% endfor %}
+        <!-- <p class="username">
           My Name Is Christine
         </p>
         <p class="other-user-comments">
@@ -358,22 +387,23 @@
         </p>
         <p class="other-user-comments">
           Of course, <span class="username">My Name Is Christine</span>, hope you like it :D
-        </p>
+        </p> -->
       
+        {% if request.user.is_authenticated %}
         <p class="username">
-          Hoang Phu
+          {{ request.user.username }}
         </p>
-
-        <textarea class="text-area-input"
-        name="comment-1" 
-        id="comment-1"
-        cols="30" rows="1" 
-        placeholder="Write your comment here..."
-        ></textarea>
-
-         <!-- Enter to submit -->
-        <input type="submit" style="display:none"/>
-
+          <textarea class="text-area-input"
+          onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }"
+          name="comment-1" 
+          id="comment-1"
+          cols="30" rows="1" 
+          placeholder="Write your comment here..."
+          value = ""
+          ></textarea>
+          <!-- Enter to submit -->
+          <!-- <input name="comment" type="submit" style="display:none"/> -->
+        {% endif %}
       </form>
     </div>
     

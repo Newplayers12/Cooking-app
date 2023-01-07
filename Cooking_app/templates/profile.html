@@ -695,20 +695,22 @@
             <input type="text" placeholder="Search" class = "search-input">
             <img src="{% static '/icons/search.png' %}" alt="">
           </div>
-          {% for key in user_post %}
+
+          
           <div id = "saved-recipes-container">
+            {% for post in saved_post %}
             <div id = "saved-recipe1" class = "recipe-container">
-              <a href="#" class = "img-recipe-small-preview">
-                <img src="{% static '/images/recipes/0.webp' %}" alt="">
+              <a href="{% url 'post_detail' post.Saved_post.id %}" class = "img-recipe-small-preview">
+                <img src="{{post.Saved_post.preview.url}}" alt="">
               </a>
               <div class = "recipe-in-brief">
-                <a class = "recipe-title-preview" href="#">Recipe 1</a>
-                <a class = "recipe-description-preview" href="#">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate reprehenderit minima consequuntur deserunt totam optio atque, ab repellat vero incidunt doloremque tempore earum alias. Fuga itaque atque aliquid fugiat doloremque.</a>
+                <a class = "recipe-title-preview" href="{% url 'post_detail' post.Saved_post.id %}">{{post.Saved_post.title}}</a>
+                <a class = "recipe-description-preview" href="{% url 'post_detail' post.Saved_post.id %}">{{post.Saved_post.description}}</a>
                 <div class = "time-ration">
                   <img src="{% static '/icons/clock.png' %}" alt="">
-                  <span style="margin: 2px 10px 0 5px;">54m</span>
+                  <span style="margin: 2px 10px 0 5px;">{{post.Saved_post.preptime}}m</span>
                   <img src="{% static '/icons/people.png' %}" alt="">
-                  <span style="margin: 2px 10px 0 5px;">2</span>
+                  <span style="margin: 2px 10px 0 5px;">{{post.Saved_post.ration}}</span>
                 </div>
               </div>
               <div class = "saved-recipe-checkbox">
@@ -716,8 +718,9 @@
                 <label for="saved-recipes-checkbox-{{key}}"></label>
               </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
+          
 
         </div>
 
@@ -747,34 +750,14 @@
           
 
           <div id = "my-post-container">
-
-            {% comment %} <div id = "saved-recipe1" class = "recipe-container">
-              <a href="#" class = "img-recipe-small-preview">
-                <img src="{% static '/images/recipes/1.webp' %}" alt="">
-              </a>
-              <div class = "recipe-in-brief">
-                <a class = "recipe-title-preview" href="#">My recipe 1</a>
-                <a class = "recipe-description-preview" href="#">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate reprehenderit minima consequuntur deserunt totam optio atque, ab repellat vero incidunt doloremque tempore earum alias. Fuga itaque atque aliquid fugiat doloremque.</a>
-                <div class = "time-ration">
-                  <img src="{% static '/icons/clock.png' %}" alt="">
-                  <span style="margin: 2px 10px 0 5px;">54m</span>
-                  <img src="{% static '/icons/people.png' %}" alt="">
-                  <span style="margin: 2px 10px 0 5px;">2</span>
-                </div>
-              </div>
-              <div class = "modify-recipe">
-                <img src="{% static '/icons/modify.png' %}" alt="">
-              </div>
-            </div> {% endcomment %}
-
-            {% for post  in  user_post %}
+              {% for post in user_post %}
               <div id = "saved-recipe1" class = "recipe-container">
-                <a href="#" class = "img-recipe-small-preview">
+                <a href={% url 'post_detail' post.id%} class = "img-recipe-small-preview">
                   <img src="{% if post.preview  %} {{post.preview.url}} {% else %} {% static '/images/recipes/1.webp' %}{% endif %}" alt="">
                 </a>
                 <div class = "recipe-in-brief">
-                  <a class = "recipe-title-preview" href="#">{{ post.title }}</a>
-                  <a class = "recipe-description-preview" href="#">{{ post.description |truncatewords:50}}</a>
+                  <a class = "recipe-title-preview" href={% url 'post_detail' post.id%}>{{ post.title }}</a>
+                  <a class = "recipe-description-preview" href={% url 'post_detail' post.id%}>{{ post.description |truncatewords:50}}</a>
                   <div class = "time-ration">
                     <img src="{% static '/icons/clock.png' %}" alt="">
                     <span style="margin: 2px 10px 0 5px;">{{post.preptime}}m</span>
@@ -788,7 +771,7 @@
                 </div>
                 {% endif %}
               </div>
-            {% endfor %}
+              {% endfor %}
           </div>
 
           

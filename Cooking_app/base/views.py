@@ -75,19 +75,56 @@ def search_post(request):
 def post_detail(request, pk):
     context = {}
     template_name = 'view-post-details.html'
-    #like_count = LikesPost.objects.filter(Liked_post.pk=pk).count()
     try:
         recipe_post = Post.objects.get(pk=pk)
         recipe_post.ingredients = recipe_post.ingredients.strip().split('\n')
         recipe_post.instructions = recipe_post.instructions.strip().split('\n')
-    except User.DoesNotExist:
+    except Post.DoesNotExist:
         raise Http404
+    
+    try:
+        like_status = LikesPost.objects.get(user=request.user, Liked_post=recipe_post)
+    except LikesPost.DoesNotExist:
+        like_status = None
+    try:
+        save_status = SavedPost.objects.get(user=request.user, Saved_post=recipe_post)
+    except SavedPost.DoesNotExist:
+        save_status = None
+    
     if request.method == 'POST':
-        #Maybe post comments and likes
-        pass
+        if 'liked' in request.POST:
+            if like_status is None:
+                LikesPost.objects.create(
+                    user=request.user,
+                    Liked_post=recipe_post,
+                )
+            else:
+                like_status.delete()
+        if 'saved' in request.POST:
+            if save_status is None:
+                SavedPost.objects.create(
+                    user=request.user,
+                    Saved_post=recipe_post,
+                )
+            else:
+                save_status.delete()
+        print(request.POST.keys())
+        new_comment = request.POST.get('comment-1')
+        if new_comment:
+            Message.objects.create(
+                user=request.user,
+                post=recipe_post,
+                body=new_comment,
+            )
+    comments_list = Message.objects.filter(post=recipe_post).order_by('-created')
+    comments_ammount = comments_list.count()
     context = {
         'post': recipe_post,
-        'likes': None,
+        'likes': LikesPost.objects.filter(Liked_post=recipe_post).count(),
+        'comments': comments_list,
+        'comments_count': comments_list.count,
+        'like_status': like_status,
+        'save_status': save_status,
     }
     return render(request, template_name, context)
 
@@ -276,7 +313,8 @@ def profile_acc(request, pk): # pk username
     context = {
         'current_info': current_info,
         'user_info': user_info,
-        'saved_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
+        'saved_post': SavedPost.objects.filter(user=user_info.user),
+        'user_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
     }
     
     if (current_info != user_info):
@@ -324,13 +362,13 @@ def PostARecipe(request):
         for i in range(MAX_NUMBER_INGREDIENTS):
             ingredient = request.POST.get(f'ingredient{i}')
             if ingredient:
-                total_ingredients += f'Ingredient {i}: {ingredient}\n'
+                total_ingredients += f'Ingredient {i + 1}: {ingredient}\n'
                 
         total_instructions = ''
         for i in range(MAX_NUMBER_INSTRUCTIONS):
             instructions = request.POST.get(f'instruction{i}')
             if instructions:
-                total_instructions += f'Step {i}: {instructions}\n'
+                total_instructions += f'Step {i + 1}: {instructions}\n'
                 
         
         context = context | {

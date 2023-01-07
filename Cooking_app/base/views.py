@@ -11,7 +11,7 @@ from django.http import Http404
 from django.db.models import Q
 
 
-from .models import UserInfo, Post, Security, Follower
+from .models import *
 from .utils import *
 
 
@@ -75,10 +75,11 @@ def search_post(request):
 def post_detail(request, pk):
     context = {}
     template_name = 'view-post-details.html'
+    like_count = LikesPost.objects.filter(Liked_post.pk=pk).count()
     try:
         recipe_post = Post.objects.get(pk=pk)
-        recipe_post.ingredients = recipe_post.ingredients.split('\n')
-        recipe_post.instructions = recipe_post.instructions.split('\n')
+        recipe_post.ingredients = recipe_post.ingredients.strip().split('\n')
+        recipe_post.instructions = recipe_post.instructions.strip().split('\n')
     except User.DoesNotExist:
         raise Http404
     if request.method == 'POST':
@@ -274,7 +275,7 @@ def profile_acc(request, pk): # pk username
     context = {
         'current_info': current_info,
         'user_info': user_info,
-        'user_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
+        'saved_post': Post.objects.filter(chef=User.objects.get(username=pk)).order_by('-created'),
     }
     
     if (current_info != user_info):
@@ -308,6 +309,7 @@ def PostARecipe(request):
     context = {
         'user_info': user_info,
     }
+    update_info = {}
     if (request.method == 'POST'):
         ar = request.POST.keys()
         
@@ -338,19 +340,23 @@ def PostARecipe(request):
         }
         user = request.user
         preview = request.FILES.get("result-img")
-        categories = request.POST.get("country")
         
-        Post.objects.create(
-            chef=user,
-            categories=categories,
-            title=title_recipe,
-            description=description_recipe,
-            ingredients=total_ingredients,
-            instructions=total_instructions,
-            ration=recipe_ration,
-            preptime=recipe_prep_time,
-            preview=preview,
-        )
+        if (preview):
+            update_info |= {
+                "preview": preview
+            }
+        categories = request.POST.get("country")
+        update_info = update_info | {
+            "chef": user,
+            "categories": categories,
+            "title": title_recipe,
+            "description": description_recipe,
+            "ingredients": total_ingredients,
+            "instructions": total_instructions,
+            "ration": recipe_ration,
+            "preptime": recipe_prep_time,
+        }
+        Post.objects.create(**update_info)
         
     
     template_name = "post_a_recipe.html"

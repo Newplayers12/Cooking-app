@@ -76,17 +76,17 @@ class Message(models.Model):
 #### NOTE: This is not the same as the other models, it has different meaning
 #### One for the saved Post of each user
 class SavedPost(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Saved_post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    Saved_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     def __str__(self):
-        return self.name
+        return f"{self.user.username} saved {self.Saved_post.title}"
     
 #### Other one for Liked Post of that user.
 class LikesPost(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Liked_post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    Liked_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     def __str__(self):
-        return self.name
+        return f"{self.user.username} liked {self.Liked_post.title}"
     
     
 class Follower(models.Model):

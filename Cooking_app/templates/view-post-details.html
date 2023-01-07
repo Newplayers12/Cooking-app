@@ -47,6 +47,7 @@
     </div>
 
     <div id = "right-header">
+      {% if not request.user.is_authenticated %}
       <div id = "container-10">
         <button id = "JoinUsButton2">
           <span>
@@ -54,14 +55,15 @@
           </span>
         </button>
       </div>
+      {% else %}
       <div id = "container-11">
         <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+          <span class = "username-header" onclick="displayDropdown()">{{ request.user.username }}</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="{{ request.user.userinfo.avatar.url }}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' post.chef.username %}">Profile</a>
-              <a href="{% url 'profile' post.chef.username %}">Saved Recipes</a>
-              <a href="{% url 'profile' post.chef.username %}">Settings</a>
+            <a href="{% url 'profile' request.user.username %}">Profile</a>
+              <a href="{% url 'profile' request.user.username %}">Saved Recipes</a>
+              <a href="{% url 'profile' request.user.username %}">Settings</a>
               <a href="{% url 'login' %}" 
                   onclick="return logout();"
               >
@@ -70,6 +72,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
     </div>
 
   </header> 
@@ -88,19 +91,24 @@
     <div class = "sidebar-main"> 
 
       <div id = "container-0">
+        {% if not request.user.is_authenticated %}
+        
         <div id = "container-00">
-          <button id = "JoinUsButton">
+          <button id = "JoinUsButton" onclick="login()">
             <span>
               Join Us
             </span>
-        </button>
+          </button>
         </div>
+        {% else %}
+        
         <div id = "container-01">
-          <a href="{% url 'profile' post.chef.username %}">
-            <img src="{% static '/icons/user.png' %}" alt="">
-            <p>Hoang Phu</p>
+          <a href="{% url 'profile' request.user.username %}">
+            <img src="{{request.user.userinfo.avatar.url}}" alt="">
+            <p> {{ request.user.username }}</p>
           </a>
         </div>
+        {% endif %}
       </div>
 
       <p style="min-height: 10px;"></p>
@@ -218,9 +226,10 @@
       <div class="the-post">
         
         <p id="author">
-          <span class="author-name">{{ post.chef.userinfo.fullname }}</span>
-          <a>
-            <img src="{% static '/icons/people.png' %}">
+          
+          <a href = "{% url 'profile' post.chef.username %}">
+            <span class="author-name" href=>{{ post.chef.userinfo.fullname }}</span>
+            <img src="{{ post.chef.userinfo.avatar.url}}">
           </a>
         </p>
         <p id="title">
@@ -230,7 +239,7 @@
           <i class="fa fa-clock-o"></i> {{ post.updated | date:"M d, Y" }}
         </p>
         <p class="recipe-image-show">
-          <img src="{{post.preview.url}}" alt="recipe img">
+          <img src="{{ post.preview.url }}" alt="recipe img">
           <!-- <img src="{% static '/images/recipes/0.webp' %}" alt="recipe img">
           <img src="{% static '/images/recipes/oven-fried-chicken-leg.jpeg' %}" alt="recipe img"> -->
         </p>
@@ -243,7 +252,7 @@
           <i class="fa fa-clock-o"></i> Preparation time: {{ post.preptime }} minutes.
         </p>
         <p id="cooking-time">
-          <i class="fa fa-clock-o"></i> Cooking time: 45 minutes.
+          <i class="fa fa-clock-o"></i> Cooking time: {{ post.preptime  }} minutes.
         </p>
         <p id="number-of-meal-servings">
           <i class="fa fa-users"></i> Number of meal servings: {{ post.ration }}.
@@ -302,7 +311,7 @@
             Like <i class="fa fa-thumbs-up"></i>
           </span>        
         </button>
-        <button id="comment-btn" class="comment-btn" onclick="showOrHideComments()"">
+        <button id="comment-btn" class="comment-btn" onclick="showOrHideComments()">
           <span>
             Comment <i class="fa fa-comment"></i>
           </span>        
@@ -343,7 +352,7 @@
         <p class="other-user-comments">
           Hi <span class="username">David Dave</span>, could I repost this recipe, please?
         </p>
-      
+
         <p class="username">
           David Dave
         </p>
@@ -354,13 +363,17 @@
         <p class="username">
           Hoang Phu
         </p>
+
         <textarea class="text-area-input"
         name="comment-1" 
         id="comment-1"
         cols="30" rows="1" 
         placeholder="Write your comment here..."
         ></textarea>
-        
+
+         <!-- Enter to submit -->
+        <input type="submit" style="display:none"/>
+
       </form>
     </div>
     
@@ -434,6 +447,10 @@
     function logout(){
       localStorage.setItem('login', 'no');
       return true;
+    }
+
+    function login(){
+      window.location.href = "{% url 'login' %}";
     }
 
     let liked = false;

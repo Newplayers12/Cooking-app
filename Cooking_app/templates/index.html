@@ -301,7 +301,7 @@
 
             {% for post in ALL_POST %}
             <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
+              <a class = "Recipe-img-preview" href="{% url 'post_detail' post.id %}">
                 <img src="{{ post.preview.url }}" alt="recipe img">
               </a>
               <div class = "card-info">
@@ -373,7 +373,7 @@
             <!-- Recipe 1 -->
             {% for post in FAVORITE_USER_POST %}
             <div class = "post-container">
-              <a class = "Recipe-img-preview" href="#">
+              <a class = "Recipe-img-preview" href="{% url 'post_detail' post.id%}">
                 <img src="{{ post.preview.url }}" alt="recipe img">
               </a>
               <div class = "card-info">

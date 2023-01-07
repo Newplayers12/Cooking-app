@@ -54,12 +54,12 @@
       </div>
       <div id = "container-11">
         <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">Hoang Phu</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{% static '/icons/user.png' %}" alt="">
+          <span class = "username-header" onclick="displayDropdown()">{{ request.user.username }}</span>
+          <img class = "profile-header" onclick="displayDropdown()" src="{{ request.user.userinfo.avatar.url }}" alt="">
           <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' %}">Profile</a>
-              <a href="{% url 'profile' %}">Saved Recipes</a>
-              <a href="{% url 'profile' %}">Settings</a>
+            <a href="{% url 'profile' request.user.username %}">Profile</a>
+              <a href="{% url 'profile' request.user.username %}">Saved Recipes</a>
+              <a href="{% url 'profile' request.user.username %}">Settings</a>
               <a href="{% url 'login' %}" 
                   onclick="return logout();"
               >
@@ -84,22 +84,13 @@
 
     <!-- Sidebar main  -->
     <div class = "sidebar-main"> 
-
-      <div id = "container-0">
-        <div id = "container-00">
-          <button id = "JoinUsButton">
-            <span>
-              Join Us
-            </span>
-        </button>
-        </div>
-        <div id = "container-01">
-          <a href="{% url 'profile' %}">
-            <img src="{% static '/icons/user.png' %}" alt="">
-            <p>Hoang Phu</p>
-          </a>
-        </div>
+      <div id = "container-01">
+        <a href="{% url 'profile' request.user.username %}">
+          <img src="{{ request.user.userinfo.avatar.url }}" alt="">
+          <p>{{ request.user.username }}</p>
+        </a>
       </div>
+    </div>
 
       <p style="min-height: 10px;"></p>
         <div class = "sidebar-main-item">
@@ -194,7 +185,7 @@
           &#9679;
 
           <a class = "sidebar-footer-more-nev" href="#">
-              Terms
+            Terms
           </a>
 
           &#9679;

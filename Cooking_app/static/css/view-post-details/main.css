@@ -1,4 +1,4 @@
-button{
+.button-template{
   margin: 3px 8px;
   width: 90px;
   height: 30px;
@@ -11,23 +11,23 @@ button{
   align-self: center;
 }
 
-button:hover{
+.button-template:hover{
   cursor: pointer;
   background-color: #aaaaaa;
 }
 
-button span {
+.button-template span {
   position: relative;
 }
 
-button span::after {
+.button-template span::after {
   position: absolute;
   right: -25px;
   opacity: 0;
   transition: 0.15s;
 }
 
-button:active{
+.button-template:active{
   opacity: 0.5;
 }
 

@@ -61,9 +61,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  visibility: visible;
 
   margin-top: 5px;
+  visibility: hidden;
 }
 
 #container-01 a{
@@ -105,6 +105,8 @@
   border-radius: 20px;
   background-color:rgb(246, 205, 152);
   cursor: pointer;
+  min-width: 54px;
+  min-height: 20px;
 }
 
 #JoinUsButton span{

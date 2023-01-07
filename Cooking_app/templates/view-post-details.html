@@ -48,32 +48,37 @@
     </div>
 
     <div id = "right-header">
+     
       {% if not request.user.is_authenticated %}
-      <div id = "container-10">
-        <button id = "JoinUsButton2">
-          <span>
-            Log In / Sign Up
-          </span>
-        </button>
-      </div>
-      {% else %}
-      <div id = "container-11">
-        <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">{{ request.user.username }}</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{{ request.user.userinfo.avatar.url }}" alt="">
-          <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' request.user.username %}">Profile</a>
-              <a href="{% url 'profile' request.user.username %}">Saved Recipes</a>
-              <a href="{% url 'profile' request.user.username %}">Settings</a>
-              <a href="{% url 'login' %}" 
-                  onclick="return logout();"
-              >
-                  Log out
-              </a>
+          <div style=" visibility:  visible; " 
+          id = "container-10">
+            <button id = "JoinUsButton2" onclick="login()">
+              <span>
+                Log In / Sign Up
+              </span>
+            </button>
           </div>
-        </div>
-      </div>
-      {% endif %}
+          {% else %}
+          <div style=" visibility:  visible;" id = "container-11">
+            
+            <div class = "dropdown">
+              <span class = "username-header" onclick="displayDropdown()"> {{user.username}}</span>
+              <img class = "profile-header" onclick="displayDropdown()" src="{{user.userinfo.avatar.url}}" alt="">
+              <div id="my-dropdown" class="dropdown-content">
+                <a href="{% url 'profile' user.username %}">Profile</a>
+                <a href="{% url 'post_a_recipe' %}">Post recipe</a>
+                <a href="{% url 'logout' %}" 
+                    onclick="return logout();"
+                >
+                    Log out
+                </a>
+
+              </div>
+            </div>
+            
+          </div>
+          {% endif %}
+          
     </div>
 
   </header> 
@@ -92,24 +97,26 @@
     <div class = "sidebar-main"> 
 
       <div id = "container-0">
-        {% if not request.user.is_authenticated %}
         
-        <div id = "container-00">
-          <button id = "JoinUsButton" onclick="login()">
+        {% if not request.user.is_authenticated %}
+        <div style="visibility:   visible ;" id = "container-00">
+          <button type="button" id = "JoinUsButton" onclick="login()">
             <span>
               Join Us
             </span>
           </button>
         </div>
         {% else %}
-        
-        <div id = "container-01">
-          <a href="{% url 'profile' request.user.username %}">
-            <img src="{{ request.user.userinfo.avatar.url }}" alt="">
-            <p>{{ request.user.username }}</p>
+        <div style="visibility:  visible ;" id = "container-01">
+          
+          <a href="{% url 'profile' request.user.username  %}">
+            <img src="{{user.userinfo.avatar.url}}" alt="">
+            <p>{{user.username}}</p>
           </a>
         </div>
         {% endif %}
+        
+
       </div>
 
       <p style="min-height: 10px;"></p>
@@ -304,6 +311,7 @@
   
       <div
       id="buttons"
+      
       style="align-self: center;
       width: 100%;"
       >
@@ -324,12 +332,12 @@
           </span>        
         </button>
         {% endif %}
-        <!-- <button id="comment-btn" class="comment-btn" onclick="showOrHideComments()">
+        <button id="comment-btn" class="comment-btn button-template"  onclick="showOrHideComments()">
           <span>
             Comment <i class="fa fa-comment"></i>
           </span>        
-        </button> -->
-        <button id="share-btn" class="share-btn">
+        </button>
+        <button id="share-btn" class="share-btn button-template">
           <span>
             Share <i class="fa fa-share-alt"></i>
           </span>        
@@ -340,14 +348,14 @@
           <span>
             Save &#x1f5ab;
           </span>        
-        </button>     
+        </button>
         {% else %}
         <button id="save-btn" name="saved" value="save" class="save-btn">
           <span>
             Undo &#x1f5ab;
           </span>        
         </button>
-        {% endif %}     
+        {% endif %}
       </form>
       </div>
       
@@ -360,8 +368,7 @@
       ">
       </div>
 
-      <form id="comments" method="POST" class="flex-container" onkeypress="textAreaListener(event)">
-        {% csrf_token %}
+      <form id="comments" class="flex-container " onkeypress="textAreaListener(event)">
         <textarea readonly 
           name="liked"
           id="liked"

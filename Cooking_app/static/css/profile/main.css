@@ -695,11 +695,11 @@ input:focus{
 
 .other-user-preview{
   display: flex;
-  flex-direction: row;
   border: 1px solid grey;
   border-radius: 30px;
   padding: 5px;
   margin-bottom: 15px;
+  justify-content: space-between;
 }
 
 .other-img-profile{
@@ -714,6 +714,9 @@ input:focus{
 .other-user-infomation{
   display: flex;
   flex-direction: column;
+  justify-self: start;
+  flex: 1;
+  padding-left: 20px;
 }
 
 .other-user-infomation a{

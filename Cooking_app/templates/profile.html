@@ -49,28 +49,37 @@
     </div>
 
     <div id = "right-header">
-      <div id = "container-10">
-        <button id = "JoinUsButton2">
-          <span>
-            Log In / Sign Up
-          </span>
-        </button>
-      </div>
-      <div id = "container-11">
-        <div class = "dropdown">
-          <span class = "username-header" onclick="displayDropdown()">{{current_info.user.username}}</span>
-          <img class = "profile-header" onclick="displayDropdown()" src="{{current_info.avatar.url }}" alt="">
 
-
-          <div id="my-dropdown" class="dropdown-content">
-            <a href="{% url 'profile' current_info.user.username %}">Profile</a>
-              <a href="{% url 'post_a_recipe' %}">Post recipe</a>
-              <a href="{% url 'logout' %}" >
-                  Log out
-              </a>
+      {% if not request.user.is_authenticated %}
+          <div style=" visibility:  visible; " 
+          id = "container-10">
+            <button id = "JoinUsButton2" onclick="login()">
+              <span>
+                Log In / Sign Up
+              </span>
+            </button>
           </div>
-        </div>
-      </div>
+          {% else %}
+          <div style=" visibility:  visible;" id = "container-11">
+            
+            <div class = "dropdown">
+              <span class = "username-header" onclick="displayDropdown()"> {{user.username}}</span>
+              <img class = "profile-header" onclick="displayDropdown()" src="{{user.userinfo.avatar.url}}" alt="">
+              <div id="my-dropdown" class="dropdown-content">
+                <a href="{% url 'profile' user.username %}">Profile</a>
+                <a href="{% url 'post_a_recipe' %}">Post recipe</a>
+                <a href="{% url 'logout' %}" 
+                    onclick="return logout();"
+                >
+                    Log out
+                </a>
+
+              </div>
+            </div>
+            
+          </div>
+          {% endif %}
+
     </div>
 
   </header> 
@@ -89,19 +98,24 @@
     <div class = "sidebar-main"> 
 
       <div id = "container-0">
-        <div id = "container-00">
-          <button id = "JoinUsButton">
+        
+        {% if not request.user.is_authenticated %}
+        <div style="visibility:   visible ;" id = "container-00">
+          <button type="button" id = "JoinUsButton" onclick="login()">
             <span>
               Join Us
             </span>
-        </button>
+          </button>
         </div>
-        <div id = "container-01">
-          <a href="{% url 'profile' current_info.user.username %}">
-            <img src="{{ current_info.avatar.url }}" alt="">
-            <p>{{current_info.user.username}}</p>
+        {% else %}
+        <div style="visibility:  visible ;" id = "container-01">
+          
+          <a href="{% url 'profile' request.user.username  %}">
+            <img src="{{user.userinfo.avatar.url}}" alt="">
+            <p>{{user.username}}</p>
           </a>
         </div>
+        {% endif %}
       </div>
 
       <p style="min-height: 10px;"></p>
@@ -1021,6 +1035,20 @@
             </div>
             {% endfor %}
 
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="#">
+                <img src="{% static '/icons/user.png' %}" alt="">
+              </a>
+
+              <div class = "other-user-infomation">
+                <a class = "other-username" href="#">Other-user1</a>
+                <a class = "other-user-bio" href="#">Lorem ipsum d.</a>
+              </div>
+              <button class="remove-button">
+                Remove
+              </button>
+            </div>
+
             {% comment %} 
             <div class = "other-user-preview">
               <a class = "other-img-profile" href="#">
@@ -1057,6 +1085,19 @@
               </button>
             </div>
             {% endfor %}
+
+            <div class = "other-user-preview">
+              <a class = "other-img-profile" href="">
+                <img src="/Cooking_app/media/default_avatar.png" alt="">
+              </a>
+              <div class = "other-user-infomation">
+                <a class = "other-username" >131231</a>
+                <a class = "other-user-bio" >qweqweqweqe</a>
+              </div>
+              <button class = "unfollow-button">
+                Unfollow
+              </button>
+            </div>
 
             {% comment %} <div class = "other-user-preview">
               <a class = "other-img-profile" href="#">
